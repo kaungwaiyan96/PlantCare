@@ -18,6 +18,7 @@ app_target.build_configurations.each do |config|
   config.build_settings['GENERATE_INFOPLIST_FILE'] = 'YES'
   config.build_settings['INFOPLIST_KEY_NSCameraUsageDescription'] = 'PlantCare needs camera access to photograph and identify plants.'
   config.build_settings['INFOPLIST_KEY_NSPhotoLibraryUsageDescription'] = 'PlantCare needs photo library access to select plant pictures for identification.'
+  config.build_settings['INFOPLIST_KEY_UILaunchScreen_Generation'] = 'YES'
   config.build_settings['CURRENT_PROJECT_VERSION'] = '1'
   config.build_settings['MARKETING_VERSION'] = '1.0'
   config.build_settings['TARGETED_DEVICE_FAMILY'] = '1'
