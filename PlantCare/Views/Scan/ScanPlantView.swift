@@ -14,172 +14,164 @@ struct ScanPlantView: View {
                 Color.black.opacity(0.85)
                     .ignoresSafeArea()
 
-                VStack(spacing: 0) {
-                    // Top Bar Header
-                    HStack {
-                        Text("Identify & Diagnose")
-                        .font(.title2.weight(.bold))
-                        .foregroundColor(.white)
-                        Spacer()
-
-                        Button {
-                            let generator = UIImpactFeedbackGenerator(style: .light)
-                            generator.impactOccurred()
-                            viewModel.reset()
-                        } label: {
-                            Image(systemName: "arrow.counterclockwise")
-                                .font(.system(size: 16, weight: .semibold))
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 20) {
+                        // Top Bar Header
+                        HStack {
+                            Text("Identify & Diagnose")
+                                .font(.title2.weight(.bold))
                                 .foregroundColor(.white)
-                                .padding(10)
-                                .liquidGlass(cornerRadius: 16, material: .ultraThinMaterial, opacity: 0.3, hasSpecularBorder: true)
-                        }
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 16)
-                    .padding(.bottom, 12)
+                            Spacer()
 
-                    Spacer()
-
-                    // Center Viewfinder or Selected Photo Preview
-                    ZStack {
-                        if let image = viewModel.selectedImage {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 300, height: 400)
-                                .cornerRadius(32)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 32, style: .continuous)
-                                        .stroke(Color.botanicalMint.opacity(0.8), lineWidth: 2)
-                                )
-                                .shadow(color: Color.botanicalMint.opacity(0.3), radius: 20)
-                        } else {
-                            // Simulated Viewfinder with GlassReticleOverlay
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 32, style: .continuous)
-                                    .fill(Color.secondary.opacity(0.15))
-                                    .frame(width: 280, height: 380)
-
-                                GlassReticleOverlay(guidanceText: "Position plant leaves inside reticle")
+                            Button {
+                                let generator = UIImpactFeedbackGenerator(style: .light)
+                                generator.impactOccurred()
+                                viewModel.reset()
+                            } label: {
+                                Image(systemName: "arrow.counterclockwise")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.white)
+                                    .padding(10)
+                                    .liquidGlass(cornerRadius: 16, material: .ultraThinMaterial, opacity: 0.3, hasSpecularBorder: true)
                             }
                         }
+                        .padding(.horizontal, 24)
+                        .padding(.top, 16)
 
-                        // Loading Spinner Overlay during analysis
-                        if viewModel.isAnalyzing {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 32, style: .continuous)
-                                    .fill(Color.black.opacity(0.6))
-                                    .frame(width: 280, height: 380)
+                        // Center Viewfinder or Selected Photo Preview (responsive size: 260 x 300)
+                        ZStack {
+                            if let image = viewModel.selectedImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 260, height: 300)
+                                    .cornerRadius(28)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 28, style: .continuous)
+                                            .stroke(Color.botanicalMint.opacity(0.8), lineWidth: 2)
+                                    )
+                                    .shadow(color: Color.botanicalMint.opacity(0.3), radius: 20)
+                            } else {
+                                // Simulated Viewfinder with GlassReticleOverlay
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 28, style: .continuous)
+                                        .fill(Color.secondary.opacity(0.15))
+                                        .frame(width: 260, height: 300)
 
-                                VStack(spacing: 16) {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .botanicalMint))
-                                        .scaleEffect(1.5)
-
-                                    Text("Analyzing Botanical DNA...")
-                                        .font(.subheadline.weight(.semibold))
-                                        .foregroundColor(.white)
+                                    GlassReticleOverlay(guidanceText: "Position plant leaves inside reticle")
                                 }
                             }
-                        }
-                    }
 
-                    Spacer()
+                            // Loading Spinner Overlay during analysis
+                            if viewModel.isAnalyzing {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 28, style: .continuous)
+                                        .fill(Color.black.opacity(0.6))
+                                        .frame(width: 260, height: 300)
 
-                    // Error Message if any
-                    if let errorMsg = viewModel.errorMessage {
-                        Text(errorMsg)
-                            .font(.caption.weight(.medium))
-                            .foregroundColor(.red)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(Color.black.opacity(0.6))
-                            .cornerRadius(12)
-                            .padding(.bottom, 12)
-                    }
+                                    VStack(spacing: 16) {
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle(tint: .botanicalMint))
+                                            .scaleEffect(1.5)
 
-                    // Bottom Action Controls
-                    VStack(spacing: 16) {
-                        HStack(spacing: 20) {
-                            // Gallery PhotosPicker Button
-                            PhotosPicker(selection: $photosPickerItem, matching: .images) {
-                                HStack(spacing: 8) {
-                                    Image(systemName: "photo.stack.fill")
-                                        .font(.subheadline.weight(.semibold))
-                                    Text("Gallery")
-                                        .font(.subheadline.weight(.semibold))
-                                }
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 16)
-                                .liquidGlass(cornerRadius: 20, material: .ultraThinMaterial, opacity: 0.4, hasSpecularBorder: true)
-                            }
-                            .onChange(of: photosPickerItem) { _, newItem in
-                                Task {
-                                    if let data = try? await newItem?.loadTransferable(type: Data.self),
-                                       let uiImage = UIImage(data: data) {
-                                        viewModel.selectedImage = uiImage
-                                        let generator = UIImpactFeedbackGenerator(style: .light)
-                                        generator.impactOccurred()
+                                        Text("Analyzing Botanical DNA...")
+                                            .font(.subheadline.weight(.semibold))
+                                            .foregroundColor(.white)
                                     }
                                 }
                             }
+                        }
 
-                            // Camera / Demo Photo Button
-                            Button {
-                                let generator = UIImpactFeedbackGenerator(style: .medium)
-                                generator.impactOccurred()
-                                // Load a high quality sample Monstera image for seamless demo/testing
-                                if let sampleImage = UIImage(systemName: "leaf.fill") { // fallback or sample generator
-                                    // Let's create a placeholder or use mock image
+                        // Error Message if any
+                        if let errorMsg = viewModel.errorMessage {
+                            Text(errorMsg)
+                                .font(.caption.weight(.medium))
+                                .foregroundColor(.red)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color.black.opacity(0.6))
+                                .cornerRadius(12)
+                        }
+
+                        // Bottom Action Controls
+                        VStack(spacing: 16) {
+                            HStack(spacing: 20) {
+                                // Gallery PhotosPicker Button
+                                PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "photo.stack.fill")
+                                            .font(.subheadline.weight(.semibold))
+                                        Text("Gallery")
+                                            .font(.subheadline.weight(.semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 16)
+                                    .liquidGlass(cornerRadius: 20, material: .ultraThinMaterial, opacity: 0.4, hasSpecularBorder: true)
+                                }
+                                .onChange(of: photosPickerItem) { _, newItem in
+                                    Task {
+                                        if let data = try? await newItem?.loadTransferable(type: Data.self),
+                                           let uiImage = UIImage(data: data) {
+                                            viewModel.selectedImage = uiImage
+                                            let generator = UIImpactFeedbackGenerator(style: .light)
+                                            generator.impactOccurred()
+                                        }
+                                    }
+                                }
+
+                                // Camera / Demo Photo Button
+                                Button {
+                                    let generator = UIImpactFeedbackGenerator(style: .medium)
+                                    generator.impactOccurred()
                                     viewModel.selectedImage = createSamplePlantImage()
+                                } label: {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "camera.fill")
+                                            .font(.subheadline.weight(.semibold))
+                                        Text("Capture")
+                                            .font(.subheadline.weight(.semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 16)
+                                    .liquidGlass(cornerRadius: 20, material: .ultraThinMaterial, opacity: 0.4, hasSpecularBorder: true)
+                                }
+                            }
+                            .padding(.horizontal, 24)
+
+                            // Identify Plant Action Button
+                            Button {
+                                let generator = UIImpactFeedbackGenerator(style: .heavy)
+                                generator.impactOccurred()
+                                Task {
+                                    if viewModel.selectedImage == nil {
+                                        viewModel.selectedImage = createSamplePlantImage()
+                                    }
+                                    await viewModel.identifyCurrentPhoto()
                                 }
                             } label: {
-                                HStack(spacing: 8) {
-                                    Image(systemName: "camera.fill")
-                                        .font(.subheadline.weight(.semibold))
-                                    Text("Capture")
-                                        .font(.subheadline.weight(.semibold))
+                                HStack(spacing: 10) {
+                                    Image(systemName: "sparkles")
+                                        .font(.headline)
+                                    Text("Identify Plant & Health")
+                                        .font(.headline.weight(.bold))
                                 }
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .frame(maxWidth: .infinity)
-                                .padding(.vertical, 16)
-                                .liquidGlass(cornerRadius: 20, material: .ultraThinMaterial, opacity: 0.4, hasSpecularBorder: true)
+                                .padding(.vertical, 18)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                                        .fill(Color.botanicalMint)
+                                )
+                                .shadow(color: Color.botanicalMint.opacity(0.5), radius: 10, x: 0, y: 5)
                             }
+                            .padding(.horizontal, 24)
+                            .disabled(viewModel.isAnalyzing)
                         }
-                        .padding(.horizontal, 24)
 
-                        // Identify Plant Action Button
-                        Button {
-                            let generator = UIImpactFeedbackGenerator(style: .heavy)
-                            generator.impactOccurred()
-                            Task {
-                                if viewModel.selectedImage == nil {
-                                    // Default demo image if none picked
-                                    viewModel.selectedImage = createSamplePlantImage()
-                                }
-                                await viewModel.identifyCurrentPhoto()
-                            }
-                        } label: {
-                            HStack(spacing: 10) {
-                                Image(systemName: "sparkles")
-                                    .font(.headline)
-                                Text("Identify Plant & Health")
-                                    .font(.headline.weight(.bold))
-                            }
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 18)
-                            .background(
-                                RoundedRectangle(cornerRadius: 24, style: .continuous)
-                                    .fill(Color.botanicalMint)
-                            )
-                            .shadow(color: Color.botanicalMint.opacity(0.5), radius: 10, x: 0, y: 5)
-                        }
-                        .padding(.horizontal, 24)
-                        .disabled(viewModel.isAnalyzing)
+                        Spacer().frame(height: 110)
                     }
-                    .padding(.bottom, 100) // Space for tab bar
                 }
             }
             .navigationDestination(isPresented: $viewModel.navigateToResult) {

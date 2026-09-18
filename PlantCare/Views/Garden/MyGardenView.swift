@@ -153,7 +153,7 @@ struct MyGardenView: View {
                             .padding(.horizontal, 20)
                         }
 
-                        Spacer().frame(height: 100)
+                        Spacer().frame(height: 110)
                     }
                 }
                 .ambientGlassBackground()

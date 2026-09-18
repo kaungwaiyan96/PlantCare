@@ -1,7 +1,19 @@
 import SwiftUI
 
+struct TabBarHiddenKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool> = .constant(false)
+}
+
+extension EnvironmentValues {
+    var isTabBarHidden: Binding<Bool> {
+        get { self[TabBarHiddenKey.self] }
+        set { self[TabBarHiddenKey.self] = newValue }
+    }
+}
+
 struct MainTabView: View {
     @State private var selectedTab: Int = 0
+    @State private var isTabBarHidden: Bool = false
     @StateObject private var scanViewModel = ScanViewModel()
 
     var body: some View {
@@ -23,10 +35,14 @@ struct MainTabView: View {
             .ambientGlassBackground()
 
             // Custom Floating Liquid Glass Tab Bar
-            CustomGlassTabBar(selectedTab: $selectedTab)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 12)
+            if !isTabBarHidden {
+                CustomGlassTabBar(selectedTab: $selectedTab)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 8)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
+        .environment(\.isTabBarHidden, $isTabBarHidden)
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }

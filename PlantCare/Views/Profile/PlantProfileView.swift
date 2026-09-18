@@ -4,6 +4,7 @@ import SwiftData
 struct PlantProfileView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.isTabBarHidden) var isTabBarHidden
 
     var plantName: String
     var scientificName: String
@@ -202,10 +203,12 @@ struct PlantProfileView: View {
                 }
                 .disabled(isSaved)
                 .padding(.horizontal, 24)
-                .padding(.bottom, 24)
+                .padding(.bottom, 100)
             }
         }
         .navigationBarHidden(true)
+        .onAppear { isTabBarHidden.wrappedValue = true }
+        .onDisappear { isTabBarHidden.wrappedValue = false }
     }
 
     private func saveToGarden() {

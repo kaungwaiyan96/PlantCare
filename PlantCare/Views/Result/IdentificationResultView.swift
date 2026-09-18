@@ -3,6 +3,7 @@ import SwiftUI
 struct IdentificationResultView: View {
     @ObservedObject var viewModel: ScanViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.isTabBarHidden) var isTabBarHidden
 
     var body: some View {
         ZStack {
@@ -191,11 +192,13 @@ struct IdentificationResultView: View {
                         .shadow(color: Color.botanicalMint.opacity(0.5), radius: 8, x: 0, y: 4)
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 40)
+                    .padding(.bottom, 110)
                 }
             }
             .ambientGlassBackground()
             .navigationBarHidden(true)
+            .onAppear { isTabBarHidden.wrappedValue = true }
+            .onDisappear { isTabBarHidden.wrappedValue = false }
         }
     }
 }

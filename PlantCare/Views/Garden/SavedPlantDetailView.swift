@@ -3,6 +3,7 @@ import SwiftUI
 struct SavedPlantDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.isTabBarHidden) var isTabBarHidden
     var plant: SavedPlant
 
     var body: some View {
@@ -116,7 +117,7 @@ struct SavedPlantDetailView: View {
                         .padding(18)
                         .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
 
-                        Spacer().frame(height: 60)
+                        Spacer().frame(height: 110)
                     }
                     .padding(20)
                     .offset(y: -24)
@@ -126,5 +127,7 @@ struct SavedPlantDetailView: View {
             .ignoresSafeArea(edges: .top)
         }
         .navigationBarHidden(true)
+        .onAppear { isTabBarHidden.wrappedValue = true }
+        .onDisappear { isTabBarHidden.wrappedValue = false }
     }
 }
