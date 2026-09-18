@@ -34,10 +34,11 @@ struct MainTabView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ambientGlassBackground()
 
-            // Refined Floating Liquid Glass Island Tab Bar
+            // Custom Floating Liquid Glass Tab Bar
             if !isTabBarHidden {
                 CustomGlassTabBar(selectedTab: $selectedTab)
-                    .padding(.bottom, 10)
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 8)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
@@ -46,147 +47,53 @@ struct MainTabView: View {
     }
 }
 
-// MARK: - Refined Liquid Glass Tab Bar
+// MARK: - Floating Liquid Glass Tab Bar
 
 struct CustomGlassTabBar: View {
     @Binding var selectedTab: Int
-    @Namespace private var tabAnimationNamespace
-    @Environment(\.colorScheme) private var colorScheme
 
-    struct TabItem {
-        let tag: Int
-        let title: String
-        let unselectedIcon: String
-        let selectedIcon: String
-    }
-
-    private let tabs: [TabItem] = [
-        TabItem(tag: 0, title: "Home", unselectedIcon: "house", selectedIcon: "house.fill"),
-        TabItem(tag: 1, title: "Scan", unselectedIcon: "camera.viewfinder", selectedIcon: "camera.viewfinder"),
-        TabItem(tag: 2, title: "Garden", unselectedIcon: "leaf", selectedIcon: "leaf.fill")
+    let tabs: [(icon: String, title: String, tag: Int)] = [
+        ("house.fill", "Home", 0),
+        ("camera.viewfinder", "Scan", 1),
+        ("leaf.fill", "Garden", 2)
     ]
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 0) {
             ForEach(tabs, id: \.tag) { tab in
-                let isSelected = selectedTab == tab.tag
-
                 Button {
-                    if selectedTab != tab.tag {
-                        let generator = UIImpactFeedbackGenerator(style: .light)
-                        generator.impactOccurred()
-                        withAnimation(.spring(response: 0.32, dampingFraction: 0.72)) {
-                            selectedTab = tab.tag
-                        }
+                    let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+                        selectedTab = tab.tag
                     }
                 } label: {
-                    VStack(spacing: 2) {
-                        Image(systemName: isSelected ? tab.selectedIcon : tab.unselectedIcon)
-                            .font(.system(size: 17, weight: isSelected ? .semibold : .regular))
-                            .symbolRenderingMode(.hierarchical)
-                            .foregroundColor(
-                                isSelected
-                                    ? (colorScheme == .dark ? Color.botanicalMint : Color.botanicalEmerald)
-                                    : Color.secondary.opacity(0.8)
-                            )
-                            .scaleEffect(isSelected ? 1.05 : 1.0)
+                    VStack(spacing: 4) {
+                        Image(systemName: tab.icon)
+                            .font(.system(size: 20, weight: selectedTab == tab.tag ? .bold : .medium))
+                            .foregroundColor(selectedTab == tab.tag ? Color.botanicalEmerald : Color.secondary)
 
                         Text(tab.title)
-                            .font(.system(size: 10, weight: isSelected ? .semibold : .medium, design: .rounded))
-                            .foregroundColor(
-                                isSelected
-                                    ? (colorScheme == .dark ? Color.botanicalMint : Color.botanicalEmerald)
-                                    : Color.secondary.opacity(0.8)
-                            )
+                            .font(.caption2.weight(selectedTab == tab.tag ? .bold : .medium))
+                            .foregroundColor(selectedTab == tab.tag ? Color.botanicalEmerald : Color.secondary)
                     }
                     .frame(maxWidth: .infinity)
-                    .frame(height: 42)
-                    .contentShape(Rectangle())
-                    .background {
-                        if isSelected {
-                            // Fluid Sliding Pill Indicator (Slim & Sleek)
-                            Capsule(style: .continuous)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [
-                                            Color.botanicalMint.opacity(colorScheme == .dark ? 0.28 : 0.16),
-                                            Color.botanicalEmerald.opacity(colorScheme == .dark ? 0.18 : 0.08)
-                                        ],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .overlay(
-                                    Capsule(style: .continuous)
-                                        .stroke(
-                                            LinearGradient(
-                                                colors: [
-                                                    Color.white.opacity(colorScheme == .dark ? 0.35 : 0.65),
-                                                    Color.botanicalMint.opacity(0.25)
-                                                ],
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            ),
-                                            lineWidth: 0.8
-                                        )
-                                )
-                                .matchedGeometryEffect(id: "activeTabIndicator", in: tabAnimationNamespace)
-                        }
-                    }
+                    .padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .fill(selectedTab == tab.tag ? Color.botanicalMint.opacity(0.3) : Color.clear)
+                    )
                 }
-                .buttonStyle(.plain)
             }
         }
-        .padding(.horizontal, 6)
-        .padding(.vertical, 4)
-        .frame(maxWidth: .infinity)
-        .frame(height: 50)
-        .background(
-            ZStack {
-                // Liquid Glass Backing Material
-                Capsule(style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .opacity(0.95)
-
-                // Botanical Ambient Inner Tone
-                Capsule(style: .continuous)
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                Color.white.opacity(colorScheme == .dark ? 0.06 : 0.35),
-                                Color.botanicalMint.opacity(colorScheme == .dark ? 0.05 : 0.03),
-                                Color.clear
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-
-                // Refined Specular Light Rim
-                Capsule(style: .continuous)
-                    .stroke(
-                        LinearGradient(
-                            colors: [
-                                .white.opacity(colorScheme == .dark ? 0.45 : 0.85),
-                                .white.opacity(colorScheme == .dark ? 0.15 : 0.35),
-                                .clear,
-                                .white.opacity(colorScheme == .dark ? 0.08 : 0.20)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1.0
-                    )
-            }
+        .padding(8)
+        .liquidGlass(
+            cornerRadius: 28,
+            material: .ultraThinMaterial,
+            opacity: 0.92,
+            hasSpecularBorder: true
         )
-        // Clean single elevation shadow
-        .shadow(
-            color: Color.black.opacity(colorScheme == .dark ? 0.35 : 0.10),
-            radius: 16,
-            x: 0,
-            y: 6
-        )
-        .padding(.horizontal, 20)
+        .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
     }
 }
 

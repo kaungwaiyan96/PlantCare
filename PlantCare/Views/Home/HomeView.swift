@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Binding var selectedTab: Int
     @StateObject private var viewModel = HomeViewModel()
+
+    // Decoupled from tab switching; initializer retained with default nil for backward-compatibility
+    init(selectedTab: Binding<Int>? = nil) {}
 
     var body: some View {
         NavigationStack {
@@ -30,44 +32,6 @@ struct HomeView: View {
                     }
                     .padding(14)
                     .liquidGlass(cornerRadius: 20, material: .thinMaterial, opacity: 0.85, hasSpecularBorder: true)
-                    .padding(.horizontal, 20)
-
-                    // Scan a Plant Quick Action Banner
-                    Button {
-                        let generator = UIImpactFeedbackGenerator(style: .medium)
-                        generator.impactOccurred()
-                        withAnimation {
-                            selectedTab = 1
-                        }
-                    } label: {
-                        HStack(spacing: 16) {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.botanicalEmerald)
-                                    .frame(width: 52, height: 52)
-                                Image(systemName: "camera.viewfinder")
-                                    .font(.system(size: 24, weight: .semibold))
-                                    .foregroundColor(.white)
-                            }
-
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Scan & Diagnose Plant")
-                                    .font(.headline.weight(.bold))
-                                    .foregroundColor(.primary)
-                                Text("Instant AI species identification & health check")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-
-                            Image(systemName: "chevron.right")
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundColor(.secondary)
-                        }
-                        .padding(16)
-                        .liquidGlass(cornerRadius: 24, material: .regularMaterial, opacity: 0.9, hasSpecularBorder: true)
-                    }
-                    .buttonStyle(.plain)
                     .padding(.horizontal, 20)
 
                     // Featured Plants Carousel
