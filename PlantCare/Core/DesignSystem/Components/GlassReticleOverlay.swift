@@ -1,101 +1,158 @@
 import SwiftUI
 
+/// Organic botanical viewfinder overlay inspired by Apple Visual Look Up & native camera interfaces.
+/// Replaces harsh cyberpunk laser reticles with soft frosted glass framing and breathing focus cues.
 struct GlassReticleOverlay: View {
-    @State private var isScanning = false
-    var guidanceText: String = "Align plant within the reticle"
+    @State private var isBreathing = false
+    var guidanceText: String = "Center a leaf, flower, or stem"
 
     var body: some View {
         ZStack {
-            // Darkened vignette outside reticle
-            Color.black.opacity(0.35)
-                .mask(
-                    Rectangle()
-                        .fill(Color.white)
+            // Subtle ambient inner vignette
+            RoundedRectangle(cornerRadius: 32, style: .continuous)
+                .fill(
+                    RadialGradient(
+                        colors: [
+                            Color.clear,
+                            Color.black.opacity(0.08)
+                        ],
+                        center: .center,
+                        startRadius: 100,
+                        endRadius: 220
+                    )
+                )
+
+            // Organic Viewfinder Framing with specular glass rim
+            RoundedRectangle(cornerRadius: 32, style: .continuous)
+                .stroke(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(0.45),
+                            Color.botanicalSage.opacity(0.25),
+                            Color.white.opacity(0.12),
+                            Color.botanicalMint.opacity(0.35)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1.2
+                )
+
+            // Soft organic corner brackets (curved, elegant, non-military)
+            BotanicalCornerAccents()
+                .stroke(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(0.9),
+                            Color.botanicalMint.opacity(0.85)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round)
+                )
+                .padding(2)
+
+            // Gentle center focus indicator (breathing botanical motif)
+            ZStack {
+                Circle()
+                    .stroke(
+                        LinearGradient(
+                            colors: [
+                                Color.white.opacity(0.3),
+                                Color.botanicalMint.opacity(0.3)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1.2
+                    )
+                    .frame(width: 58, height: 58)
+
+                Image(systemName: "leaf.fill")
+                    .font(.system(size: 18, weight: .light))
+                    .foregroundColor(Color.botanicalMint.opacity(0.75))
+            }
+            .scaleEffect(isBreathing ? 1.06 : 0.94)
+            .opacity(isBreathing ? 0.75 : 0.35)
+            .animation(
+                .easeInOut(duration: 2.8).repeatForever(autoreverses: true),
+                value: isBreathing
+            )
+
+            // Natural guidance pill at the bottom of the viewfinder
+            VStack {
+                Spacer()
+                HStack(spacing: 6) {
+                    Image(systemName: "camera.macro")
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundColor(.botanicalEmerald)
+
+                    Text(guidanceText)
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.primary)
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(
+                    Capsule(style: .continuous)
+                        .fill(.ultraThinMaterial)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 32, style: .continuous)
-                                .frame(width: 280, height: 380)
-                                .blendMode(.destinationOut)
+                            Capsule(style: .continuous)
+                                .stroke(Color.white.opacity(0.35), lineWidth: 0.8)
                         )
                 )
-                .ignoresSafeArea()
-
-            // Reticle frame and corner brackets
-            ZStack {
-                RoundedRectangle(cornerRadius: 32, style: .continuous)
-                    .stroke(Color.white.opacity(0.3), lineWidth: 1)
-                    .frame(width: 280, height: 380)
-
-                // Animated Corner Brackets [ ]
-                CornerBrackets()
-                    .stroke(Color.botanicalMint, lineWidth: 3.5)
-                    .frame(width: 288, height: 388)
-                    .shadow(color: Color.botanicalMint.opacity(0.8), radius: 10)
-
-                // Laser scan line
-                VStack {
-                    Rectangle()
-                        .fill(
-                            LinearGradient(
-                                colors: [.clear, Color.botanicalMint, .clear],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .frame(height: 2.5)
-                        .shadow(color: Color.botanicalMint, radius: 8)
-                        .offset(y: isScanning ? 180 : -180)
-                        .animation(
-                            Animation.easeInOut(duration: 2.2).repeatForever(autoreverses: true),
-                            value: isScanning
-                        )
-                }
-                .frame(width: 280, height: 380)
-                .clipped()
-
-                // Guidance text at bottom of reticle
-                VStack {
-                    Spacer()
-                    Text(guidanceText)
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundColor(.primary)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 10)
-                        .liquidGlass(cornerRadius: 20, material: .thinMaterial, opacity: 0.9, hasSpecularBorder: true)
-                        .padding(.bottom, 28)
-                }
-                .frame(width: 280, height: 380)
+                .shadow(color: Color.black.opacity(0.08), radius: 10, x: 0, y: 4)
+                .padding(.bottom, 22)
             }
         }
         .onAppear {
-            isScanning = true
+            isBreathing = true
         }
     }
 }
 
-struct CornerBrackets: Shape {
+/// Soft, rounded botanical corner markers replacing harsh sci-fi HUD brackets
+struct BotanicalCornerAccents: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let length: CGFloat = 36
-        let r: CGFloat = 32
+        let length: CGFloat = 26
+        let r: CGFloat = 30
 
         // Top-Left
         path.move(to: CGPoint(x: rect.minX, y: rect.minY + length))
-        path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.minY), tangent2End: CGPoint(x: rect.minX + length, y: rect.minY), radius: r)
+        path.addArc(
+            tangent1End: CGPoint(x: rect.minX, y: rect.minY),
+            tangent2End: CGPoint(x: rect.minX + length, y: rect.minY),
+            radius: r
+        )
         path.addLine(to: CGPoint(x: rect.minX + length, y: rect.minY))
 
         // Top-Right
         path.move(to: CGPoint(x: rect.maxX - length, y: rect.minY))
-        path.addArc(tangent1End: CGPoint(x: rect.maxX, y: rect.minY), tangent2End: CGPoint(x: rect.maxX, y: rect.minY + length), radius: r)
+        path.addArc(
+            tangent1End: CGPoint(x: rect.maxX, y: rect.minY),
+            tangent2End: CGPoint(x: rect.maxX, y: rect.minY + length),
+            radius: r
+        )
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + length))
 
         // Bottom-Right
         path.move(to: CGPoint(x: rect.maxX, y: rect.maxY - length))
-        path.addArc(tangent1End: CGPoint(x: rect.maxX, y: rect.maxY), tangent2End: CGPoint(x: rect.maxX - length, y: rect.maxY), radius: r)
+        path.addArc(
+            tangent1End: CGPoint(x: rect.maxX, y: rect.maxY),
+            tangent2End: CGPoint(x: rect.maxX - length, y: rect.maxY),
+            radius: r
+        )
         path.addLine(to: CGPoint(x: rect.maxX - length, y: rect.maxY))
 
         // Bottom-Left
         path.move(to: CGPoint(x: rect.minX + length, y: rect.maxY))
-        path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.maxY), tangent2End: CGPoint(x: rect.minX, y: rect.maxY - length), radius: r)
+        path.addArc(
+            tangent1End: CGPoint(x: rect.minX, y: rect.maxY),
+            tangent2End: CGPoint(x: rect.minX, y: rect.maxY - length),
+            radius: r
+        )
         path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - length))
 
         return path
