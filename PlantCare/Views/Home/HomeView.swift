@@ -67,6 +67,7 @@ struct HomeView: View {
                         .padding(16)
                         .liquidGlass(cornerRadius: 24, material: .regularMaterial, opacity: 0.9, hasSpecularBorder: true)
                     }
+                    .buttonStyle(.plain)
                     .padding(.horizontal, 20)
 
                     // Featured Plants Carousel
@@ -133,11 +134,15 @@ struct HomeView: View {
                                         .frame(width: 194)
                                         .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.85, hasSpecularBorder: true)
                                     }
+                                    .buttonStyle(.plain)
                                 }
                             }
                             .padding(.horizontal, 20)
+                            .padding(.top, 6)
+                            .padding(.bottom, 18)
                         }
                     }
+                    .padding(.bottom, 10)
 
                     // Quick Plant Care Tips Section
                     VStack(alignment: .leading, spacing: 14) {
@@ -146,7 +151,7 @@ struct HomeView: View {
                             .foregroundColor(.primary)
                             .padding(.horizontal, 20)
 
-                        VStack(spacing: 12) {
+                        VStack(spacing: 14) {
                             ForEach(viewModel.careTips) { tip in
                                 HStack(alignment: .top, spacing: 14) {
                                     Image(systemName: tip.icon)
