@@ -8,29 +8,16 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 24) {
-                    // Floating Greeting Header
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Welcome back,")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            Text("Hello, Plant Parent! 🌿")
-                                .font(.title.weight(.bold))
-                                .foregroundColor(.primary)
-                        }
-                        Spacer()
-
-                        Button {
-                            let generator = UIImpactFeedbackGenerator(style: .light)
-                            generator.impactOccurred()
-                        } label: {
-                            Image(systemName: "bell.badge.fill")
-                                .font(.system(size: 20))
-                                .foregroundColor(.botanicalEmerald)
-                                .padding(12)
-                                .liquidGlass(cornerRadius: 16, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
-                        }
+                    // Greeting Header
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Welcome back,")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Text("Hello, Plant Parent! 🌿")
+                            .font(.title.weight(.bold))
+                            .foregroundColor(.primary)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
                     .padding(.top, 12)
 
