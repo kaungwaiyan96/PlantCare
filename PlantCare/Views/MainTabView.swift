@@ -82,12 +82,12 @@ struct CustomGlassTabBar: View {
                 } label: {
                     VStack(spacing: 2) {
                         Image(systemName: isSelected ? tab.selectedIcon : tab.unselectedIcon)
-                            .font(.system(size: 18, weight: isSelected ? .semibold : .regular))
+                            .font(.system(size: 17, weight: isSelected ? .semibold : .regular))
                             .symbolRenderingMode(.hierarchical)
                             .foregroundColor(
                                 isSelected
                                     ? (colorScheme == .dark ? Color.botanicalMint : Color.botanicalEmerald)
-                                    : Color.secondary.opacity(0.85)
+                                    : Color.secondary.opacity(0.8)
                             )
                             .scaleEffect(isSelected ? 1.05 : 1.0)
 
@@ -96,33 +96,33 @@ struct CustomGlassTabBar: View {
                             .foregroundColor(
                                 isSelected
                                     ? (colorScheme == .dark ? Color.botanicalMint : Color.botanicalEmerald)
-                                    : Color.secondary.opacity(0.85)
+                                    : Color.secondary.opacity(0.8)
                             )
                     }
                     .frame(maxWidth: .infinity)
-                    .frame(height: 44)
+                    .frame(height: 42)
                     .contentShape(Rectangle())
                     .background {
                         if isSelected {
-                            // Fluid Sliding Pill Indicator
-                            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                            // Fluid Sliding Pill Indicator (Slim & Sleek)
+                            Capsule(style: .continuous)
                                 .fill(
                                     LinearGradient(
                                         colors: [
                                             Color.botanicalMint.opacity(colorScheme == .dark ? 0.28 : 0.16),
-                                            Color.botanicalEmerald.opacity(colorScheme == .dark ? 0.20 : 0.08)
+                                            Color.botanicalEmerald.opacity(colorScheme == .dark ? 0.18 : 0.08)
                                         ],
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
                                     )
                                 )
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                                    Capsule(style: .continuous)
                                         .stroke(
                                             LinearGradient(
                                                 colors: [
                                                     Color.white.opacity(colorScheme == .dark ? 0.35 : 0.65),
-                                                    Color.botanicalMint.opacity(0.20)
+                                                    Color.botanicalMint.opacity(0.25)
                                                 ],
                                                 startPoint: .topLeading,
                                                 endPoint: .bottomTrailing
@@ -137,8 +137,10 @@ struct CustomGlassTabBar: View {
                 .buttonStyle(.plain)
             }
         }
-        .padding(5)
-        .frame(width: 268, height: 54)
+        .padding(.horizontal, 6)
+        .padding(.vertical, 4)
+        .frame(maxWidth: .infinity)
+        .frame(height: 50)
         .background(
             ZStack {
                 // Liquid Glass Backing Material
@@ -179,10 +181,15 @@ struct CustomGlassTabBar: View {
         )
         // Clean single elevation shadow
         .shadow(
-            color: Color.black.opacity(colorScheme == .dark ? 0.35 : 0.12),
-            radius: 18,
+            color: Color.black.opacity(colorScheme == .dark ? 0.35 : 0.10),
+            radius: 16,
             x: 0,
-            y: 8
+            y: 6
         )
+        .padding(.horizontal, 20)
     }
+}
+
+#Preview {
+    MainTabView()
 }
