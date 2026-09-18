@@ -65,21 +65,6 @@ struct PlantProfileView: View {
                             )
                             .frame(height: 120)
                         }
-
-                        // Back Button
-                        Button {
-                            let generator = UIImpactFeedbackGenerator(style: .light)
-                            generator.impactOccurred()
-                            dismiss()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.white)
-                                .padding(12)
-                                .liquidGlass(cornerRadius: 16, material: .ultraThinMaterial, opacity: 0.5, hasSpecularBorder: true)
-                        }
-                        .padding(.top, 16)
-                        .padding(.horizontal, 20)
                     }
 
                     // Content Section
@@ -205,6 +190,30 @@ struct PlantProfileView: View {
                 .padding(.horizontal, 24)
                 .padding(.bottom, 100)
             }
+        }
+        .safeAreaInset(edge: .top) {
+            HStack {
+                Button {
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 44, height: 44)
+                        .background(.ultraThinMaterial, in: Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white.opacity(0.35), lineWidth: 1)
+                        )
+                        .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
+                }
+                .contentShape(Circle())
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 6)
         }
         .navigationBarHidden(true)
         .onAppear { isTabBarHidden.wrappedValue = true }

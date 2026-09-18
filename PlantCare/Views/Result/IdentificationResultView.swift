@@ -9,32 +9,7 @@ struct IdentificationResultView: View {
         ZStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    // Header with back button
-                    HStack {
-                        Button {
-                            let generator = UIImpactFeedbackGenerator(style: .light)
-                            generator.impactOccurred()
-                            dismiss()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 16, weight: .bold))
-                                .foregroundColor(.primary)
-                                .padding(12)
-                                .liquidGlass(cornerRadius: 16, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
-                        }
-
-                        Spacer()
-
-                        Text("Identification Result")
-                            .font(.headline.weight(.bold))
-                            .foregroundColor(.primary)
-
-                        Spacer()
-
-                        Color.clear.frame(width: 44, height: 44)
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 12)
+                    Spacer().frame(height: 12)
 
                     // Photo Thumbnail Card in Liquid Glass
                     if let image = viewModel.selectedImage {
@@ -196,9 +171,42 @@ struct IdentificationResultView: View {
                 }
             }
             .ambientGlassBackground()
-            .navigationBarHidden(true)
-            .onAppear { isTabBarHidden.wrappedValue = true }
-            .onDisappear { isTabBarHidden.wrappedValue = false }
         }
+        .safeAreaInset(edge: .top) {
+            HStack {
+                Button {
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.primary)
+                        .frame(width: 44, height: 44)
+                        .background(.thinMaterial, in: Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white.opacity(0.35), lineWidth: 1)
+                        )
+                        .shadow(color: Color.black.opacity(0.15), radius: 6, x: 0, y: 3)
+                }
+                .contentShape(Circle())
+
+                Spacer()
+
+                Text("Identification Result")
+                    .font(.headline.weight(.bold))
+                    .foregroundColor(.primary)
+
+                Spacer()
+
+                Color.clear.frame(width: 44, height: 44)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 6)
+        }
+        .navigationBarHidden(true)
+        .onAppear { isTabBarHidden.wrappedValue = true }
+        .onDisappear { isTabBarHidden.wrappedValue = false }
     }
 }
