@@ -38,7 +38,7 @@ struct MainTabView: View {
             if !isTabBarHidden {
                 CustomGlassTabBar(selectedTab: $selectedTab)
                     .padding(.horizontal, 24)
-                    .padding(.bottom, 8)
+                    .padding(.bottom, -8)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
