@@ -21,153 +21,151 @@ struct PlantProfileView: View {
     @State private var isExpandedDetails = false
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 0) {
-                    // Hero Plant Image Header with Frosted Overlay
-                    ZStack(alignment: .topLeading) {
-                        if let localImage = localImage {
-                            Image(uiImage: localImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height: 380)
-                                .clipped()
-                        } else {
-                            AsyncImage(url: URL(string: imageURL)) { phase in
-                                switch phase {
-                                case .empty:
-                                    Rectangle()
-                                        .fill(Color.secondary.opacity(0.2))
-                                        .overlay(ProgressView())
-                                case .success(let image):
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                case .failure(_):
-                                    Rectangle()
-                                        .fill(Color.botanicalSage.opacity(0.3))
-                                        .overlay(Image(systemName: "leaf.fill").font(.system(size: 40)).foregroundColor(.botanicalEmerald))
-                                @unknown default:
-                                    EmptyView()
-                                }
-                            }
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 0) {
+                // Hero Plant Image Header with Frosted Overlay
+                ZStack(alignment: .topLeading) {
+                    if let localImage = localImage {
+                        Image(uiImage: localImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(height: 380)
                             .clipped()
+                    } else {
+                        AsyncImage(url: URL(string: imageURL)) { phase in
+                            switch phase {
+                            case .empty:
+                                Rectangle()
+                                    .fill(Color.secondary.opacity(0.2))
+                                    .overlay(ProgressView())
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            case .failure(_):
+                                Rectangle()
+                                    .fill(Color.botanicalSage.opacity(0.3))
+                                    .overlay(Image(systemName: "leaf.fill").font(.system(size: 40)).foregroundColor(.botanicalEmerald))
+                            @unknown default:
+                                EmptyView()
+                            }
                         }
-
-                        // Gradient fade at bottom of hero image
-                        VStack {
-                            Spacer()
-                            LinearGradient(
-                                colors: [.clear, Color.black.opacity(0.6)],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                            .frame(height: 120)
-                        }
+                        .frame(height: 380)
+                        .clipped()
                     }
 
-                    // Content Section
-                    VStack(alignment: .leading, spacing: 20) {
-                        // Title & Scientific Name
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(plantName)
-                                .font(.title.weight(.bold))
-                                .foregroundColor(.primary)
+                    // Gradient fade at bottom of hero image
+                    VStack {
+                        Spacer()
+                        LinearGradient(
+                            colors: [.clear, Color.black.opacity(0.6)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                        .frame(height: 120)
+                    }
+                }
 
-                            Text(scientificName)
-                                .font(.subheadline.italic())
-                                .foregroundColor(.secondary)
-                        }
+                // Content Section
+                VStack(alignment: .leading, spacing: 20) {
+                    // Title & Scientific Name
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(plantName)
+                            .font(.title.weight(.bold))
+                            .foregroundColor(.primary)
 
-                        // Glass Care Metric Grid
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 14) {
-                            GlassMetricBadge(type: .watering, value: watering)
-                            GlassMetricBadge(type: .sunlight, value: sunlight)
-                            GlassMetricBadge(type: .cycle, value: growthCycle)
-                            GlassMetricBadge(type: .cycle, value: "Beginner Friendly")
-                        }
+                        Text(scientificName)
+                            .font(.subheadline.italic())
+                            .foregroundColor(.secondary)
+                    }
 
-                        // Plant Condition / Health Diagnosis Card (Soft Amber / Emerald Frosted Glass)
-                        if let condName = conditionName, let condDesc = conditionDescription {
-                            VStack(alignment: .leading, spacing: 10) {
-                                HStack(spacing: 8) {
-                                    Image(systemName: "cross.case.fill")
-                                        .font(.subheadline.weight(.semibold))
-                                        .foregroundColor(.botanicalAmber)
-                                    Text("Health Diagnosis (Non-Diagnostic Suggestion)")
-                                        .font(.caption.weight(.bold))
-                                        .foregroundColor(.secondary)
-                                }
+                    // Glass Care Metric Grid
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 14) {
+                        GlassMetricBadge(type: .watering, value: watering)
+                        GlassMetricBadge(type: .sunlight, value: sunlight)
+                        GlassMetricBadge(type: .cycle, value: growthCycle)
+                        GlassMetricBadge(type: .cycle, value: "Beginner Friendly")
+                    }
 
-                                Text(condName)
-                                    .font(.headline.weight(.bold))
-                                    .foregroundColor(.primary)
-
-                                Text(condDesc)
-                                    .font(.subheadline)
+                    // Plant Condition / Health Diagnosis Card (Soft Amber / Emerald Frosted Glass)
+                    if let condName = conditionName, let condDesc = conditionDescription {
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "cross.case.fill")
+                                    .font(.subheadline.weight(.semibold))
+                                    .foregroundColor(.botanicalAmber)
+                                Text("Health Diagnosis (Non-Diagnostic Suggestion)")
+                                    .font(.caption.weight(.bold))
                                     .foregroundColor(.secondary)
                             }
-                            .padding(16)
-                            .liquidGlass(
-                                cornerRadius: 20,
-                                material: .regularMaterial,
-                                opacity: 0.85,
-                                hasSpecularBorder: true
-                            )
-                        }
 
-                        // Detailed Care Guide Expandable Card
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack {
-                                Text("Detailed Botanical Care Guide")
-                                    .font(.headline.weight(.bold))
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Button {
-                                    withAnimation(.spring()) {
-                                        isExpandedDetails.toggle()
-                                    }
-                                } label: {
-                                    Image(systemName: isExpandedDetails ? "chevron.up" : "chevron.down")
-                                        .foregroundColor(.botanicalEmerald)
-                                        .font(.subheadline.weight(.bold))
-                                }
-                            }
+                            Text(condName)
+                                .font(.headline.weight(.bold))
+                                .foregroundColor(.primary)
 
-                            Text(careInstructions)
+                            Text(condDesc)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
-                                .lineLimit(isExpandedDetails ? nil : 3)
+                        }
+                        .padding(16)
+                        .liquidGlass(
+                            cornerRadius: 20,
+                            material: .regularMaterial,
+                            opacity: 0.85,
+                            hasSpecularBorder: true
+                        )
+                    }
 
-                            if !isExpandedDetails {
-                                Button("Read More") {
-                                    withAnimation(.spring()) {
-                                        isExpandedDetails = true
-                                    }
+                    // Detailed Care Guide Expandable Card
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            Text("Detailed Botanical Care Guide")
+                                .font(.headline.weight(.bold))
+                                .foregroundColor(.primary)
+                            Spacer()
+                            Button {
+                                withAnimation(.spring()) {
+                                    isExpandedDetails.toggle()
                                 }
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundColor(.botanicalEmerald)
+                            } label: {
+                                Image(systemName: isExpandedDetails ? "chevron.up" : "chevron.down")
+                                    .foregroundColor(.botanicalEmerald)
+                                    .font(.subheadline.weight(.bold))
                             }
                         }
-                        .padding(18)
-                        .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
 
-                        Spacer().frame(height: 120)
+                        Text(careInstructions)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .lineLimit(isExpandedDetails ? nil : 3)
+
+                        if !isExpandedDetails {
+                            Button("Read More") {
+                                withAnimation(.spring()) {
+                                    isExpandedDetails = true
+                                }
+                            }
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundColor(.botanicalEmerald)
+                        }
                     }
-                    .padding(20)
-                    .background(
-                        RoundedRectangle(cornerRadius: 32, style: .continuous)
-                            .fill(Color.clear)
-                    )
-                    .offset(y: -24)
-                }
-            }
-            .ambientGlassBackground()
-            .ignoresSafeArea(edges: .top)
+                    .padding(18)
+                    .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
 
-            // Floating Liquid Glass "Save to My Garden" Action Button
-            VStack {
+                    Spacer().frame(height: 24)
+                }
+                .padding(20)
+                .background(
+                    RoundedRectangle(cornerRadius: 32, style: .continuous)
+                        .fill(Color.clear)
+                )
+                .offset(y: -24)
+            }
+        }
+        .ambientGlassBackground()
+        .ignoresSafeArea(edges: .top)
+        .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 0) {
                 Button {
                     saveToGarden()
                 } label: {
@@ -184,12 +182,14 @@ struct PlantProfileView: View {
                         RoundedRectangle(cornerRadius: 24, style: .continuous)
                             .fill(isSaved ? Color.botanicalEmerald : Color.botanicalMint)
                     )
-                    .shadow(color: (isSaved ? Color.botanicalEmerald : Color.botanicalMint).opacity(0.5), radius: 10, x: 0, y: 5)
+                    .shadow(color: (isSaved ? Color.botanicalEmerald : Color.botanicalMint).opacity(0.4), radius: 8, x: 0, y: 4)
                 }
                 .disabled(isSaved)
                 .padding(.horizontal, 24)
-                .padding(.bottom, 100)
+                .padding(.top, 12)
+                .padding(.bottom, 8)
             }
+            .background(.ultraThinMaterial)
         }
         .safeAreaInset(edge: .top) {
             HStack {
