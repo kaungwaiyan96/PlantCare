@@ -111,6 +111,8 @@
 ### 3. Security & Apple Privacy Compliance
 - API keys isolated in `PlantCareSecrets.xcconfig` outside Git version control.
 - Full compliance with Apple privacy string requirements (`NSCameraUsageDescription` & `NSPhotoLibraryUsageDescription`).
+- **Authentication & Keychain Security**: User session tokens are secured in the encrypted iOS **Keychain** (`kSecClassGenericPassword`), avoiding plaintext storage.
+- **Apple HIG Onboarding Compliance**: Integrates native **Sign in with Apple** alongside a friction-free **"Continue as Guest"** option to avoid mandatory login walls.
 
 ---
 
@@ -127,3 +129,9 @@
 
 **Q3: "How does the app behave if the user is offline or the API rate limit is exceeded?"**
 > *Answer*: "Our networking layer implements a typed `NetworkError` enum capturing status codes (404, 429 rate limit, timeouts). If network access is unavailable, the app notifies the user with contextual feedback and seamlessly utilizes our cached botanical database."
+
+**Q4: "Why provide a Guest Mode instead of forcing user registration?"**
+> *Answer*: "According to Apple Human Interface Guidelines, apps should allow users to immediately explore core value propositions before committing to an account. Our 'Continue as Guest' mode lets evaluators and users scan plants instantly, while preserving their SwiftData records if they choose to register later."
+
+**Q5: "How are authentication credentials and user tokens protected?"**
+> *Answer*: "All sensitive tokens are stored in the hardware-encrypted iOS Keychain Services rather than UserDefaults. Furthermore, Sign in with Apple provides biometric authentication via Face ID/Touch ID with Apple's private relay email privacy."
