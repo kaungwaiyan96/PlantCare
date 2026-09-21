@@ -48,6 +48,11 @@ Dir.glob('PlantCare/**/*.swift').each do |file_path|
   app_target.add_file_references([file_ref])
 end
 
+Dir.glob('PlantCare/**/*.{png,jpg,jpeg,xcassets}').each do |file_path|
+  file_ref = app_group.new_file(File.expand_path(file_path))
+  app_target.resources_build_phase.add_file_reference(file_ref)
+end
+
 Dir.glob('PlantCareTests/**/*.swift').each do |file_path|
   file_ref = test_group.new_file(File.expand_path(file_path))
   test_target.add_file_references([file_ref])

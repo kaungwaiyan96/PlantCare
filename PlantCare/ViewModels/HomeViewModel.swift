@@ -13,9 +13,13 @@ struct FeaturedPlant: Identifiable, Hashable {
 
 struct PlantCareTip: Identifiable {
     let id = UUID()
+    let category: String
     let title: String
     let description: String
-    let icon: String
+    let iconName: String
+    let fallbackSymbol: String
+    let themeColor: Color
+    let readTime: String
 }
 
 @MainActor
@@ -70,19 +74,31 @@ final class HomeViewModel: ObservableObject {
 
         careTips = [
             PlantCareTip(
+                category: "Hydration",
                 title: "Bottom Watering Technique",
                 description: "Allow thirsty potted plants to absorb moisture from the base to prevent root rot and fungus gnats.",
-                icon: "drop.triangle.fill"
+                iconName: "flaticon_watering_can",
+                fallbackSymbol: "drop.fill",
+                themeColor: Color(hex: 0x0288D1),
+                readTime: "1 min read"
             ),
             PlantCareTip(
-                title: "Foliage Dusting",
-                description: "Wipe broad leaves with a damp microfiber cloth to maximize photosynthetic efficiency.",
-                icon: "sparkles"
+                category: "Maintenance",
+                title: "Foliage Dusting Routine",
+                description: "Wipe broad leaves with a damp microfiber cloth to maximize photosynthetic efficiency and deter pests.",
+                iconName: "flaticon_foliage_leaf",
+                fallbackSymbol: "leaf.fill",
+                themeColor: Color.botanicalJade,
+                readTime: "2 min read"
             ),
             PlantCareTip(
+                category: "Lighting",
                 title: "Seasonal Sunlight Rotation",
-                description: "Rotate houseplants 90 degrees monthly to ensure balanced growth toward window light.",
-                icon: "sun.max.fill"
+                description: "Rotate houseplants 90 degrees monthly to ensure balanced growth and prevent phototropic leaning toward windows.",
+                iconName: "flaticon_sunlight",
+                fallbackSymbol: "sun.max.fill",
+                themeColor: Color.botanicalAmber,
+                readTime: "1 min read"
             )
         ]
     }

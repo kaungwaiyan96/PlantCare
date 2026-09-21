@@ -37,6 +37,10 @@
 		F7971DED6F304F3654609A10 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489357F9950A6B7D085DDD9 /* HomeView.swift */; };
 		FB2F32B948F05AAC820DABB3 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E660E4E3C00B2028A8BE4 /* GlassCard.swift */; };
 		FD1A582FFFA0B5C6F7AEBC56 /* MockPlantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C155BEDBDDE7B38C83A9257D /* MockPlantService.swift */; };
+		9DCF058891B2702CFF534DFD /* flaticon_watering_can.png in Resources */ = {isa = PBXBuildFile; fileRef = C239CA466645F3E411A8D54C /* flaticon_watering_can.png */; };
+		2D0E62FEA10E8B33F7F809A9 /* flaticon_foliage_leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = 113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */; };
+		4A6928D9FB3964852868EAE1 /* flaticon_sunlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */; };
+		BCCCF92594ACF27075CC20F7 /* flaticon_sprout.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,10 @@
 		F048806B17FFAB53F30AC125 /* PerenualService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PerenualService.swift; path = PlantCare/Services/PerenualService.swift; sourceTree = "<group>"; };
 		FBAF6D174609ECA08C167680 /* GlassTokens.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassTokens.swift; path = PlantCare/Core/DesignSystem/GlassTokens.swift; sourceTree = "<group>"; };
 		FCF2B00190DB30A20B49C0D1 /* MyGardenView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MyGardenView.swift; path = PlantCare/Views/Garden/MyGardenView.swift; sourceTree = "<group>"; };
+		C239CA466645F3E411A8D54C /* flaticon_watering_can.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_watering_can.png; path = PlantCare/Resources/Icons/flaticon_watering_can.png; sourceTree = "<group>"; };
+		113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_foliage_leaf.png; path = PlantCare/Resources/Icons/flaticon_foliage_leaf.png; sourceTree = "<group>"; };
+		022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sunlight.png; path = PlantCare/Resources/Icons/flaticon_sunlight.png; sourceTree = "<group>"; };
+		1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sprout.png; path = PlantCare/Resources/Icons/flaticon_sprout.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +141,10 @@
 				E75000C900AE4613B13904E0 /* PlantProfileView.swift */,
 				BD4F31DE906090B9091B2D65 /* IdentificationResultView.swift */,
 				7D00573C9BB8AF664304B19A /* ScanPlantView.swift */,
+				C239CA466645F3E411A8D54C /* flaticon_watering_can.png */,
+				113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */,
+				022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */,
+				1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */,
 			);
 			name = PlantCare;
 			sourceTree = "<group>";
@@ -252,6 +264,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DCF058891B2702CFF534DFD /* flaticon_watering_can.png in Resources */,
+				2D0E62FEA10E8B33F7F809A9 /* flaticon_foliage_leaf.png in Resources */,
+				4A6928D9FB3964852868EAE1 /* flaticon_sunlight.png in Resources */,
+				BCCCF92594ACF27075CC20F7 /* flaticon_sprout.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

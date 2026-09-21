@@ -38,7 +38,7 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 14) {
                         HStack {
                             Text("Featured Botanical Species")
-                                .font(.title3.weight(.bold))
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
                                 .foregroundColor(.primary)
                             Spacer()
                             Text("See All")
@@ -84,7 +84,7 @@ struct HomeView: View {
 
                                             VStack(alignment: .leading, spacing: 4) {
                                                 Text(plant.name)
-                                                    .font(.subheadline.weight(.bold))
+                                                    .font(.system(size: 15, weight: .bold, design: .rounded))
                                                     .foregroundColor(.primary)
                                                     .lineLimit(1)
                                                 Text(plant.scientificName)
@@ -106,42 +106,33 @@ struct HomeView: View {
                             .padding(.bottom, 18)
                         }
                     }
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 6)
 
-                    // Quick Plant Care Tips Section
-                    VStack(alignment: .leading, spacing: 14) {
-                        Text("Quick Plant Care Tips")
-                            .font(.title3.weight(.bold))
-                            .foregroundColor(.primary)
-                            .padding(.horizontal, 20)
+                    // MARK: - Redesigned Quick Plant Care Tips Section
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("Quick Plant Care Tips")
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                                .foregroundColor(.primary)
+                            Spacer()
+                            Text("Curated")
+                                .font(.system(size: 12, weight: .bold, design: .rounded))
+                                .foregroundColor(.botanicalEmerald)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 4)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.botanicalMint.opacity(0.2))
+                                )
+                        }
+                        .padding(.horizontal, 20)
 
                         VStack(spacing: 14) {
                             ForEach(viewModel.careTips) { tip in
-                                HStack(alignment: .top, spacing: 14) {
-                                    Image(systemName: tip.icon)
-                                        .font(.system(size: 20))
-                                        .foregroundColor(.botanicalEmerald)
-                                        .padding(10)
-                                        .background(
-                                            Circle()
-                                                .fill(Color.botanicalMint.opacity(0.2))
-                                        )
-
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(tip.title)
-                                            .font(.subheadline.weight(.bold))
-                                            .foregroundColor(.primary)
-                                        Text(tip.description)
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                    }
-                                    Spacer()
-                                }
-                                .padding(16)
-                                .liquidGlass(cornerRadius: 20, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
-                                .padding(.horizontal, 20)
+                                PlantCareTipCard(tip: tip)
                             }
                         }
+                        .padding(.horizontal, 20)
                     }
 
                     Spacer().frame(height: 110)
@@ -150,5 +141,127 @@ struct HomeView: View {
             .ambientGlassBackground()
             .navigationBarHidden(true)
         }
+    }
+}
+
+// MARK: - Dedicated Care Tip Card Component
+struct PlantCareTipCard: View {
+    let tip: PlantCareTip
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 14) {
+            // Thematic Icon Badge
+            CareTipIconBadge(
+                iconName: tip.iconName,
+                fallbackSymbol: tip.fallbackSymbol,
+                themeColor: tip.themeColor
+            )
+
+            // Structured Content
+            VStack(alignment: .leading, spacing: 6) {
+                // Category Pill & Read Time
+                HStack(spacing: 8) {
+                    Text(tip.category.uppercased())
+                        .font(.system(size: 10, weight: .heavy, design: .rounded))
+                        .tracking(1.0)
+                        .foregroundColor(tip.themeColor)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(
+                            Capsule()
+                                .fill(tip.themeColor.opacity(0.14))
+                        )
+
+                    Text("•")
+                        .font(.caption2)
+                        .foregroundColor(.secondary.opacity(0.6))
+
+                    Text(tip.readTime)
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(.secondary)
+
+                    Spacer()
+                }
+
+                // Tip Title
+                Text(tip.title)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundColor(.primary)
+                    .lineLimit(1)
+
+                // Tip Description
+                Text(tip.description)
+                    .font(.system(size: 13, weight: .regular))
+                    .lineSpacing(3.5)
+                    .foregroundColor(.primary.opacity(0.78))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(16)
+        .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.85, hasSpecularBorder: true)
+    }
+}
+
+// MARK: - Resilient Flaticon & SF Symbol Badge Loader
+struct CareTipIconBadge: View {
+    let iconName: String
+    let fallbackSymbol: String
+    let themeColor: Color
+
+    var body: some View {
+        ZStack {
+            // Frosted squircle container with ambient color gradient
+            RoundedRectangle(cornerRadius: 15, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            themeColor.opacity(0.22),
+                            themeColor.opacity(0.08)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                        .stroke(themeColor.opacity(0.35), lineWidth: 1)
+                )
+
+            // Primary: Flaticon Asset; Secondary Fallback: Polished SF Symbol
+            if let image = loadIconImage(named: iconName) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 28, height: 28)
+            } else {
+                Image(systemName: fallbackSymbol)
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(themeColor)
+            }
+        }
+        .frame(width: 48, height: 48)
+        .shadow(color: themeColor.opacity(0.18), radius: 6, x: 0, y: 3)
+    }
+
+    /// Resilient loader: checks Asset Catalog, Main Bundle root, and Resources/Icons folder
+    private func loadIconImage(named name: String) -> UIImage? {
+        if let asset = UIImage(named: name) {
+            return asset
+        }
+        if let path = Bundle.main.path(forResource: name, ofType: "png") {
+            return UIImage(contentsOfFile: path)
+        }
+        if let path = Bundle.main.path(forResource: name, ofType: "png", inDirectory: "Icons") {
+            return UIImage(contentsOfFile: path)
+        }
+        if let path = Bundle.main.path(forResource: name, ofType: "png", inDirectory: "Resources/Icons") {
+            return UIImage(contentsOfFile: path)
+        }
+        // Direct filesystem fallback for simulator run environments
+        let directPath = "PlantCare/Resources/Icons/\(name).png"
+        if FileManager.default.fileExists(atPath: directPath) {
+            return UIImage(contentsOfFile: directPath)
+        }
+        return nil
     }
 }
