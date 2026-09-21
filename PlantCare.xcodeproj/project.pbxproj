@@ -3,214 +3,217 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EBF116BA86A03ABA1344261 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E050175EAEEB32357B4A340 /* Foundation.framework */; };
-		2252C7B54508524A73A8CF6E /* GlassReticleOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EB3042C17580FDC1FCE6EC /* GlassReticleOverlay.swift */; };
-		249EEC705C625292E2F3A9A3 /* GlassMetricBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9215B62A639532D61A54436 /* GlassMetricBadge.swift */; };
-		2F4F2F3FCC4D44A5ED98DDC2 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAE3372673B99D2D3DD4FA /* ScanViewModel.swift */; };
-		3521EF5E6A122D69F038B566 /* PlantServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDB9359712150B47C376BEA /* PlantServiceProtocol.swift */; };
-		40B98006B37B18117B99C3FD /* PerenualModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3945356D57DFEC31E77F80FE /* PerenualModels.swift */; };
-		42CB6C7D5A9407004CB56CF0 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203A333E8EEF08AC8628B25C /* APIConfig.swift */; };
-		4AABE62080C76CDEF993F1CD /* BotanicalColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CEABCD035E6F5839BB50F0 /* BotanicalColors.swift */; };
-		4CC53081EECB886B5C6942E7 /* PlantNetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD39C083BA1E73047A56711 /* PlantNetService.swift */; };
-		56074ED606F91885CD3F71CC /* GlassTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF6D174609ECA08C167680 /* GlassTokens.swift */; };
-		67A0F599CFBE519121B2B73C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871B5118BAB682469227792 /* HomeViewModel.swift */; };
-		686B669451F2B779782B378A /* PlantCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E330A8748BEA9898F9AB83 /* PlantCondition.swift */; };
-		6E310029E3932BE7864A2650 /* ImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15338C7386286961C80DBB94 /* ImageStorageService.swift */; };
-		7AFC94C46140B09A8712EF8F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA3F4ACE534F7D45BDBD54D /* PersistenceController.swift */; };
-		7CD37CC3A948395624950B53 /* PlantProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75000C900AE4613B13904E0 /* PlantProfileView.swift */; };
-		81E466B06EAB3C8349C7CBD6 /* SavedPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFADA8F314679C1FC66C08A9 /* SavedPlant.swift */; };
-		837FB935E663A3A9B77C03C5 /* ScanPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D00573C9BB8AF664304B19A /* ScanPlantView.swift */; };
-		95A4C7ECAF172BDF518A6D8C /* PlantCareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F79033AEF7B4C50A0D85FC /* PlantCareTests.swift */; };
-		98873B1C0212A53A7F5FD9B8 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07909043FB1E0BFF7F2D3F41 /* MainTabView.swift */; };
-		99D30D9CC81DA5790D8AAA9C /* MyGardenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF2B00190DB30A20B49C0D1 /* MyGardenView.swift */; };
-		D80CA036406249350B86ED6C /* IdentificationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F31DE906090B9091B2D65 /* IdentificationResultView.swift */; };
-		DADEA90CCEF16E97B9663BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E050175EAEEB32357B4A340 /* Foundation.framework */; };
-		DB049832A32AE13D86967AC3 /* PlantCareApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E912979D141E4A7ADCB85F /* PlantCareApp.swift */; };
-		E80B857C74C5971241F6D729 /* GlowingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9CEA713BB05E762EF77AA3 /* GlowingProgressBar.swift */; };
-		EC66B94ABF50FD7F21EE0AB0 /* PlantNetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896506E3E0214175BADD067D /* PlantNetModels.swift */; };
-		F03663BE7ABCE679EE17A978 /* SavedPlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D12B8B6958AA52B9D048596 /* SavedPlantDetailView.swift */; };
-		F57265E8CFDB6C55526A55CB /* PerenualService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F048806B17FFAB53F30AC125 /* PerenualService.swift */; };
-		F7971DED6F304F3654609A10 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C489357F9950A6B7D085DDD9 /* HomeView.swift */; };
-		FB2F32B948F05AAC820DABB3 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E660E4E3C00B2028A8BE4 /* GlassCard.swift */; };
-		FD1A582FFFA0B5C6F7AEBC56 /* MockPlantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C155BEDBDDE7B38C83A9257D /* MockPlantService.swift */; };
-		9DCF058891B2702CFF534DFD /* flaticon_watering_can.png in Resources */ = {isa = PBXBuildFile; fileRef = C239CA466645F3E411A8D54C /* flaticon_watering_can.png */; };
-		2D0E62FEA10E8B33F7F809A9 /* flaticon_foliage_leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = 113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */; };
-		4A6928D9FB3964852868EAE1 /* flaticon_sunlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */; };
-		BCCCF92594ACF27075CC20F7 /* flaticon_sprout.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */; };
-		2EF80BDB313DE1D7FE7FD7E3 /* CareTipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFDE3E6ACDE5345D5443154 /* CareTipDetailView.swift */; };
-		B22F0B89313DE1D7FE7FD201 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F0B89ACDE5345D5443101 /* AuthView.swift */; };
-		B22F0B89313DE1D7FE7FD202 /* UserProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F0B89ACDE5345D5443102 /* UserProfileSheet.swift */; };
+		0272AB1EA44E1EB4AEFE0651 /* PlantCareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12B51197B7A2B7B074E2EB /* PlantCareTests.swift */; };
+		04702F0CD68DC4575CFD987B /* flaticon_watering_can.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DC773FC90591D12CB933AE /* flaticon_watering_can.png */; };
+		073307124AAAF6EB0B2F9328 /* PlantNetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA46CD1FDB3584EE7492B9 /* PlantNetService.swift */; };
+		1141CEA251F82EBBB8EAD8FB /* PlantNetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B83DD4A17F206D5BEAF3A1 /* PlantNetModels.swift */; };
+		188A91B5388D589B441CCB1B /* MyGardenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3895F52D28712B7493E9B6 /* MyGardenView.swift */; };
+		1EED72AC37399FFBFD41BF7C /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD3EAE9DF99D2ACB158939E /* AuthView.swift */; };
+		1F937C121E0A1864DC95D9AD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BBE567C4D86254F9282409 /* HomeViewModel.swift */; };
+		22CD999B950FD3F11F48D0DF /* GlassReticleOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561F01EB557D7C3605F6AF96 /* GlassReticleOverlay.swift */; };
+		295D5FF06B9073A327BC7A23 /* flaticon_sprout.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BF990A6869BC9AF5ABED55 /* flaticon_sprout.png */; };
+		30D36457B95D0F7048154279 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55EFC17B27C200855EC65E1A /* Assets.xcassets */; };
+		35F192E753050C2A44891D3B /* PlantCareApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350D17639BE08CDA4E69935 /* PlantCareApp.swift */; };
+		36BE93F5C9A853C9F897425D /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7230F846062D8C43D679B3BE /* MainTabView.swift */; };
+		399D912392CD6CD62FEFD67E /* GlassTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE8F22504D9D1C189FA7EE /* GlassTokens.swift */; };
+		3E69BA9834CB44D731749A02 /* ImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF94188A581E75DCBFF7D2B /* ImageStorageService.swift */; };
+		4AC3484B581CE51D6C21095D /* ScanPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BF13193FDDA4404E763EEB /* ScanPlantView.swift */; };
+		52EA0DFC0E6860B1BC7C20A6 /* GlassMetricBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E514529336F2AEB56053DFF /* GlassMetricBadge.swift */; };
+		5F90113456039119CC5E4392 /* CareTipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196067AFF065F75418278D5 /* CareTipDetailView.swift */; };
+		65429D85B330BDB2BF214252 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78CCF5F275744297593D552 /* GlassCard.swift */; };
+		753E688CF6B14244462B172A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419E9843840D596E8CB23DCC /* Foundation.framework */; };
+		760100A13AA745AD7D1A8598 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E82E77BF6FF436B9A64B44 /* ScanViewModel.swift */; };
+		83C7E560DA7660CE79946DD2 /* PerenualModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D229EE8DB4F65246004D5B77 /* PerenualModels.swift */; };
+		872CE855DB10A77ED2144552 /* MockPlantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E5E859FD1825671C307668 /* MockPlantService.swift */; };
+		8837DCA8A34E04AC55EF7232 /* BotanicalColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A25A7F550F84462276A24DA /* BotanicalColors.swift */; };
+		9038FB3F07201B3D086219EB /* PlantCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E8F75540D8243F50BCD79 /* PlantCondition.swift */; };
+		92F68E317BB0DBF50B4B41D4 /* IdentificationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E412E1BD00EA5850C9F622FE /* IdentificationResultView.swift */; };
+		93271769C0D6386FB07782EF /* PerenualService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC0D76FAE2EE8D4FAF837D9 /* PerenualService.swift */; };
+		9EE6B78548A139F5BA4976E6 /* SavedPlantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D172B2353EA843A767D79409 /* SavedPlantDetailView.swift */; };
+		B779B90357515F3184888E65 /* flaticon_foliage_leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = 527181E47E693E4A39809F1A /* flaticon_foliage_leaf.png */; };
+		BD2CCA192C669B9E220EB666 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419E9843840D596E8CB23DCC /* Foundation.framework */; };
+		C0860DB5739B13138036245D /* UserProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7855A0EBE7BC51F21ACF9D8E /* UserProfileSheet.swift */; };
+		D4562A3687B1B8D1129D4202 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177629C9B0CA0CFABDF6EE69 /* HomeView.swift */; };
+		D554BF8E176AFDA889876820 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506C4ED9803EC6270D4797E2 /* PersistenceController.swift */; };
+		D7C4C2F16C0B6220EA475FFB /* PlantProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC1DF723E2DAB7471B0C521 /* PlantProfileView.swift */; };
+		E5A835C4549158B0F82F8DD9 /* SavedPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03475D614F4F2C71E647449 /* SavedPlant.swift */; };
+		E7D18E4789CCEAEDCECA8517 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383AABBA8688738853B02AF /* APIConfig.swift */; };
+		EEA6AF5F88E8673547E0D31A /* flaticon_sunlight.png in Resources */ = {isa = PBXBuildFile; fileRef = F0BEE8E0E5A9F878FEE1944A /* flaticon_sunlight.png */; };
+		F79CC8F85AD3EB58A2C5734F /* GlowingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B0781D05C6594A00F2C7E3 /* GlowingProgressBar.swift */; };
+		F9096F5B5E30FCDC5E488A63 /* PlantServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999E25D77DE8CE695E4DCB05 /* PlantServiceProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		002445A3B81FB8B6E88A713E /* PBXContainerItemProxy */ = {
+		9232CCC9351CC66E6C7F1757 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1299FF0741E5A731DDCB2E6F /* Project object */;
+			containerPortal = CEDD166262A62170821CCF2F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8E1A02EA48E0D0472821D997;
+			remoteGlobalIDString = 41CB68D544580DBE43B64094;
 			remoteInfo = PlantCare;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07909043FB1E0BFF7F2D3F41 /* MainTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MainTabView.swift; path = PlantCare/Views/MainTabView.swift; sourceTree = "<group>"; };
-		15338C7386286961C80DBB94 /* ImageStorageService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageStorageService.swift; path = PlantCare/Core/Storage/ImageStorageService.swift; sourceTree = "<group>"; };
-		19E912979D141E4A7ADCB85F /* PlantCareApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCareApp.swift; path = PlantCare/App/PlantCareApp.swift; sourceTree = "<group>"; };
-		203A333E8EEF08AC8628B25C /* APIConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = APIConfig.swift; path = PlantCare/Core/Config/APIConfig.swift; sourceTree = "<group>"; };
-		2DDB9359712150B47C376BEA /* PlantServiceProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantServiceProtocol.swift; path = PlantCare/Services/PlantServiceProtocol.swift; sourceTree = "<group>"; };
-		2E2E660E4E3C00B2028A8BE4 /* GlassCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassCard.swift; path = PlantCare/Core/DesignSystem/Components/GlassCard.swift; sourceTree = "<group>"; };
-		3945356D57DFEC31E77F80FE /* PerenualModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PerenualModels.swift; path = PlantCare/Models/PerenualModels.swift; sourceTree = "<group>"; };
-		3F7543FDF8D985FD39D8F7DF /* PlantCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		43DAE3372673B99D2D3DD4FA /* ScanViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScanViewModel.swift; path = PlantCare/ViewModels/ScanViewModel.swift; sourceTree = "<group>"; };
-		47F79033AEF7B4C50A0D85FC /* PlantCareTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCareTests.swift; path = PlantCareTests/PlantCareTests.swift; sourceTree = "<group>"; };
-		58E330A8748BEA9898F9AB83 /* PlantCondition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCondition.swift; path = PlantCare/Models/PlantCondition.swift; sourceTree = "<group>"; };
-		5D12B8B6958AA52B9D048596 /* SavedPlantDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SavedPlantDetailView.swift; path = PlantCare/Views/Garden/SavedPlantDetailView.swift; sourceTree = "<group>"; };
-		5E050175EAEEB32357B4A340 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		7D00573C9BB8AF664304B19A /* ScanPlantView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScanPlantView.swift; path = PlantCare/Views/Scan/ScanPlantView.swift; sourceTree = "<group>"; };
-		8050437AB6E80AA8D6AF8340 /* PlantCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		896506E3E0214175BADD067D /* PlantNetModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantNetModels.swift; path = PlantCare/Models/PlantNetModels.swift; sourceTree = "<group>"; };
-		A3EB3042C17580FDC1FCE6EC /* GlassReticleOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassReticleOverlay.swift; path = PlantCare/Core/DesignSystem/Components/GlassReticleOverlay.swift; sourceTree = "<group>"; };
-		A9215B62A639532D61A54436 /* GlassMetricBadge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassMetricBadge.swift; path = PlantCare/Core/DesignSystem/Components/GlassMetricBadge.swift; sourceTree = "<group>"; };
-		ACA3F4ACE534F7D45BDBD54D /* PersistenceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = PlantCare/Core/Storage/PersistenceController.swift; sourceTree = "<group>"; };
-		B871B5118BAB682469227792 /* HomeViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = PlantCare/ViewModels/HomeViewModel.swift; sourceTree = "<group>"; };
-		BAD39C083BA1E73047A56711 /* PlantNetService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantNetService.swift; path = PlantCare/Services/PlantNetService.swift; sourceTree = "<group>"; };
-		BD4F31DE906090B9091B2D65 /* IdentificationResultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IdentificationResultView.swift; path = PlantCare/Views/Result/IdentificationResultView.swift; sourceTree = "<group>"; };
-		BFADA8F314679C1FC66C08A9 /* SavedPlant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SavedPlant.swift; path = PlantCare/Models/SavedPlant.swift; sourceTree = "<group>"; };
-		C155BEDBDDE7B38C83A9257D /* MockPlantService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockPlantService.swift; path = PlantCare/Services/MockPlantService.swift; sourceTree = "<group>"; };
-		C489357F9950A6B7D085DDD9 /* HomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = PlantCare/Views/Home/HomeView.swift; sourceTree = "<group>"; };
-		D0CEABCD035E6F5839BB50F0 /* BotanicalColors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BotanicalColors.swift; path = PlantCare/Core/DesignSystem/BotanicalColors.swift; sourceTree = "<group>"; };
-		E75000C900AE4613B13904E0 /* PlantProfileView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantProfileView.swift; path = PlantCare/Views/Profile/PlantProfileView.swift; sourceTree = "<group>"; };
-		EA9CEA713BB05E762EF77AA3 /* GlowingProgressBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlowingProgressBar.swift; path = PlantCare/Core/DesignSystem/Components/GlowingProgressBar.swift; sourceTree = "<group>"; };
-		F048806B17FFAB53F30AC125 /* PerenualService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PerenualService.swift; path = PlantCare/Services/PerenualService.swift; sourceTree = "<group>"; };
-		FBAF6D174609ECA08C167680 /* GlassTokens.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassTokens.swift; path = PlantCare/Core/DesignSystem/GlassTokens.swift; sourceTree = "<group>"; };
-		FCF2B00190DB30A20B49C0D1 /* MyGardenView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MyGardenView.swift; path = PlantCare/Views/Garden/MyGardenView.swift; sourceTree = "<group>"; };
-		C239CA466645F3E411A8D54C /* flaticon_watering_can.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_watering_can.png; path = PlantCare/Resources/Icons/flaticon_watering_can.png; sourceTree = "<group>"; };
-		113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_foliage_leaf.png; path = PlantCare/Resources/Icons/flaticon_foliage_leaf.png; sourceTree = "<group>"; };
-		022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sunlight.png; path = PlantCare/Resources/Icons/flaticon_sunlight.png; sourceTree = "<group>"; };
-		1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sprout.png; path = PlantCare/Resources/Icons/flaticon_sprout.png; sourceTree = "<group>"; };
-		DAFDE3E6ACDE5345D5443154 /* CareTipDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CareTipDetailView.swift; path = PlantCare/Views/Home/CareTipDetailView.swift; sourceTree = "<group>"; };
-		A11F0B89ACDE5345D5443101 /* AuthView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthView.swift; path = PlantCare/Views/Auth/AuthView.swift; sourceTree = "<group>"; };
-		A11F0B89ACDE5345D5443102 /* UserProfileSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UserProfileSheet.swift; path = PlantCare/Views/Home/UserProfileSheet.swift; sourceTree = "<group>"; };
+		00E5E859FD1825671C307668 /* MockPlantService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockPlantService.swift; path = PlantCare/Services/MockPlantService.swift; sourceTree = "<group>"; };
+		177629C9B0CA0CFABDF6EE69 /* HomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = PlantCare/Views/Home/HomeView.swift; sourceTree = "<group>"; };
+		19B0781D05C6594A00F2C7E3 /* GlowingProgressBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlowingProgressBar.swift; path = PlantCare/Core/DesignSystem/Components/GlowingProgressBar.swift; sourceTree = "<group>"; };
+		2368685613724E0F18972A15 /* PlantCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29B83DD4A17F206D5BEAF3A1 /* PlantNetModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantNetModels.swift; path = PlantCare/Models/PlantNetModels.swift; sourceTree = "<group>"; };
+		3C12B51197B7A2B7B074E2EB /* PlantCareTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCareTests.swift; path = PlantCareTests/PlantCareTests.swift; sourceTree = "<group>"; };
+		419E9843840D596E8CB23DCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		506C4ED9803EC6270D4797E2 /* PersistenceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = PlantCare/Core/Storage/PersistenceController.swift; sourceTree = "<group>"; };
+		5196067AFF065F75418278D5 /* CareTipDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CareTipDetailView.swift; path = PlantCare/Views/Home/CareTipDetailView.swift; sourceTree = "<group>"; };
+		51CE8F22504D9D1C189FA7EE /* GlassTokens.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassTokens.swift; path = PlantCare/Core/DesignSystem/GlassTokens.swift; sourceTree = "<group>"; };
+		527181E47E693E4A39809F1A /* flaticon_foliage_leaf.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_foliage_leaf.png; path = PlantCare/Resources/Icons/flaticon_foliage_leaf.png; sourceTree = "<group>"; };
+		5383AABBA8688738853B02AF /* APIConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = APIConfig.swift; path = PlantCare/Core/Config/APIConfig.swift; sourceTree = "<group>"; };
+		55EFC17B27C200855EC65E1A /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PlantCare/Assets.xcassets; sourceTree = "<group>"; };
+		561F01EB557D7C3605F6AF96 /* GlassReticleOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassReticleOverlay.swift; path = PlantCare/Core/DesignSystem/Components/GlassReticleOverlay.swift; sourceTree = "<group>"; };
+		60BF13193FDDA4404E763EEB /* ScanPlantView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScanPlantView.swift; path = PlantCare/Views/Scan/ScanPlantView.swift; sourceTree = "<group>"; };
+		6A25A7F550F84462276A24DA /* BotanicalColors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BotanicalColors.swift; path = PlantCare/Core/DesignSystem/BotanicalColors.swift; sourceTree = "<group>"; };
+		6BF94188A581E75DCBFF7D2B /* ImageStorageService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageStorageService.swift; path = PlantCare/Core/Storage/ImageStorageService.swift; sourceTree = "<group>"; };
+		6E514529336F2AEB56053DFF /* GlassMetricBadge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassMetricBadge.swift; path = PlantCare/Core/DesignSystem/Components/GlassMetricBadge.swift; sourceTree = "<group>"; };
+		7230F846062D8C43D679B3BE /* MainTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MainTabView.swift; path = PlantCare/Views/MainTabView.swift; sourceTree = "<group>"; };
+		7855A0EBE7BC51F21ACF9D8E /* UserProfileSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UserProfileSheet.swift; path = PlantCare/Views/Home/UserProfileSheet.swift; sourceTree = "<group>"; };
+		7F4E8F75540D8243F50BCD79 /* PlantCondition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCondition.swift; path = PlantCare/Models/PlantCondition.swift; sourceTree = "<group>"; };
+		8BC1DF723E2DAB7471B0C521 /* PlantProfileView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantProfileView.swift; path = PlantCare/Views/Profile/PlantProfileView.swift; sourceTree = "<group>"; };
+		90E82E77BF6FF436B9A64B44 /* ScanViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScanViewModel.swift; path = PlantCare/ViewModels/ScanViewModel.swift; sourceTree = "<group>"; };
+		97BBE567C4D86254F9282409 /* HomeViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = PlantCare/ViewModels/HomeViewModel.swift; sourceTree = "<group>"; };
+		999E25D77DE8CE695E4DCB05 /* PlantServiceProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantServiceProtocol.swift; path = PlantCare/Services/PlantServiceProtocol.swift; sourceTree = "<group>"; };
+		AA3895F52D28712B7493E9B6 /* MyGardenView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MyGardenView.swift; path = PlantCare/Views/Garden/MyGardenView.swift; sourceTree = "<group>"; };
+		ABD3EAE9DF99D2ACB158939E /* AuthView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthView.swift; path = PlantCare/Views/Auth/AuthView.swift; sourceTree = "<group>"; };
+		B2BF990A6869BC9AF5ABED55 /* flaticon_sprout.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sprout.png; path = PlantCare/Resources/Icons/flaticon_sprout.png; sourceTree = "<group>"; };
+		B8DC773FC90591D12CB933AE /* flaticon_watering_can.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_watering_can.png; path = PlantCare/Resources/Icons/flaticon_watering_can.png; sourceTree = "<group>"; };
+		C78CCF5F275744297593D552 /* GlassCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassCard.swift; path = PlantCare/Core/DesignSystem/Components/GlassCard.swift; sourceTree = "<group>"; };
+		CD972FBCF340CAAFA0D729F1 /* PlantCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D03475D614F4F2C71E647449 /* SavedPlant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SavedPlant.swift; path = PlantCare/Models/SavedPlant.swift; sourceTree = "<group>"; };
+		D172B2353EA843A767D79409 /* SavedPlantDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SavedPlantDetailView.swift; path = PlantCare/Views/Garden/SavedPlantDetailView.swift; sourceTree = "<group>"; };
+		D229EE8DB4F65246004D5B77 /* PerenualModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PerenualModels.swift; path = PlantCare/Models/PerenualModels.swift; sourceTree = "<group>"; };
+		E412E1BD00EA5850C9F622FE /* IdentificationResultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IdentificationResultView.swift; path = PlantCare/Views/Result/IdentificationResultView.swift; sourceTree = "<group>"; };
+		E6EA46CD1FDB3584EE7492B9 /* PlantNetService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantNetService.swift; path = PlantCare/Services/PlantNetService.swift; sourceTree = "<group>"; };
+		ECC0D76FAE2EE8D4FAF837D9 /* PerenualService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PerenualService.swift; path = PlantCare/Services/PerenualService.swift; sourceTree = "<group>"; };
+		F0BEE8E0E5A9F878FEE1944A /* flaticon_sunlight.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sunlight.png; path = PlantCare/Resources/Icons/flaticon_sunlight.png; sourceTree = "<group>"; };
+		F350D17639BE08CDA4E69935 /* PlantCareApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCareApp.swift; path = PlantCare/App/PlantCareApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2E24888C820FB1A0F93DAD25 /* Frameworks */ = {
+		34664BD36278E28692891C30 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EBF116BA86A03ABA1344261 /* Foundation.framework in Frameworks */,
+				753E688CF6B14244462B172A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9D4E1E22212189E6D2ECD0E4 /* Frameworks */ = {
+		606BE553DDC76BB56F3018D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DADEA90CCEF16E97B9663BCF /* Foundation.framework in Frameworks */,
+				BD2CCA192C669B9E220EB666 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0BBF3F0CF1B883BBD19B4711 /* PlantCare */ = {
+		22D1771ADC136F88C5D1B287 /* PlantCare */ = {
 			isa = PBXGroup;
 			children = (
-				19E912979D141E4A7ADCB85F /* PlantCareApp.swift */,
-				203A333E8EEF08AC8628B25C /* APIConfig.swift */,
-				D0CEABCD035E6F5839BB50F0 /* BotanicalColors.swift */,
-				2E2E660E4E3C00B2028A8BE4 /* GlassCard.swift */,
-				A9215B62A639532D61A54436 /* GlassMetricBadge.swift */,
-				A3EB3042C17580FDC1FCE6EC /* GlassReticleOverlay.swift */,
-				EA9CEA713BB05E762EF77AA3 /* GlowingProgressBar.swift */,
-				FBAF6D174609ECA08C167680 /* GlassTokens.swift */,
-				15338C7386286961C80DBB94 /* ImageStorageService.swift */,
-				ACA3F4ACE534F7D45BDBD54D /* PersistenceController.swift */,
-				3945356D57DFEC31E77F80FE /* PerenualModels.swift */,
-				58E330A8748BEA9898F9AB83 /* PlantCondition.swift */,
-				896506E3E0214175BADD067D /* PlantNetModels.swift */,
-				BFADA8F314679C1FC66C08A9 /* SavedPlant.swift */,
-				C155BEDBDDE7B38C83A9257D /* MockPlantService.swift */,
-				F048806B17FFAB53F30AC125 /* PerenualService.swift */,
-				BAD39C083BA1E73047A56711 /* PlantNetService.swift */,
-				2DDB9359712150B47C376BEA /* PlantServiceProtocol.swift */,
-				B871B5118BAB682469227792 /* HomeViewModel.swift */,
-				43DAE3372673B99D2D3DD4FA /* ScanViewModel.swift */,
-				FCF2B00190DB30A20B49C0D1 /* MyGardenView.swift */,
-				5D12B8B6958AA52B9D048596 /* SavedPlantDetailView.swift */,
-				C489357F9950A6B7D085DDD9 /* HomeView.swift */,
-				DAFDE3E6ACDE5345D5443154 /* CareTipDetailView.swift */,
-				A11F0B89ACDE5345D5443101 /* AuthView.swift */,
-				A11F0B89ACDE5345D5443102 /* UserProfileSheet.swift */,
-				07909043FB1E0BFF7F2D3F41 /* MainTabView.swift */,
-				E75000C900AE4613B13904E0 /* PlantProfileView.swift */,
-				BD4F31DE906090B9091B2D65 /* IdentificationResultView.swift */,
-				7D00573C9BB8AF664304B19A /* ScanPlantView.swift */,
-				C239CA466645F3E411A8D54C /* flaticon_watering_can.png */,
-				113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */,
-				022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */,
-				1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */,
+				F350D17639BE08CDA4E69935 /* PlantCareApp.swift */,
+				5383AABBA8688738853B02AF /* APIConfig.swift */,
+				6A25A7F550F84462276A24DA /* BotanicalColors.swift */,
+				C78CCF5F275744297593D552 /* GlassCard.swift */,
+				6E514529336F2AEB56053DFF /* GlassMetricBadge.swift */,
+				561F01EB557D7C3605F6AF96 /* GlassReticleOverlay.swift */,
+				19B0781D05C6594A00F2C7E3 /* GlowingProgressBar.swift */,
+				51CE8F22504D9D1C189FA7EE /* GlassTokens.swift */,
+				6BF94188A581E75DCBFF7D2B /* ImageStorageService.swift */,
+				506C4ED9803EC6270D4797E2 /* PersistenceController.swift */,
+				D229EE8DB4F65246004D5B77 /* PerenualModels.swift */,
+				7F4E8F75540D8243F50BCD79 /* PlantCondition.swift */,
+				29B83DD4A17F206D5BEAF3A1 /* PlantNetModels.swift */,
+				D03475D614F4F2C71E647449 /* SavedPlant.swift */,
+				00E5E859FD1825671C307668 /* MockPlantService.swift */,
+				ECC0D76FAE2EE8D4FAF837D9 /* PerenualService.swift */,
+				E6EA46CD1FDB3584EE7492B9 /* PlantNetService.swift */,
+				999E25D77DE8CE695E4DCB05 /* PlantServiceProtocol.swift */,
+				97BBE567C4D86254F9282409 /* HomeViewModel.swift */,
+				90E82E77BF6FF436B9A64B44 /* ScanViewModel.swift */,
+				ABD3EAE9DF99D2ACB158939E /* AuthView.swift */,
+				AA3895F52D28712B7493E9B6 /* MyGardenView.swift */,
+				D172B2353EA843A767D79409 /* SavedPlantDetailView.swift */,
+				5196067AFF065F75418278D5 /* CareTipDetailView.swift */,
+				177629C9B0CA0CFABDF6EE69 /* HomeView.swift */,
+				7855A0EBE7BC51F21ACF9D8E /* UserProfileSheet.swift */,
+				7230F846062D8C43D679B3BE /* MainTabView.swift */,
+				8BC1DF723E2DAB7471B0C521 /* PlantProfileView.swift */,
+				E412E1BD00EA5850C9F622FE /* IdentificationResultView.swift */,
+				60BF13193FDDA4404E763EEB /* ScanPlantView.swift */,
+				55EFC17B27C200855EC65E1A /* Assets.xcassets */,
+				527181E47E693E4A39809F1A /* flaticon_foliage_leaf.png */,
+				B2BF990A6869BC9AF5ABED55 /* flaticon_sprout.png */,
+				F0BEE8E0E5A9F878FEE1944A /* flaticon_sunlight.png */,
+				B8DC773FC90591D12CB933AE /* flaticon_watering_can.png */,
 			);
 			name = PlantCare;
 			sourceTree = "<group>";
 		};
-		608F9DDBDECDFB6B95A5D3FE /* iOS */ = {
+		26CE05A8852E19220417545E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5E050175EAEEB32357B4A340 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		83F2C53C84D16792B032142A /* PlantCareTests */ = {
-			isa = PBXGroup;
-			children = (
-				47F79033AEF7B4C50A0D85FC /* PlantCareTests.swift */,
-			);
-			name = PlantCareTests;
-			sourceTree = "<group>";
-		};
-		849A29E51ED1E10ACDD9CBDD /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3F7543FDF8D985FD39D8F7DF /* PlantCare.app */,
-				8050437AB6E80AA8D6AF8340 /* PlantCareTests.xctest */,
+				2368685613724E0F18972A15 /* PlantCare.app */,
+				CD972FBCF340CAAFA0D729F1 /* PlantCareTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9DE6CCAB3147AFFC5E7ADB50 = {
+		413AA0D6F74263DA2181BFF4 = {
 			isa = PBXGroup;
 			children = (
-				849A29E51ED1E10ACDD9CBDD /* Products */,
-				C12B0A7F698D8E619C6D5C02 /* Frameworks */,
-				0BBF3F0CF1B883BBD19B4711 /* PlantCare */,
-				83F2C53C84D16792B032142A /* PlantCareTests */,
+				26CE05A8852E19220417545E /* Products */,
+				B6481F2269A02325CED94F92 /* Frameworks */,
+				22D1771ADC136F88C5D1B287 /* PlantCare */,
+				BED3D18F99267BA3ACFEF4E2 /* PlantCareTests */,
 			);
 			sourceTree = "<group>";
 		};
-		C12B0A7F698D8E619C6D5C02 /* Frameworks */ = {
+		B6481F2269A02325CED94F92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				608F9DDBDECDFB6B95A5D3FE /* iOS */,
+				CBD5B65976CF91A5E237287A /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BED3D18F99267BA3ACFEF4E2 /* PlantCareTests */ = {
+			isa = PBXGroup;
+			children = (
+				3C12B51197B7A2B7B074E2EB /* PlantCareTests.swift */,
+			);
+			name = PlantCareTests;
+			sourceTree = "<group>";
+		};
+		CBD5B65976CF91A5E237287A /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				419E9843840D596E8CB23DCC /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8E1A02EA48E0D0472821D997 /* PlantCare */ = {
+		41CB68D544580DBE43B64094 /* PlantCare */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A3FA0C74FA5A5F5FEFA2CF77 /* Build configuration list for PBXNativeTarget "PlantCare" */;
+			buildConfigurationList = 1493896381B3E7F3808CA23C /* Build configuration list for PBXNativeTarget "PlantCare" */;
 			buildPhases = (
-				83CFBBFCD38D84107990A4F4 /* Sources */,
-				2E24888C820FB1A0F93DAD25 /* Frameworks */,
-				47B6B58D3F1096D7AE5BE333 /* Resources */,
+				537433CC0E2035DA8568A583 /* Sources */,
+				34664BD36278E28692891C30 /* Frameworks */,
+				75FBFEF6660383CE43AD4BD2 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -218,38 +221,37 @@
 			);
 			name = PlantCare;
 			productName = PlantCare;
-			productReference = 3F7543FDF8D985FD39D8F7DF /* PlantCare.app */;
+			productReference = 2368685613724E0F18972A15 /* PlantCare.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EA65D840339A8D33DC8B4335 /* PlantCareTests */ = {
+		C6FCBC78A92EFF80BAB111FB /* PlantCareTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6FECEECACAF8CE6E6BBF0F6B /* Build configuration list for PBXNativeTarget "PlantCareTests" */;
+			buildConfigurationList = 4F64AAC82FAC945C6287FEBB /* Build configuration list for PBXNativeTarget "PlantCareTests" */;
 			buildPhases = (
-				711416B04AA0CAB5718A1D65 /* Sources */,
-				9D4E1E22212189E6D2ECD0E4 /* Frameworks */,
-				897CE3B399C05B9F9C3B329C /* Resources */,
+				2FF28F75DCDDA7138C5F3AE3 /* Sources */,
+				606BE553DDC76BB56F3018D6 /* Frameworks */,
+				AD4349FBCB2D7EA73BC9A74E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9A1A5EACE5A1044DE72A18A9 /* PBXTargetDependency */,
+				F92B1F174BFE5B61B2829BA5 /* PBXTargetDependency */,
 			);
 			name = PlantCareTests;
 			productName = PlantCareTests;
-			productReference = 8050437AB6E80AA8D6AF8340 /* PlantCareTests.xctest */;
+			productReference = CD972FBCF340CAAFA0D729F1 /* PlantCareTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1299FF0741E5A731DDCB2E6F /* Project object */ = {
+		CEDD166262A62170821CCF2F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 2700;
+				LastUpgradeCheck = 1600;
 			};
-			buildConfigurationList = 7CD0BF0EFAD121B70DCBCE85 /* Build configuration list for PBXProject "PlantCare" */;
+			buildConfigurationList = ACA4DBE0D172279450B917CF /* Build configuration list for PBXProject "PlantCare" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -257,30 +259,33 @@
 				en,
 				Base,
 			);
-			mainGroup = 9DE6CCAB3147AFFC5E7ADB50;
-			productRefGroup = 849A29E51ED1E10ACDD9CBDD /* Products */;
+			mainGroup = 413AA0D6F74263DA2181BFF4;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 100;
+			productRefGroup = 26CE05A8852E19220417545E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8E1A02EA48E0D0472821D997 /* PlantCare */,
-				EA65D840339A8D33DC8B4335 /* PlantCareTests */,
+				41CB68D544580DBE43B64094 /* PlantCare */,
+				C6FCBC78A92EFF80BAB111FB /* PlantCareTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		47B6B58D3F1096D7AE5BE333 /* Resources */ = {
+		75FBFEF6660383CE43AD4BD2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DCF058891B2702CFF534DFD /* flaticon_watering_can.png in Resources */,
-				2D0E62FEA10E8B33F7F809A9 /* flaticon_foliage_leaf.png in Resources */,
-				4A6928D9FB3964852868EAE1 /* flaticon_sunlight.png in Resources */,
-				BCCCF92594ACF27075CC20F7 /* flaticon_sprout.png in Resources */,
+				30D36457B95D0F7048154279 /* Assets.xcassets in Resources */,
+				B779B90357515F3184888E65 /* flaticon_foliage_leaf.png in Resources */,
+				295D5FF06B9073A327BC7A23 /* flaticon_sprout.png in Resources */,
+				EEA6AF5F88E8673547E0D31A /* flaticon_sunlight.png in Resources */,
+				04702F0CD68DC4575CFD987B /* flaticon_watering_can.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		897CE3B399C05B9F9C3B329C /* Resources */ = {
+		AD4349FBCB2D7EA73BC9A74E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -290,121 +295,103 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		711416B04AA0CAB5718A1D65 /* Sources */ = {
+		2FF28F75DCDDA7138C5F3AE3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95A4C7ECAF172BDF518A6D8C /* PlantCareTests.swift in Sources */,
+				0272AB1EA44E1EB4AEFE0651 /* PlantCareTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83CFBBFCD38D84107990A4F4 /* Sources */ = {
+		537433CC0E2035DA8568A583 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB049832A32AE13D86967AC3 /* PlantCareApp.swift in Sources */,
-				42CB6C7D5A9407004CB56CF0 /* APIConfig.swift in Sources */,
-				4AABE62080C76CDEF993F1CD /* BotanicalColors.swift in Sources */,
-				FB2F32B948F05AAC820DABB3 /* GlassCard.swift in Sources */,
-				249EEC705C625292E2F3A9A3 /* GlassMetricBadge.swift in Sources */,
-				2252C7B54508524A73A8CF6E /* GlassReticleOverlay.swift in Sources */,
-				E80B857C74C5971241F6D729 /* GlowingProgressBar.swift in Sources */,
-				56074ED606F91885CD3F71CC /* GlassTokens.swift in Sources */,
-				6E310029E3932BE7864A2650 /* ImageStorageService.swift in Sources */,
-				7AFC94C46140B09A8712EF8F /* PersistenceController.swift in Sources */,
-				40B98006B37B18117B99C3FD /* PerenualModels.swift in Sources */,
-				686B669451F2B779782B378A /* PlantCondition.swift in Sources */,
-				EC66B94ABF50FD7F21EE0AB0 /* PlantNetModels.swift in Sources */,
-				81E466B06EAB3C8349C7CBD6 /* SavedPlant.swift in Sources */,
-				FD1A582FFFA0B5C6F7AEBC56 /* MockPlantService.swift in Sources */,
-				F57265E8CFDB6C55526A55CB /* PerenualService.swift in Sources */,
-				4CC53081EECB886B5C6942E7 /* PlantNetService.swift in Sources */,
-				3521EF5E6A122D69F038B566 /* PlantServiceProtocol.swift in Sources */,
-				67A0F599CFBE519121B2B73C /* HomeViewModel.swift in Sources */,
-				2F4F2F3FCC4D44A5ED98DDC2 /* ScanViewModel.swift in Sources */,
-				99D30D9CC81DA5790D8AAA9C /* MyGardenView.swift in Sources */,
-				F03663BE7ABCE679EE17A978 /* SavedPlantDetailView.swift in Sources */,
-				F7971DED6F304F3654609A10 /* HomeView.swift in Sources */,
-				2EF80BDB313DE1D7FE7FD7E3 /* CareTipDetailView.swift in Sources */,
-				B22F0B89313DE1D7FE7FD201 /* AuthView.swift in Sources */,
-				B22F0B89313DE1D7FE7FD202 /* UserProfileSheet.swift in Sources */,
-				98873B1C0212A53A7F5FD9B8 /* MainTabView.swift in Sources */,
-				7CD37CC3A948395624950B53 /* PlantProfileView.swift in Sources */,
-				D80CA036406249350B86ED6C /* IdentificationResultView.swift in Sources */,
-				837FB935E663A3A9B77C03C5 /* ScanPlantView.swift in Sources */,
+				35F192E753050C2A44891D3B /* PlantCareApp.swift in Sources */,
+				E7D18E4789CCEAEDCECA8517 /* APIConfig.swift in Sources */,
+				8837DCA8A34E04AC55EF7232 /* BotanicalColors.swift in Sources */,
+				65429D85B330BDB2BF214252 /* GlassCard.swift in Sources */,
+				52EA0DFC0E6860B1BC7C20A6 /* GlassMetricBadge.swift in Sources */,
+				22CD999B950FD3F11F48D0DF /* GlassReticleOverlay.swift in Sources */,
+				F79CC8F85AD3EB58A2C5734F /* GlowingProgressBar.swift in Sources */,
+				399D912392CD6CD62FEFD67E /* GlassTokens.swift in Sources */,
+				3E69BA9834CB44D731749A02 /* ImageStorageService.swift in Sources */,
+				D554BF8E176AFDA889876820 /* PersistenceController.swift in Sources */,
+				83C7E560DA7660CE79946DD2 /* PerenualModels.swift in Sources */,
+				9038FB3F07201B3D086219EB /* PlantCondition.swift in Sources */,
+				1141CEA251F82EBBB8EAD8FB /* PlantNetModels.swift in Sources */,
+				E5A835C4549158B0F82F8DD9 /* SavedPlant.swift in Sources */,
+				872CE855DB10A77ED2144552 /* MockPlantService.swift in Sources */,
+				93271769C0D6386FB07782EF /* PerenualService.swift in Sources */,
+				073307124AAAF6EB0B2F9328 /* PlantNetService.swift in Sources */,
+				F9096F5B5E30FCDC5E488A63 /* PlantServiceProtocol.swift in Sources */,
+				1F937C121E0A1864DC95D9AD /* HomeViewModel.swift in Sources */,
+				760100A13AA745AD7D1A8598 /* ScanViewModel.swift in Sources */,
+				1EED72AC37399FFBFD41BF7C /* AuthView.swift in Sources */,
+				188A91B5388D589B441CCB1B /* MyGardenView.swift in Sources */,
+				9EE6B78548A139F5BA4976E6 /* SavedPlantDetailView.swift in Sources */,
+				5F90113456039119CC5E4392 /* CareTipDetailView.swift in Sources */,
+				D4562A3687B1B8D1129D4202 /* HomeView.swift in Sources */,
+				C0860DB5739B13138036245D /* UserProfileSheet.swift in Sources */,
+				36BE93F5C9A853C9F897425D /* MainTabView.swift in Sources */,
+				D7C4C2F16C0B6220EA475FFB /* PlantProfileView.swift in Sources */,
+				92F68E317BB0DBF50B4B41D4 /* IdentificationResultView.swift in Sources */,
+				4AC3484B581CE51D6C21095D /* ScanPlantView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9A1A5EACE5A1044DE72A18A9 /* PBXTargetDependency */ = {
+		F92B1F174BFE5B61B2829BA5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PlantCare;
-			target = 8E1A02EA48E0D0472821D997 /* PlantCare */;
-			targetProxy = 002445A3B81FB8B6E88A713E /* PBXContainerItemProxy */;
+			target = 41CB68D544580DBE43B64094 /* PlantCare */;
+			targetProxy = 9232CCC9351CC66E6C7F1757 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		009E05464A839B79355770FB /* Release */ = {
+		2947D086810E214CEA64F666 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plantcare.PlantCareTests;
+				PRODUCT_NAME = PlantCareTests;
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlantCare.app/PlantCare";
 			};
-			name = Release;
+			name = Debug;
 		};
-		2AA54E19A8CB20353D5570D6 /* Debug */ = {
+		3A34A9A43D4D0EF9DAC6860E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "PlantCare needs camera access to photograph and identify plants.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PlantCare needs photo library access to select plant pictures for identification.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plantcare.PlantCare;
+				PRODUCT_NAME = PlantCare;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		50232AF442BA5671E0EE50EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -438,11 +425,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -461,14 +446,13 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		4D544B1983B04A55D19B6605 /* Debug */ = {
+		5268EF15C89AE4BDA476BA87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -481,10 +465,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PlantCare needs photo library access to select plant pictures for identification.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.plantcare.PlantCare;
 				PRODUCT_NAME = PlantCare;
@@ -492,26 +473,65 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		5948F739E0A2A8D9C07E87D9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plantcare.PlantCareTests;
-				PRODUCT_NAME = PlantCareTests;
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlantCare.app/PlantCare";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		83B65920BC10B009BF09C853 /* Debug */ = {
+		592B2F3D6B0794CA7C79B713 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		8AF5E0825C67817EB7354DB2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -523,33 +543,6 @@
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlantCare.app/PlantCare";
-			};
-			name = Debug;
-		};
-		FA53EF46E4CF5AD6944BF256 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "PlantCare needs camera access to photograph and identify plants.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "PlantCare needs photo library access to select plant pictures for identification.";
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plantcare.PlantCare;
-				PRODUCT_NAME = PlantCare;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -557,34 +550,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6FECEECACAF8CE6E6BBF0F6B /* Build configuration list for PBXNativeTarget "PlantCareTests" */ = {
+		1493896381B3E7F3808CA23C /* Build configuration list for PBXNativeTarget "PlantCare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5948F739E0A2A8D9C07E87D9 /* Release */,
-				83B65920BC10B009BF09C853 /* Debug */,
+				5268EF15C89AE4BDA476BA87 /* Release */,
+				3A34A9A43D4D0EF9DAC6860E /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7CD0BF0EFAD121B70DCBCE85 /* Build configuration list for PBXProject "PlantCare" */ = {
+		4F64AAC82FAC945C6287FEBB /* Build configuration list for PBXNativeTarget "PlantCareTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2AA54E19A8CB20353D5570D6 /* Debug */,
-				009E05464A839B79355770FB /* Release */,
+				8AF5E0825C67817EB7354DB2 /* Release */,
+				2947D086810E214CEA64F666 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A3FA0C74FA5A5F5FEFA2CF77 /* Build configuration list for PBXNativeTarget "PlantCare" */ = {
+		ACA4DBE0D172279450B917CF /* Build configuration list for PBXProject "PlantCare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FA53EF46E4CF5AD6944BF256 /* Release */,
-				4D544B1983B04A55D19B6605 /* Debug */,
+				50232AF442BA5671E0EE50EC /* Debug */,
+				592B2F3D6B0794CA7C79B713 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1299FF0741E5A731DDCB2E6F /* Project object */;
+	rootObject = CEDD166262A62170821CCF2F /* Project object */;
 }

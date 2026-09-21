@@ -206,24 +206,20 @@ struct AuthView: View {
                         Button {
                             handleAuthAction()
                         } label: {
-                            HStack(spacing: 8) {
-                                Text(isSignUpMode ? "Create Botanical Account" : "Sign In")
-                                    .font(.system(size: 16, weight: .bold, design: .rounded))
-                                Image(systemName: "arrow.right")
-                                    .font(.system(size: 14, weight: .bold))
-                            }
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 15)
-                            .background(
-                                LinearGradient(
-                                    colors: [Color.botanicalEmerald, Color.botanicalJade],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
+                            Text(isSignUpMode ? "Create Botanical Account" : "Sign In")
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 15)
+                                .background(
+                                    LinearGradient(
+                                        colors: [Color.botanicalEmerald, Color.botanicalJade],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
                                 )
-                            )
-                            .cornerRadius(18)
-                            .shadow(color: Color.botanicalEmerald.opacity(0.35), radius: 10, x: 0, y: 5)
+                                .cornerRadius(18)
+                                .shadow(color: Color.botanicalEmerald.opacity(0.35), radius: 10, x: 0, y: 5)
                         }
                         .padding(.top, 4)
 
