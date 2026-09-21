@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
+    @AppStorage("userFirstName") private var userFirstName: String = "FirstName"
 
     // Decoupled from tab switching; initializer retained with default nil for backward-compatibility
     init(selectedTab: Binding<Int>? = nil) {}
@@ -11,15 +12,14 @@ struct HomeView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 24) {
                     // Greeting Header
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Welcome back,")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        Text("Hello, Plant Parent! 🌿")
-                            .font(.title.weight(.bold))
+                    HStack {
+                        Text("Hello, \(userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "FirstName" : userFirstName) 🌿")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
                             .foregroundColor(.primary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.85)
+                        Spacer()
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
                     .padding(.top, 12)
 
