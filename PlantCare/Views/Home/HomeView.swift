@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @AppStorage("userFirstName") private var userFirstName: String = "FirstName"
+    @State private var selectedCareTip: PlantCareTip? = nil
 
     // Decoupled from tab switching; initializer retained with default nil for backward-compatibility
     init(selectedTab: Binding<Int>? = nil) {}
@@ -129,7 +130,14 @@ struct HomeView: View {
 
                         VStack(spacing: 14) {
                             ForEach(viewModel.careTips) { tip in
-                                PlantCareTipCard(tip: tip)
+                                Button {
+                                    let generator = UIImpactFeedbackGenerator(style: .light)
+                                    generator.impactOccurred()
+                                    selectedCareTip = tip
+                                } label: {
+                                    PlantCareTipCard(tip: tip)
+                                }
+                                .buttonStyle(.plain)
                             }
                         }
                         .padding(.horizontal, 20)
@@ -140,6 +148,9 @@ struct HomeView: View {
             }
             .ambientGlassBackground()
             .navigationBarHidden(true)
+            .sheet(item: $selectedCareTip) { tip in
+                CareTipDetailView(tip: tip)
+            }
         }
     }
 }
@@ -149,7 +160,7 @@ struct PlantCareTipCard: View {
     let tip: PlantCareTip
 
     var body: some View {
-        HStack(alignment: .top, spacing: 14) {
+        HStack(alignment: .center, spacing: 14) {
             // Thematic Icon Badge
             CareTipIconBadge(
                 iconName: tip.iconName,
@@ -196,6 +207,14 @@ struct PlantCareTipCard: View {
                     .foregroundColor(.primary.opacity(0.78))
                     .fixedSize(horizontal: false, vertical: true)
             }
+
+            Spacer(minLength: 0)
+
+            // Sleek Trailing Chevron Cue
+            Image(systemName: "chevron.right")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundColor(.secondary.opacity(0.45))
+                .padding(.leading, 2)
         }
         .padding(16)
         .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.85, hasSpecularBorder: true)

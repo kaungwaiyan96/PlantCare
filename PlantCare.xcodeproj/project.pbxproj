@@ -41,6 +41,7 @@
 		2D0E62FEA10E8B33F7F809A9 /* flaticon_foliage_leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = 113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */; };
 		4A6928D9FB3964852868EAE1 /* flaticon_sunlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */; };
 		BCCCF92594ACF27075CC20F7 /* flaticon_sprout.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */; };
+		2EF80BDB313DE1D7FE7FD7E3 /* CareTipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFDE3E6ACDE5345D5443154 /* CareTipDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		113DA615BCC44AC0BB2D04BE /* flaticon_foliage_leaf.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_foliage_leaf.png; path = PlantCare/Resources/Icons/flaticon_foliage_leaf.png; sourceTree = "<group>"; };
 		022CA6E5B79B57CE2FCB648C /* flaticon_sunlight.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sunlight.png; path = PlantCare/Resources/Icons/flaticon_sunlight.png; sourceTree = "<group>"; };
 		1EB6F444263A9B40C1E6B9F0 /* flaticon_sprout.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sprout.png; path = PlantCare/Resources/Icons/flaticon_sprout.png; sourceTree = "<group>"; };
+		DAFDE3E6ACDE5345D5443154 /* CareTipDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CareTipDetailView.swift; path = PlantCare/Views/Home/CareTipDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				FCF2B00190DB30A20B49C0D1 /* MyGardenView.swift */,
 				5D12B8B6958AA52B9D048596 /* SavedPlantDetailView.swift */,
 				C489357F9950A6B7D085DDD9 /* HomeView.swift */,
+				DAFDE3E6ACDE5345D5443154 /* CareTipDetailView.swift */,
 				07909043FB1E0BFF7F2D3F41 /* MainTabView.swift */,
 				E75000C900AE4613B13904E0 /* PlantProfileView.swift */,
 				BD4F31DE906090B9091B2D65 /* IdentificationResultView.swift */,
@@ -316,6 +319,7 @@
 				99D30D9CC81DA5790D8AAA9C /* MyGardenView.swift in Sources */,
 				F03663BE7ABCE679EE17A978 /* SavedPlantDetailView.swift in Sources */,
 				F7971DED6F304F3654609A10 /* HomeView.swift in Sources */,
+				2EF80BDB313DE1D7FE7FD7E3 /* CareTipDetailView.swift in Sources */,
 				98873B1C0212A53A7F5FD9B8 /* MainTabView.swift in Sources */,
 				7CD37CC3A948395624950B53 /* PlantProfileView.swift in Sources */,
 				D80CA036406249350B86ED6C /* IdentificationResultView.swift in Sources */,
