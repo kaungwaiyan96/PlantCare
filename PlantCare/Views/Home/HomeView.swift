@@ -13,7 +13,7 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     // Greeting Header
                     HStack {
-                        Text("Hello, \(userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "FirstName" : userFirstName) 🌿")
+                        Text("Hello, \(userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "FirstName" : userFirstName)")
                             .font(.system(size: 28, weight: .bold, design: .rounded))
                             .foregroundColor(.primary)
                             .lineLimit(1)
