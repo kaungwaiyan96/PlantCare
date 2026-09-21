@@ -313,7 +313,7 @@ struct ScanPlantView: View {
         .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 3)
     }
 
-    // MARK: - 5. Ergonomic 3-Item Bottom Control Dock
+    // MARK: - 5. Ergonomic Bottom Control Dock
 
     private var bottomControlsDock: some View {
         HStack(alignment: .center) {
@@ -335,12 +335,19 @@ struct ScanPlantView: View {
             }
             .frame(maxWidth: .infinity)
 
-            // Right Item: Sample Specimen Demo or Retake Button
+            // Right Item: Retake button (only when image selected) or transparent balance spacer
             VStack(spacing: 6) {
-                sampleOrRetakeButton
-                Text(viewModel.selectedImage != nil ? "Retake" : "Sample")
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
-                    .foregroundColor(.white.opacity(0.85))
+                if viewModel.selectedImage != nil {
+                    retakeButton
+                    Text("Retake")
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(.white.opacity(0.85))
+                } else {
+                    Color.clear
+                        .frame(width: 54, height: 54)
+                    Text(" ")
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                }
             }
             .frame(maxWidth: .infinity)
         }
@@ -434,23 +441,14 @@ struct ScanPlantView: View {
         .accessibilityLabel("Take photo and identify plant")
     }
 
-    // MARK: - 8. Right Sample / Retake Button
+    // MARK: - 8. Retake Button (Visible when photo is selected)
 
-    private var sampleOrRetakeButton: some View {
+    private var retakeButton: some View {
         Button {
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
-
-            if viewModel.selectedImage != nil {
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                    viewModel.reset()
-                }
-            } else {
-                // Quick load specimen
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                    viewModel.selectedImage = UIImage(named: "CameraSpecimen") ?? createSamplePlantImage()
-                }
-                triggerShutterCapture()
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
+                viewModel.reset()
             }
         } label: {
             ZStack {
@@ -463,20 +461,14 @@ struct ScanPlantView: View {
                             .stroke(Color.white.opacity(0.28), lineWidth: 1.5)
                     )
 
-                if viewModel.selectedImage != nil {
-                    Image(systemName: "arrow.counterclockwise")
-                        .font(.system(size: 19, weight: .semibold))
-                        .foregroundColor(.white)
-                } else {
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(Color.botanicalMint)
-                }
+                Image(systemName: "arrow.counterclockwise")
+                    .font(.system(size: 19, weight: .semibold))
+                    .foregroundColor(.white)
             }
             .shadow(color: Color.black.opacity(0.35), radius: 6, x: 0, y: 3)
         }
         .disabled(viewModel.isAnalyzing)
-        .accessibilityLabel(viewModel.selectedImage != nil ? "Retake photo" : "Sample specimen")
+        .accessibilityLabel("Retake photo")
     }
 
     // MARK: - 9. Trigger Shutter Action
