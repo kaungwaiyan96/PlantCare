@@ -135,8 +135,8 @@ struct AuthView: View {
                                     Image(systemName: "person.fill")
                                         .foregroundColor(.botanicalEmerald)
                                         .frame(width: 20)
-                                    TextField("First Name (e.g. Kaung Wai)", text: $firstNameInput)
-                                        .textContentType(.givenName)
+                                    TextField("Name", text: $firstNameInput)
+                                        .textContentType(.name)
                                         .autocapitalization(.words)
                                         .focused($focusedField, equals: .firstName)
                                         .submitLabel(.next)
@@ -283,7 +283,7 @@ struct AuthView: View {
         if isSignUpMode {
             let cleanFirst = firstNameInput.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !cleanFirst.isEmpty else {
-                errorMessage = "Please enter your first name."
+                errorMessage = "Please enter your name."
                 generator.notificationOccurred(.warning)
                 return
             }
