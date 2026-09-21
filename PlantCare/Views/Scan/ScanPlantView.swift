@@ -49,39 +49,39 @@ struct ScanPlantView: View {
                 // 2. Main Camera Interface Layout
                 GeometryReader { geo in
                     let screenHeight = geo.size.height
-                    let viewfinderHeight = min(max(screenHeight * 0.58, 380), 490)
+                    let viewfinderHeight = min(max(screenHeight * 0.69, 450), 610)
 
                     VStack(spacing: 0) {
                         // Top Header Bar
                         topHeaderBar
-                            .padding(.horizontal, 20)
-                            .padding(.top, 8)
-                            .padding(.bottom, 12)
+                            .padding(.horizontal, 16)
+                            .padding(.top, 4)
+                            .padding(.bottom, 8)
 
-                        // Center Viewfinder Viewport
+                        // Center Viewfinder Viewport (Expanded Image Viewing Area)
                         viewfinderViewport(height: viewfinderHeight)
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 12)
 
                         // Diagnostics / Error Notification Banner (if any)
                         if let errorMsg = viewModel.errorMessage {
                             errorNotificationBanner(errorMsg)
-                                .padding(.horizontal, 20)
-                                .padding(.top, 10)
+                                .padding(.horizontal, 16)
+                                .padding(.top, 8)
                         }
 
-                        Spacer(minLength: 16)
+                        Spacer(minLength: 8)
 
                         // Floating AI Analysis Status Pill (Visible during scanning)
                         if viewModel.isAnalyzing {
                             animatedStatusPill
                                 .transition(.opacity.combined(with: .scale(scale: 0.94)))
-                                .padding(.bottom, 14)
+                                .padding(.bottom, 10)
                         }
 
-                        // Ergonomic 3-Item Control Toolbar (Gallery | Shutter | Retake/Specimen)
+                        // Ergonomic Bottom Control Dock
                         bottomControlsDock
                             .padding(.horizontal, 28)
-                            .padding(.bottom, 32)
+                            .padding(.bottom, 24)
                     }
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
@@ -329,7 +329,7 @@ struct ScanPlantView: View {
             // Center Item: Primary Concentric Shutter Button with Centered Camera Icon
             VStack(spacing: 6) {
                 shutterButton
-                Text(viewModel.selectedImage != nil ? "Scan" : "Identify")
+                Text("Identify")
                     .font(.system(size: 11, weight: .semibold, design: .rounded))
                     .foregroundColor(.white.opacity(0.95))
             }

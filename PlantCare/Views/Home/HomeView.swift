@@ -3,7 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @AppStorage("userFirstName") private var userFirstName: String = "FirstName"
-    @State private var selectedCareTip: PlantCareTip? = nil
+    @State private var selectedCareTip: PlantCareTip?
     @State private var showProfileSheet: Bool = false
 
     // Decoupled from tab switching; initializer retained with default nil for backward-compatibility

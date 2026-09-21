@@ -93,7 +93,7 @@ struct CustomGlassTabBar: View {
             opacity: 0.92,
             hasSpecularBorder: true
         )
-        .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
+        .shadow(color: Color.black.opacity(0.12), radius: 16, x: 0, y: 8)
     }
 }
 
