@@ -1,11 +1,10 @@
 import SwiftUI
 import PhotosUI
 
-/// Elegant, production-grade camera scanner faithfully matching `camera_scan.mp4`.
-/// Features a continuous 24pt white rounded rectangular viewfinder,
-/// sweeping glowing laser beam, coordinate twinkling sparkles (`✦` / `+`),
-/// circular gallery thumbnail button, concentric tactile camera shutter with centered icon,
-/// and dynamic rotating search status typography.
+/// Refined, world-class Apple HIG camera scanner for botanical species identification.
+/// Features a precision viewfinder with photorealistic specimen preview, Apple Pro Camera
+/// corner brackets, dynamic autofocus indicator, ergonomic 3-item bottom dock,
+/// and centered camera shutter button.
 struct ScanPlantView: View {
     @ObservedObject var viewModel: ScanViewModel
     @Binding var selectedTab: Int
@@ -15,11 +14,11 @@ struct ScanPlantView: View {
     @State private var isTorchOn = false
     @State private var statusIndex = 0
 
-    // Staged status transitions matching camera_scan.mp4
+    // Staged status transitions during AI inference
     private let statusMessages = [
-        "Browsing our database...",
-        "Narrowing down the search...",
-        "Identifying the plant species..."
+        "Browsing botanical index...",
+        "Analyzing leaf morphology...",
+        "Matching plant species..."
     ]
 
     init(viewModel: ScanViewModel, selectedTab: Binding<Int> = .constant(1)) {
@@ -30,27 +29,27 @@ struct ScanPlantView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // 1. Cinematic Dark Camera Canvas Background
+                // 1. Cinematic Pro Camera Dark Canvas
                 Color.black
                     .ignoresSafeArea()
 
-                // Ambient botanical subtle background glow
+                // Subtle ambient botanical depth glow
                 RadialGradient(
                     colors: [
-                        Color.botanicalEmerald.opacity(0.16),
-                        Color.black.opacity(0.90),
+                        Color.botanicalEmerald.opacity(0.18),
+                        Color.black.opacity(0.92),
                         Color.black
                     ],
                     center: .center,
                     startRadius: 80,
-                    endRadius: 420
+                    endRadius: 460
                 )
                 .ignoresSafeArea()
 
                 // 2. Main Camera Interface Layout
                 GeometryReader { geo in
                     let screenHeight = geo.size.height
-                    let viewfinderHeight = min(max(screenHeight * 0.58, 380), 470)
+                    let viewfinderHeight = min(max(screenHeight * 0.58, 380), 490)
 
                     VStack(spacing: 0) {
                         // Top Header Bar
@@ -63,25 +62,26 @@ struct ScanPlantView: View {
                         viewfinderViewport(height: viewfinderHeight)
                             .padding(.horizontal, 20)
 
-                        // Diagnostics / Error Card (if any)
+                        // Diagnostics / Error Notification Banner (if any)
                         if let errorMsg = viewModel.errorMessage {
                             errorNotificationBanner(errorMsg)
                                 .padding(.horizontal, 20)
-                                .padding(.top, 8)
+                                .padding(.top, 10)
                         }
 
                         Spacer(minLength: 16)
 
-                        // Animated Progress Status Text (displayed above shutter during scanning)
+                        // Floating AI Analysis Status Pill (Visible during scanning)
                         if viewModel.isAnalyzing {
-                            animatedStatusIndicator
-                                .transition(.opacity.combined(with: .scale(scale: 0.96)))
-                                .padding(.bottom, 18)
+                            animatedStatusPill
+                                .transition(.opacity.combined(with: .scale(scale: 0.94)))
+                                .padding(.bottom, 14)
                         }
 
-                        // Concentric Camera Shutter Control with Centered Camera Icon
-                        shutterControlArea
-                            .padding(.bottom, 36)
+                        // Ergonomic 3-Item Control Toolbar (Gallery | Shutter | Retake/Specimen)
+                        bottomControlsDock
+                            .padding(.horizontal, 28)
+                            .padding(.bottom, 32)
                     }
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
@@ -95,7 +95,7 @@ struct ScanPlantView: View {
                     statusIndex = 0
                     Task {
                         while viewModel.isAnalyzing {
-                            try? await Task.sleep(nanoseconds: 1_500_000_000)
+                            try? await Task.sleep(nanoseconds: 1_400_000_000)
                             guard viewModel.isAnalyzing else { break }
                             withAnimation(.easeInOut(duration: 0.35)) {
                                 statusIndex = (statusIndex + 1) % statusMessages.count
@@ -111,7 +111,7 @@ struct ScanPlantView: View {
 
     private var topHeaderBar: some View {
         HStack(alignment: .center) {
-            // Left: Circular dark frosted button with xmark (dismiss / return to home)
+            // Dismiss / Back Button (44x44pt touch target)
             Button {
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.impactOccurred()
@@ -134,14 +134,44 @@ struct ScanPlantView: View {
                         )
 
                     Image(systemName: "xmark")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(.white)
                 }
             }
+            .accessibilityLabel("Close camera")
 
             Spacer()
 
-            // Right: Circular dark frosted button with sun.max / flash/torch toggle
+            // Guidance Prompt Pill (Apple HIG feedforward)
+            HStack(spacing: 6) {
+                Image(systemName: viewModel.isAnalyzing ? "sparkles" : "camera.viewfinder")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundColor(viewModel.isAnalyzing ? .botanicalMint : .white.opacity(0.85))
+
+                Text(viewModel.isAnalyzing ? "Analyzing specimen..." : "Point at leaves or flowers")
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .foregroundColor(.white)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 7)
+            .background(
+                Capsule()
+                    .fill(Color.black.opacity(0.55))
+                    .background(Capsule().fill(.ultraThinMaterial))
+                    .overlay(
+                        Capsule()
+                            .stroke(
+                                viewModel.isAnalyzing
+                                    ? Color.botanicalMint.opacity(0.6)
+                                    : Color.white.opacity(0.18),
+                                lineWidth: 1
+                            )
+                    )
+            )
+
+            Spacer()
+
+            // Flash / Torch Toggle Button (44x44pt touch target)
             Button {
                 let generator = UIImpactFeedbackGenerator(style: .light)
                 generator.impactOccurred()
@@ -163,10 +193,11 @@ struct ScanPlantView: View {
                         )
 
                     Image(systemName: isTorchOn ? "sun.max.fill" : "sun.max")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(isTorchOn ? .botanicalAmber : .white)
                 }
             }
+            .accessibilityLabel(isTorchOn ? "Turn torch off" : "Turn torch on")
         }
     }
 
@@ -174,258 +205,307 @@ struct ScanPlantView: View {
 
     private func viewfinderViewport(height: CGFloat) -> some View {
         ZStack {
-            // Viewfinder Base Content (Camera feed or Selected Image)
-            if let image = viewModel.selectedImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: height)
-                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-            } else {
-                simulatedCameraFeed(height: height)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: height)
-                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            // Viewfinder Base Content: Selected User Image OR Photorealistic Botanical Specimen
+            Group {
+                if let image = viewModel.selectedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: height)
+                } else {
+                    photorealisticSpecimenFeed(height: height)
+                }
             }
+            .clipped()
+            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
 
-            // High-Precision Reticle Overlay (Continuous 24pt White Border, Scanning Laser & Twinkling Sparkles)
+            // Apple Pro Camera Reticle Overlay (Corner Brackets, Autofocus Ring & Scanning Laser)
             GlassReticleOverlay(
                 isScanning: viewModel.isAnalyzing,
                 isTorchOn: isTorchOn
             )
             .frame(maxWidth: .infinity)
             .frame(height: height)
-
-            // Inside/at bottom-left of viewfinder: Photo Gallery Thumbnail Button (~46x46)
-            VStack {
-                Spacer()
-                HStack {
-                    photoGalleryThumbnailButton
-                        .padding(.leading, 16)
-                        .padding(.bottom, 16)
-
-                    Spacer()
-
-                    // If photo is loaded and idle, show Retake button in bottom right
-                    if viewModel.selectedImage != nil && !viewModel.isAnalyzing {
-                        Button {
-                            let generator = UIImpactFeedbackGenerator(style: .light)
-                            generator.impactOccurred()
-                            withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
-                                viewModel.reset()
-                            }
-                        } label: {
-                            HStack(spacing: 5) {
-                                Image(systemName: "arrow.counterclockwise")
-                                    .font(.system(size: 11, weight: .bold))
-                                Text("Retake")
-                                    .font(.system(size: 12, weight: .semibold, design: .rounded))
-                            }
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 7)
-                            .background(
-                                Capsule()
-                                    .fill(Color.black.opacity(0.65))
-                                    .background(Capsule().fill(.ultraThinMaterial))
-                                    .overlay(
-                                        Capsule()
-                                            .stroke(Color.white.opacity(0.25), lineWidth: 0.8)
-                                    )
-                            )
-                        }
-                        .padding(.trailing, 16)
-                        .padding(.bottom, 16)
-                        .transition(.scale.combined(with: .opacity))
-                    }
-                }
-            }
         }
         .frame(height: height)
-        .shadow(color: Color.black.opacity(0.4), radius: 18, x: 0, y: 8)
+        .shadow(color: Color.black.opacity(0.45), radius: 22, x: 0, y: 10)
     }
 
-    // MARK: - 3. Simulated Botanical Camera Specimen (Simulator & Zero-Hardware Experience)
+    // MARK: - 3. Photorealistic Botanical Specimen Feed
 
-    private func simulatedCameraFeed(height: CGFloat) -> some View {
+    private func photorealisticSpecimenFeed(height: CGFloat) -> some View {
         ZStack {
-            // Camera sensor depth gradient
+            // High-resolution botanical specimen photo
+            if let _ = UIImage(named: "CameraSpecimen") {
+                Image("CameraSpecimen")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: height)
+                    .overlay(
+                        // Cinematic optical grading
+                        LinearGradient(
+                            colors: [
+                                Color.black.opacity(0.18),
+                                Color.clear,
+                                Color.black.opacity(0.32)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+            } else {
+                // Procedural fallback if asset is missing
+                fallbackBotanicalSpecimen(height: height)
+            }
+        }
+    }
+
+    private func fallbackBotanicalSpecimen(height: CGFloat) -> some View {
+        ZStack {
             LinearGradient(
                 colors: [
-                    Color(hex: 0x081A12),
-                    Color(hex: 0x0E2E20),
-                    Color(hex: 0x07150E)
+                    Color(hex: 0x071D12),
+                    Color(hex: 0x0E3322),
+                    Color(hex: 0x06180E)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
 
-            // Botanical specimen preview graphic
-            GeometryReader { geo in
-                let w = geo.size.width
-                let h = geo.size.height
-
-                ZStack {
-                    // Soft background glow
-                    Circle()
-                        .fill(Color.botanicalMint.opacity(0.20))
-                        .frame(width: w * 0.7, height: w * 0.7)
-                        .blur(radius: 40)
-                        .position(x: w * 0.5, y: h * 0.45)
-
-                    // Specimen Leaf Icon
-                    Image(systemName: "leaf.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: w * 0.44, height: h * 0.44)
-                        .foregroundColor(Color.botanicalMint.opacity(0.32))
-                        .rotationEffect(.degrees(-18))
-                        .position(x: w * 0.5, y: h * 0.46)
-                }
+            VStack(spacing: 8) {
+                Image(systemName: "leaf.fill")
+                    .font(.system(size: 64, weight: .light))
+                    .foregroundColor(Color.botanicalMint.opacity(0.4))
+                Text("Monstera Deliciosa")
+                    .font(.system(size: 16, weight: .semibold, design: .serif))
+                    .foregroundColor(Color.white.opacity(0.8))
             }
         }
     }
 
-    // MARK: - 4. Circular Photo Gallery Thumbnail Button (~46x46)
+    // MARK: - 4. Live Scanning Status Pill
 
-    private var photoGalleryThumbnailButton: some View {
+    private var animatedStatusPill: some View {
+        HStack(spacing: 8) {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: Color.botanicalMint))
+                .scaleEffect(0.85)
+
+            Text(statusMessages[statusIndex])
+                .font(.system(size: 14, weight: .medium, design: .serif))
+                .foregroundColor(.white)
+                .contentTransition(.numericText())
+                .id(statusIndex)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(
+            Capsule()
+                .fill(Color.black.opacity(0.70))
+                .background(Capsule().fill(.ultraThinMaterial))
+                .overlay(
+                    Capsule()
+                        .stroke(Color.botanicalMint.opacity(0.4), lineWidth: 1)
+                )
+        )
+        .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 3)
+    }
+
+    // MARK: - 5. Ergonomic 3-Item Bottom Control Dock
+
+    private var bottomControlsDock: some View {
+        HStack(alignment: .center) {
+            // Left Item: Photo Library Gallery Button
+            VStack(spacing: 6) {
+                photoGalleryButton
+                Text("Gallery")
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.85))
+            }
+            .frame(maxWidth: .infinity)
+
+            // Center Item: Primary Concentric Shutter Button with Centered Camera Icon
+            VStack(spacing: 6) {
+                shutterButton
+                Text(viewModel.selectedImage != nil ? "Scan" : "Identify")
+                    .font(.system(size: 11, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white.opacity(0.95))
+            }
+            .frame(maxWidth: .infinity)
+
+            // Right Item: Sample Specimen Demo or Retake Button
+            VStack(spacing: 6) {
+                sampleOrRetakeButton
+                Text(viewModel.selectedImage != nil ? "Retake" : "Sample")
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.85))
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
+
+    // MARK: - 6. Left Gallery Button
+
+    private var photoGalleryButton: some View {
         PhotosPicker(selection: $photosPickerItem, matching: .images) {
             ZStack {
-                // Background & Border
                 Circle()
-                    .fill(Color.black.opacity(0.6))
+                    .fill(Color.black.opacity(0.55))
                     .background(Circle().fill(.ultraThinMaterial))
-                    .frame(width: 46, height: 46)
+                    .frame(width: 54, height: 54)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white.opacity(0.28), lineWidth: 1.5)
+                    )
 
-                // Thumbnail if user selected an image
                 if let selected = viewModel.selectedImage {
                     Image(uiImage: selected)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 46, height: 46)
+                        .frame(width: 48, height: 48)
                         .clipShape(Circle())
                 } else {
-                    // Specimen leaf preview thumbnail inside circle
-                    ZStack {
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.botanicalEmerald, Color.botanicalMint],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .frame(width: 42, height: 42)
-
-                        Image(systemName: "leaf.fill")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(.white)
-                    }
+                    Image(systemName: "photo.on.rectangle.angled")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundColor(.white)
                 }
-
-                // Crisp White Ring
-                Circle()
-                    .stroke(Color.white, lineWidth: 2)
-                    .frame(width: 46, height: 46)
             }
             .shadow(color: Color.black.opacity(0.35), radius: 6, x: 0, y: 3)
         }
+        .disabled(viewModel.isAnalyzing)
+        .accessibilityLabel("Photo gallery")
+        .accessibilityHint("Select an existing plant photo from library")
         .onChange(of: photosPickerItem) { _, newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data) {
                     viewModel.selectedImage = uiImage
-                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    let generator = UIImpactFeedbackGenerator(style: .medium)
                     generator.impactOccurred()
                 }
             }
         }
     }
 
-    // MARK: - 5. Concentric Camera Shutter Button with Centered Camera Icon
+    // MARK: - 7. Center Concentric Shutter Button with Centered Camera Icon
 
-    private var shutterControlArea: some View {
+    private var shutterButton: some View {
         Button {
             triggerShutterCapture()
         } label: {
             ZStack {
-                // Concentric Outer White Stroke Ring (76pt diameter, 3.5pt stroke with luminous glow)
+                // Outer Concentric Ring (80pt diameter, 3.5pt white border with luminous halo)
                 Circle()
                     .stroke(Color.white, lineWidth: 3.5)
-                    .frame(width: 76, height: 76)
-                    .shadow(color: Color.white.opacity(0.35), radius: 8, x: 0, y: 0)
+                    .frame(width: 80, height: 80)
+                    .shadow(color: Color.white.opacity(0.4), radius: 8, x: 0, y: 0)
 
-                // Depressible Inner Plunger (~60pt diameter) containing centered camera icon / progress spinner
+                // Inner Plunger Circle (64pt diameter) containing centered camera icon
                 ZStack {
                     Circle()
                         .fill(Color.white)
-                        .frame(width: 60, height: 60)
+                        .frame(width: 64, height: 64)
                         .shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 2)
 
-                    // Centered Camera Icon (Idle) or Progress Spinner (Analyzing)
                     if viewModel.isAnalyzing {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: Color.botanicalEmerald))
                             .scaleEffect(1.2)
                             .transition(.opacity.combined(with: .scale(scale: 0.85)))
                     } else {
+                        // Centered camera icon inside the circle
                         Image(systemName: "camera.fill")
-                            .font(.system(size: 24, weight: .bold))
+                            .font(.system(size: 25, weight: .bold))
                             .foregroundColor(Color(hex: 0x081A12))
                             .transition(.opacity.combined(with: .scale(scale: 0.85)))
                     }
                 }
-                .scaleEffect(isShutterPressed ? 0.88 : 1.0)
+                .scaleEffect(isShutterPressed ? 0.90 : 1.0)
             }
-            .frame(width: 76, height: 76)
+            .frame(width: 80, height: 80)
             .contentShape(Circle())
-            .animation(.spring(response: 0.28, dampingFraction: 0.65), value: isShutterPressed)
+            .animation(.spring(response: 0.25, dampingFraction: 0.65), value: isShutterPressed)
             .animation(.easeInOut(duration: 0.25), value: viewModel.isAnalyzing)
         }
         .buttonStyle(.plain)
         .disabled(viewModel.isAnalyzing)
-        .accessibilityLabel("Identify plant")
-        .accessibilityHint(viewModel.isAnalyzing ? "Analyzing plant specimen" : "Double tap to take a photo and identify plant")
-        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel("Take photo and identify plant")
     }
+
+    // MARK: - 8. Right Sample / Retake Button
+
+    private var sampleOrRetakeButton: some View {
+        Button {
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+
+            if viewModel.selectedImage != nil {
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
+                    viewModel.reset()
+                }
+            } else {
+                // Quick load specimen
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
+                    viewModel.selectedImage = UIImage(named: "CameraSpecimen") ?? createSamplePlantImage()
+                }
+                triggerShutterCapture()
+            }
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(Color.black.opacity(0.55))
+                    .background(Circle().fill(.ultraThinMaterial))
+                    .frame(width: 54, height: 54)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white.opacity(0.28), lineWidth: 1.5)
+                    )
+
+                if viewModel.selectedImage != nil {
+                    Image(systemName: "arrow.counterclockwise")
+                        .font(.system(size: 19, weight: .semibold))
+                        .foregroundColor(.white)
+                } else {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(Color.botanicalMint)
+                }
+            }
+            .shadow(color: Color.black.opacity(0.35), radius: 6, x: 0, y: 3)
+        }
+        .disabled(viewModel.isAnalyzing)
+        .accessibilityLabel(viewModel.selectedImage != nil ? "Retake photo" : "Sample specimen")
+    }
+
+    // MARK: - 9. Trigger Shutter Action
 
     private func triggerShutterCapture() {
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
 
-        withAnimation(.spring(response: 0.18, dampingFraction: 0.55)) {
+        withAnimation(.spring(response: 0.16, dampingFraction: 0.5)) {
             isShutterPressed = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
-            withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.14) {
+            withAnimation(.spring(response: 0.22, dampingFraction: 0.7)) {
                 isShutterPressed = false
             }
         }
 
-        // If no photo has been picked, instantaneously capture the simulated plant specimen
+        // If no photo selected yet, automatically capture the live specimen photo
         if viewModel.selectedImage == nil {
-            viewModel.selectedImage = createSamplePlantImage()
+            viewModel.selectedImage = UIImage(named: "CameraSpecimen") ?? createSamplePlantImage()
         }
 
-        // Initiate identification task
+        // Start AI identification pipeline
         Task {
             await viewModel.identifyCurrentPhoto()
         }
     }
 
-    // MARK: - 6. Animated Progress Status Indicator (Matching camera_scan.mp4 typography)
-
-    private var animatedStatusIndicator: some View {
-        Text(statusMessages[statusIndex])
-            .font(.system(size: 16, weight: .medium, design: .serif))
-            .foregroundColor(.white)
-            .shadow(color: Color.black.opacity(0.4), radius: 4, x: 0, y: 2)
-            .contentTransition(.numericText())
-            .id(statusIndex)
-    }
-
-    // MARK: - 7. Error Notification Banner
+    // MARK: - 10. Error Notification Banner
 
     private func errorNotificationBanner(_ errorMsg: String) -> some View {
         HStack(spacing: 10) {
@@ -463,7 +543,7 @@ struct ScanPlantView: View {
         .transition(.move(edge: .top).combined(with: .opacity))
     }
 
-    // MARK: - 8. Botanical Sample Image Generator (Robust Simulator Specimen)
+    // MARK: - 11. Botanical Sample Fallback Generator
 
     private func createSamplePlantImage() -> UIImage {
         let size = CGSize(width: 800, height: 1000)
@@ -471,7 +551,6 @@ struct ScanPlantView: View {
         return renderer.image { context in
             let cgContext = context.cgContext
 
-            // Lush Botanical Background Gradient
             let colors = [
                 UIColor(red: 0.05, green: 0.22, blue: 0.14, alpha: 1.0).cgColor,
                 UIColor(red: 0.10, green: 0.38, blue: 0.24, alpha: 1.0).cgColor
@@ -486,58 +565,11 @@ struct ScanPlantView: View {
                 )
             }
 
-            // Decorative Leaf Blade Shape
-            let leafPath = UIBezierPath()
-            leafPath.move(to: CGPoint(x: 400, y: 160))
-            leafPath.addCurve(
-                to: CGPoint(x: 640, y: 520),
-                controlPoint1: CGPoint(x: 600, y: 220),
-                controlPoint2: CGPoint(x: 680, y: 380)
-            )
-            leafPath.addCurve(
-                to: CGPoint(x: 400, y: 820),
-                controlPoint1: CGPoint(x: 600, y: 680),
-                controlPoint2: CGPoint(x: 480, y: 780)
-            )
-            leafPath.addCurve(
-                to: CGPoint(x: 160, y: 520),
-                controlPoint1: CGPoint(x: 320, y: 780),
-                controlPoint2: CGPoint(x: 200, y: 680)
-            )
-            leafPath.addCurve(
-                to: CGPoint(x: 400, y: 160),
-                controlPoint1: CGPoint(x: 120, y: 380),
-                controlPoint2: CGPoint(x: 200, y: 220)
-            )
-            leafPath.close()
-
-            UIColor(red: 0.32, green: 0.72, blue: 0.53, alpha: 0.45).setFill()
-            leafPath.fill()
-
-            UIColor(red: 0.53, green: 0.85, blue: 0.68, alpha: 0.8).setStroke()
-            leafPath.lineWidth = 4
-            leafPath.stroke()
-
-            // Central Leaf Stem / Vein
-            let stemPath = UIBezierPath()
-            stemPath.move(to: CGPoint(x: 400, y: 180))
-            stemPath.addLine(to: CGPoint(x: 400, y: 820))
-            UIColor(red: 0.53, green: 0.85, blue: 0.68, alpha: 0.75).setStroke()
-            stemPath.lineWidth = 6
-            stemPath.stroke()
-
-            // Botanical Label Card at the bottom
             let titleAttrs: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 42, weight: .bold),
                 .foregroundColor: UIColor.white
             ]
-            let subtitleAttrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 22, weight: .medium),
-                .foregroundColor: UIColor(white: 0.85, alpha: 0.9)
-            ]
-
             ("Monstera Deliciosa").draw(at: CGPoint(x: 80, y: 870), withAttributes: titleAttrs)
-            ("Botanical Specimen • Swiss Cheese Plant").draw(at: CGPoint(x: 80, y: 924), withAttributes: subtitleAttrs)
         }
     }
 }

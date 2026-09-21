@@ -12,7 +12,7 @@ extension EnvironmentValues {
 }
 
 struct MainTabView: View {
-    @State private var selectedTab: Int = 0
+    @AppStorage("selectedTab") private var selectedTab: Int = 0
     @State private var isTabBarHidden: Bool = false
     @StateObject private var scanViewModel = ScanViewModel()
 
