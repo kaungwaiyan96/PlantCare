@@ -4,8 +4,8 @@ import PhotosUI
 /// Elegant, production-grade camera scanner faithfully matching `camera_scan.mp4`.
 /// Features a continuous 24pt white rounded rectangular viewfinder,
 /// sweeping glowing laser beam, coordinate twinkling sparkles (`✦` / `+`),
-/// circular gallery thumbnail button, concentric physical camera shutter,
-/// dynamic rotating search status typography, and a floating dark mode capsule.
+/// circular gallery thumbnail button, concentric tactile camera shutter with centered icon,
+/// and dynamic rotating search status typography.
 struct ScanPlantView: View {
     @ObservedObject var viewModel: ScanViewModel
     @Binding var selectedTab: Int
@@ -13,15 +13,13 @@ struct ScanPlantView: View {
     @State private var photosPickerItem: PhotosPickerItem?
     @State private var isShutterPressed = false
     @State private var isTorchOn = false
-    @State private var selectedMode: ScannerMode = .photo
     @State private var statusIndex = 0
-    @Namespace private var modeNamespace
 
     // Staged status transitions matching camera_scan.mp4
     private let statusMessages = [
-        "Browsing our database",
-        "Narrowing down the search",
-        "Identifying the plant species"
+        "Browsing our database...",
+        "Narrowing down the search...",
+        "Identifying the plant species..."
     ]
 
     init(viewModel: ScanViewModel, selectedTab: Binding<Int> = .constant(1)) {
@@ -74,20 +72,16 @@ struct ScanPlantView: View {
 
                         Spacer(minLength: 16)
 
-                        // Concentric Camera Shutter Control
-                        shutterControlArea
-                            .padding(.bottom, viewModel.isAnalyzing ? 12 : 18)
-
-                        // Animated Progress Status Text (displayed below shutter during scanning)
+                        // Animated Progress Status Text (displayed above shutter during scanning)
                         if viewModel.isAnalyzing {
                             animatedStatusIndicator
                                 .transition(.opacity.combined(with: .scale(scale: 0.96)))
-                                .padding(.bottom, 16)
+                                .padding(.bottom, 18)
                         }
 
-                        // Floating Mode Switcher Capsule (Photo vs Barcode)
-                        modeSwitcherCapsule
-                            .padding(.bottom, 20)
+                        // Concentric Camera Shutter Control with Centered Camera Icon
+                        shutterControlArea
+                            .padding(.bottom, 36)
                     }
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
@@ -349,36 +343,51 @@ struct ScanPlantView: View {
         }
     }
 
-    // MARK: - 5. Concentric Camera Shutter Button
+    // MARK: - 5. Concentric Camera Shutter Button with Centered Camera Icon
 
     private var shutterControlArea: some View {
         Button {
             triggerShutterCapture()
         } label: {
             ZStack {
-                // Concentric Outer White Stroke Ring (~72pt)
+                // Concentric Outer White Stroke Ring (76pt diameter, 3.5pt stroke with luminous glow)
                 Circle()
                     .stroke(Color.white, lineWidth: 3.5)
-                    .frame(width: 72, height: 72)
+                    .frame(width: 76, height: 76)
                     .shadow(color: Color.white.opacity(0.35), radius: 8, x: 0, y: 0)
 
-                // Concentric Inner Solid White Circular Button (~58pt with smooth press scale effect)
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 58, height: 58)
-                    .scaleEffect(isShutterPressed ? 0.88 : 1.0)
-                    .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0, y: 2)
+                // Depressible Inner Plunger (~60pt diameter) containing centered camera icon / progress spinner
+                ZStack {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 60, height: 60)
+                        .shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 2)
 
-                // When analyzing, display subtle circular emerald spinner inside shutter
-                if viewModel.isAnalyzing {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .botanicalEmerald))
-                        .scaleEffect(1.1)
+                    // Centered Camera Icon (Idle) or Progress Spinner (Analyzing)
+                    if viewModel.isAnalyzing {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color.botanicalEmerald))
+                            .scaleEffect(1.2)
+                            .transition(.opacity.combined(with: .scale(scale: 0.85)))
+                    } else {
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundColor(Color(hex: 0x081A12))
+                            .transition(.opacity.combined(with: .scale(scale: 0.85)))
+                    }
                 }
+                .scaleEffect(isShutterPressed ? 0.88 : 1.0)
             }
+            .frame(width: 76, height: 76)
+            .contentShape(Circle())
+            .animation(.spring(response: 0.28, dampingFraction: 0.65), value: isShutterPressed)
+            .animation(.easeInOut(duration: 0.25), value: viewModel.isAnalyzing)
         }
         .buttonStyle(.plain)
         .disabled(viewModel.isAnalyzing)
+        .accessibilityLabel("Identify plant")
+        .accessibilityHint(viewModel.isAnalyzing ? "Analyzing plant specimen" : "Double tap to take a photo and identify plant")
+        .accessibilityAddTraits(.isButton)
     }
 
     private func triggerShutterCapture() {
@@ -416,60 +425,7 @@ struct ScanPlantView: View {
             .id(statusIndex)
     }
 
-    // MARK: - 7. Bottom Mode Switcher Capsule
-
-    private var modeSwitcherCapsule: some View {
-        HStack(spacing: 6) {
-            ForEach(ScannerMode.allCases) { mode in
-                Button {
-                    let generator = UIImpactFeedbackGenerator(style: .light)
-                    generator.impactOccurred()
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.72)) {
-                        selectedMode = mode
-                    }
-                } label: {
-                    HStack(spacing: 7) {
-                        Image(systemName: mode.icon)
-                            .font(.system(size: 14, weight: .semibold))
-
-                        Text(mode.rawValue)
-                            .font(.system(size: 14, weight: .semibold, design: .rounded))
-                    }
-                    .foregroundColor(selectedMode == mode ? .white : .white.opacity(0.70))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-                    .background {
-                        if selectedMode == mode {
-                            Capsule()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [Color.botanicalEmerald, Color.botanicalMint],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .shadow(color: Color.botanicalEmerald.opacity(0.45), radius: 8, x: 0, y: 3)
-                                .matchedGeometryEffect(id: "ActiveModeCapsule", in: modeNamespace)
-                        }
-                    }
-                }
-                .buttonStyle(.plain)
-            }
-        }
-        .padding(4)
-        .background(
-            Capsule()
-                .fill(Color.black.opacity(0.75))
-                .background(Capsule().fill(.ultraThinMaterial))
-                .overlay(
-                    Capsule()
-                        .stroke(Color.white.opacity(0.18), lineWidth: 1)
-                )
-        )
-        .shadow(color: Color.black.opacity(0.35), radius: 14, x: 0, y: 6)
-    }
-
-    // MARK: - 8. Error Notification Banner
+    // MARK: - 7. Error Notification Banner
 
     private func errorNotificationBanner(_ errorMsg: String) -> some View {
         HStack(spacing: 10) {
@@ -507,7 +463,7 @@ struct ScanPlantView: View {
         .transition(.move(edge: .top).combined(with: .opacity))
     }
 
-    // MARK: - 9. Botanical Sample Image Generator (Robust Simulator Specimen)
+    // MARK: - 8. Botanical Sample Image Generator (Robust Simulator Specimen)
 
     private func createSamplePlantImage() -> UIImage {
         let size = CGSize(width: 800, height: 1000)
@@ -582,22 +538,6 @@ struct ScanPlantView: View {
 
             ("Monstera Deliciosa").draw(at: CGPoint(x: 80, y: 870), withAttributes: titleAttrs)
             ("Botanical Specimen • Swiss Cheese Plant").draw(at: CGPoint(x: 80, y: 924), withAttributes: subtitleAttrs)
-        }
-    }
-}
-
-// MARK: - Scanner Mode Definition
-
-enum ScannerMode: String, CaseIterable, Identifiable {
-    case photo = "Photo"
-    case barcode = "Barcode"
-
-    var id: String { rawValue }
-
-    var icon: String {
-        switch self {
-        case .photo: return "camera.fill"
-        case .barcode: return "barcode.viewfinder"
         }
     }
 }
