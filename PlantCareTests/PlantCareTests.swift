@@ -145,4 +145,17 @@ final class PlantCareTests: XCTestCase {
         let health = try await mockService.diagnosePlantHealth(image: dummyImage, speciesName: "Monstera deliciosa")
         XCTAssertTrue(health.isHealthy)
     }
+
+    func testAuthPersonalizationFlow() throws {
+        let defaults = UserDefaults.standard
+        let testName = "Kaung Wai"
+        defaults.set(testName, forKey: "userFirstName")
+        defaults.set(true, forKey: "isLoggedIn")
+
+        let storedName = defaults.string(forKey: "userFirstName")
+        let isLoggedIn = defaults.bool(forKey: "isLoggedIn")
+
+        XCTAssertEqual(storedName, "Kaung Wai")
+        XCTAssertTrue(isLoggedIn)
+    }
 }

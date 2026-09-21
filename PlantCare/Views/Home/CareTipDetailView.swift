@@ -13,37 +13,21 @@ struct CareTipDetailView: View {
                     // Hero Icon & Category Header
                     VStack(alignment: .leading, spacing: 14) {
                         HStack(alignment: .top) {
-                            // Large 64x64 Flaticon Icon Squircle
+                            // Refined Minimalist Frosted Medallion (No loud colors & harsh glows)
                             ZStack {
-                                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                    .fill(
-                                        LinearGradient(
-                                            colors: [
-                                                tip.themeColor.opacity(0.28),
-                                                tip.themeColor.opacity(0.10)
-                                            ],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    )
+                                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                    .fill(.ultraThinMaterial)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                            .stroke(tip.themeColor.opacity(0.4), lineWidth: 1.5)
+                                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                            .stroke(Color.white.opacity(0.35), lineWidth: 1)
                                     )
 
-                                if let image = loadIconImage(named: tip.iconName) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 36, height: 36)
-                                } else {
-                                    Image(systemName: tip.fallbackSymbol)
-                                        .font(.system(size: 28, weight: .semibold))
-                                        .foregroundColor(tip.themeColor)
-                                }
+                                Image(systemName: tip.fallbackSymbol)
+                                    .font(.system(size: 26, weight: .medium))
+                                    .foregroundColor(.botanicalEmerald)
                             }
-                            .frame(width: 64, height: 64)
-                            .shadow(color: tip.themeColor.opacity(0.25), radius: 10, x: 0, y: 4)
+                            .frame(width: 56, height: 56)
+                            .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 3)
 
                             Spacer()
 
@@ -71,14 +55,14 @@ struct CareTipDetailView: View {
                         // Category Pill & Read Time
                         HStack(spacing: 8) {
                             Text(tip.category.uppercased())
-                                .font(.system(size: 11, weight: .heavy, design: .rounded))
-                                .tracking(1.2)
-                                .foregroundColor(tip.themeColor)
+                                .font(.system(size: 11, weight: .bold, design: .rounded))
+                                .tracking(1.0)
+                                .foregroundColor(.botanicalEmerald)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 4)
                                 .background(
                                     Capsule()
-                                        .fill(tip.themeColor.opacity(0.16))
+                                        .fill(Color.botanicalEmerald.opacity(0.08))
                                 )
 
                             Text("•")
@@ -115,7 +99,7 @@ struct CareTipDetailView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "sparkles")
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(tip.themeColor)
+                                .foregroundColor(.botanicalEmerald)
                             Text("The Science & Why It Matters")
                                 .font(.system(size: 16, weight: .bold, design: .rounded))
                                 .foregroundColor(.primary)
@@ -143,11 +127,11 @@ struct CareTipDetailView: View {
                                     // Step Number Bubble
                                     ZStack {
                                         Circle()
-                                            .fill(tip.themeColor.opacity(0.18))
-                                            .frame(width: 32, height: 32)
+                                            .fill(Color.botanicalEmerald.opacity(0.12))
+                                            .frame(width: 30, height: 30)
                                         Text("\(step.stepNumber)")
-                                            .font(.system(size: 14, weight: .bold, design: .rounded))
-                                            .foregroundColor(tip.themeColor)
+                                            .font(.system(size: 13, weight: .bold, design: .rounded))
+                                            .foregroundColor(.botanicalEmerald)
                                     }
 
                                     VStack(alignment: .leading, spacing: 4) {

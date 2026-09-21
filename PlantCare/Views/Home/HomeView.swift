@@ -4,6 +4,7 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @AppStorage("userFirstName") private var userFirstName: String = "FirstName"
     @State private var selectedCareTip: PlantCareTip? = nil
+    @State private var showProfileSheet: Bool = false
 
     // Decoupled from tab switching; initializer retained with default nil for backward-compatibility
     init(selectedTab: Binding<Int>? = nil) {}
@@ -12,14 +13,36 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 24) {
-                    // Greeting Header
-                    HStack {
+                    // Greeting Header with Interactive Profile Avatar
+                    HStack(alignment: .center) {
                         Text("Hello, \(userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "FirstName" : userFirstName)")
                             .font(.system(size: 28, weight: .bold, design: .rounded))
                             .foregroundColor(.primary)
                             .lineLimit(1)
                             .minimumScaleFactor(0.85)
+
                         Spacer()
+
+                        // Frosted Profile Avatar Trigger for Easy Sign Out / Inspection
+                        Button {
+                            let generator = UIImpactFeedbackGenerator(style: .light)
+                            generator.impactOccurred()
+                            showProfileSheet = true
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(.ultraThinMaterial)
+                                Circle()
+                                    .stroke(Color.white.opacity(0.35), lineWidth: 1.2)
+
+                                Text(String((userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "F" : userFirstName).prefix(1)).uppercased())
+                                    .font(.system(size: 15, weight: .bold, design: .rounded))
+                                    .foregroundColor(.botanicalEmerald)
+                            }
+                            .frame(width: 40, height: 40)
+                            .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 2)
+                        }
+                        .buttonStyle(.plain)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 12)
@@ -151,41 +174,43 @@ struct HomeView: View {
             .sheet(item: $selectedCareTip) { tip in
                 CareTipDetailView(tip: tip)
             }
+            .sheet(isPresented: $showProfileSheet) {
+                UserProfileSheet()
+            }
         }
     }
 }
 
-// MARK: - Dedicated Care Tip Card Component
+// MARK: - Sophisticated Minimalist Tip Card
 struct PlantCareTipCard: View {
     let tip: PlantCareTip
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
-            // Thematic Icon Badge
+            // Refined Minimalist Frosted Icon Badge (No loud colors/glows)
             CareTipIconBadge(
                 iconName: tip.iconName,
-                fallbackSymbol: tip.fallbackSymbol,
-                themeColor: tip.themeColor
+                fallbackSymbol: tip.fallbackSymbol
             )
 
-            // Structured Content
-            VStack(alignment: .leading, spacing: 6) {
-                // Category Pill & Read Time
-                HStack(spacing: 8) {
+            // Clean Structured Content
+            VStack(alignment: .leading, spacing: 5) {
+                // Neutral Subdued Category Tag & Read Time
+                HStack(spacing: 6) {
                     Text(tip.category.uppercased())
-                        .font(.system(size: 10, weight: .heavy, design: .rounded))
+                        .font(.system(size: 10, weight: .bold, design: .rounded))
                         .tracking(1.0)
-                        .foregroundColor(tip.themeColor)
-                        .padding(.horizontal, 8)
+                        .foregroundColor(.botanicalEmerald)
+                        .padding(.horizontal, 7)
                         .padding(.vertical, 3)
                         .background(
                             Capsule()
-                                .fill(tip.themeColor.opacity(0.14))
+                                .fill(Color.botanicalEmerald.opacity(0.08))
                         )
 
                     Text("•")
                         .font(.caption2)
-                        .foregroundColor(.secondary.opacity(0.6))
+                        .foregroundColor(.secondary.opacity(0.4))
 
                     Text(tip.readTime)
                         .font(.system(size: 11, weight: .medium, design: .rounded))
@@ -196,91 +221,52 @@ struct PlantCareTipCard: View {
 
                 // Tip Title
                 Text(tip.title)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .font(.system(size: 15, weight: .bold, design: .rounded))
                     .foregroundColor(.primary)
                     .lineLimit(1)
 
-                // Tip Description
+                // Tip Description (Muted, readable)
                 Text(tip.description)
-                    .font(.system(size: 13, weight: .regular))
-                    .lineSpacing(3.5)
-                    .foregroundColor(.primary.opacity(0.78))
+                    .font(.system(size: 12, weight: .regular))
+                    .lineSpacing(3)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
             Spacer(minLength: 0)
 
-            // Sleek Trailing Chevron Cue
+            // Subtle Minimalist Chevron
             Image(systemName: "chevron.right")
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundColor(.secondary.opacity(0.45))
-                .padding(.leading, 2)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundColor(.secondary.opacity(0.35))
         }
-        .padding(16)
-        .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.85, hasSpecularBorder: true)
+        .padding(14)
+        .liquidGlass(cornerRadius: 20, material: .thinMaterial, opacity: 0.85, hasSpecularBorder: true)
     }
 }
 
-// MARK: - Resilient Flaticon & SF Symbol Badge Loader
+// MARK: - Muted Botanical Frosted Icon Badge
 struct CareTipIconBadge: View {
     let iconName: String
     let fallbackSymbol: String
-    let themeColor: Color
 
     var body: some View {
         ZStack {
-            // Frosted squircle container with ambient color gradient
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            themeColor.opacity(0.22),
-                            themeColor.opacity(0.08)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+            // Neutral Frosted Squircle (Eliminates loud colors & harsh glows)
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(.ultraThinMaterial)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 15, style: .continuous)
-                        .stroke(themeColor.opacity(0.35), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(Color.white.opacity(0.35), lineWidth: 1)
                 )
 
-            // Primary: Flaticon Asset; Secondary Fallback: Polished SF Symbol
-            if let image = loadIconImage(named: iconName) {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 28, height: 28)
-            } else {
-                Image(systemName: fallbackSymbol)
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(themeColor)
-            }
+            // Understated botanical emerald icon glyph
+            Image(systemName: fallbackSymbol)
+                .font(.system(size: 17, weight: .medium))
+                .foregroundColor(.botanicalEmerald)
         }
-        .frame(width: 48, height: 48)
-        .shadow(color: themeColor.opacity(0.18), radius: 6, x: 0, y: 3)
-    }
-
-    /// Resilient loader: checks Asset Catalog, Main Bundle root, and Resources/Icons folder
-    private func loadIconImage(named name: String) -> UIImage? {
-        if let asset = UIImage(named: name) {
-            return asset
-        }
-        if let path = Bundle.main.path(forResource: name, ofType: "png") {
-            return UIImage(contentsOfFile: path)
-        }
-        if let path = Bundle.main.path(forResource: name, ofType: "png", inDirectory: "Icons") {
-            return UIImage(contentsOfFile: path)
-        }
-        if let path = Bundle.main.path(forResource: name, ofType: "png", inDirectory: "Resources/Icons") {
-            return UIImage(contentsOfFile: path)
-        }
-        // Direct filesystem fallback for simulator run environments
-        let directPath = "PlantCare/Resources/Icons/\(name).png"
-        if FileManager.default.fileExists(atPath: directPath) {
-            return UIImage(contentsOfFile: directPath)
-        }
-        return nil
+        .frame(width: 40, height: 40)
+        .shadow(color: Color.black.opacity(0.05), radius: 6, x: 0, y: 2)
     }
 }
