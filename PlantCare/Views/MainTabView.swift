@@ -12,7 +12,7 @@ extension EnvironmentValues {
 }
 
 struct MainTabView: View {
-    @State private var selectedTab: Int = 0
+    @State private var selectedTab: Int = 1
     @State private var isTabBarHidden: Bool = false
     @StateObject private var scanViewModel = ScanViewModel()
 
@@ -24,7 +24,7 @@ struct MainTabView: View {
                 case 0:
                     HomeView(selectedTab: $selectedTab)
                 case 1:
-                    ScanPlantView(viewModel: scanViewModel)
+                    ScanPlantView(viewModel: scanViewModel, selectedTab: $selectedTab)
                 case 2:
                     MyGardenView()
                 default:
@@ -34,8 +34,8 @@ struct MainTabView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ambientGlassBackground()
 
-            // Custom Floating Liquid Glass Tab Bar
-            if !isTabBarHidden {
+            // Custom Floating Liquid Glass Tab Bar (hidden during full-screen camera scanning)
+            if !isTabBarHidden && selectedTab != 1 {
                 CustomGlassTabBar(selectedTab: $selectedTab)
                     .padding(.horizontal, 24)
                     .padding(.bottom, -8)
