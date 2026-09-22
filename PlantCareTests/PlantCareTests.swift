@@ -193,4 +193,37 @@ final class PlantCareTests: XCTestCase {
         XCTAssertEqual(updatedPlants.first?.commonName, "Swiss Cheese Plant")
         XCTAssertEqual(updatedPlants.first?.conditionSummary, "Vibrant & Healthy")
     }
+
+    func testUserProfileUpdateAndAvatarPersistence() throws {
+        let defaults = UserDefaults.standard
+        let storage = ImageStorageService.shared
+
+        // Test editing name & email
+        defaults.set("Botanist Sarah", forKey: "userFirstName")
+        defaults.set("sarah@botanist.org", forKey: "userEmail")
+
+        XCTAssertEqual(defaults.string(forKey: "userFirstName"), "Botanist Sarah")
+        XCTAssertEqual(defaults.string(forKey: "userEmail"), "sarah@botanist.org")
+
+        // Test saving custom avatar image
+        let size = CGSize(width: 80, height: 80)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let avatarImage = renderer.image { context in
+            UIColor.systemGreen.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+        }
+
+        let avatarFilename = try storage.saveImage(avatarImage)
+        defaults.set(avatarFilename, forKey: "userProfileImageFilename")
+
+        let storedFilename = defaults.string(forKey: "userProfileImageFilename")
+        XCTAssertEqual(storedFilename, avatarFilename)
+
+        let loadedAvatar = storage.loadImage(filename: avatarFilename)
+        XCTAssertNotNil(loadedAvatar)
+
+        // Clean up test image
+        storage.deleteImage(filename: avatarFilename)
+        defaults.removeObject(forKey: "userProfileImageFilename")
+    }
 }

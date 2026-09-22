@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 // MARK: - Dedicated Botanist Profile & Garden Dashboard Sheet
 struct UserProfileSheet: View {
@@ -10,6 +11,7 @@ struct UserProfileSheet: View {
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @AppStorage("userFirstName") private var userFirstName: String = "Gardener"
     @AppStorage("userEmail") private var userEmail: String = ""
+    @AppStorage("userProfileImageFilename") private var userProfileImageFilename: String = ""
 
     // Botanical Preference AppStorage bindings
     @AppStorage("wateringRemindersEnabled") private var wateringReminders: Bool = true
@@ -18,6 +20,7 @@ struct UserProfileSheet: View {
     @AppStorage("autoDiagnoseFoliage") private var autoDiagnose: Bool = true
 
     @State private var showSignOutAlert: Bool = false
+    @State private var showEditProfileSheet: Bool = false
 
     private var displayName: String {
         let trimmed = userFirstName.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -74,6 +77,9 @@ struct UserProfileSheet: View {
                     .foregroundColor(.botanicalEmerald)
                 }
             }
+            .sheet(isPresented: $showEditProfileSheet) {
+                EditProfileSheet()
+            }
             .alert("Sign Out", isPresented: $showSignOutAlert) {
                 Button("Cancel", role: .cancel) {}
                 Button("Sign Out", role: .destructive) {
@@ -123,17 +129,44 @@ struct UserProfileSheet: View {
                             .stroke(Color.white.opacity(0.5), lineWidth: 1)
                     )
 
-                // Initial Monogram
-                Text(initialLetter)
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
-                    .foregroundColor(.botanicalEmerald)
+                if !userProfileImageFilename.isEmpty,
+                   let profileImage = ImageStorageService.shared.loadImage(filename: userProfileImageFilename) {
+                    Image(uiImage: profileImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 86, height: 86)
+                        .clipShape(Circle())
+                } else {
+                    // Initial Monogram
+                    Text(initialLetter)
+                        .font(.system(size: 36, weight: .bold, design: .rounded))
+                        .foregroundColor(.botanicalEmerald)
+                }
 
-                // Online Botanist Verified Badge
-                Image(systemName: "checkmark.seal.fill")
-                    .font(.system(size: 22))
-                    .foregroundColor(.botanicalMint)
-                    .background(Circle().fill(Color.white).frame(width: 18, height: 18))
-                    .offset(x: 34, y: 34)
+                // Interactive Camera Edit Badge
+                Button {
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
+                    showEditProfileSheet = true
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.botanicalEmerald)
+                            .frame(width: 28, height: 28)
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                    .shadow(color: Color.black.opacity(0.18), radius: 4, x: 0, y: 2)
+                }
+                .offset(x: 34, y: 34)
+            }
+            .contentShape(Circle())
+            .onTapGesture {
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
+                showEditProfileSheet = true
             }
 
             VStack(spacing: 4) {
@@ -144,6 +177,32 @@ struct UserProfileSheet: View {
                 Text(userEmail.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Active Botanist Session" : userEmail)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+
+                // Dedicated Edit Account Button
+                Button {
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
+                    showEditProfileSheet = true
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "pencil")
+                            .font(.system(size: 12, weight: .bold))
+                        Text("Edit Account")
+                            .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    }
+                    .foregroundColor(.botanicalEmerald)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 6)
+                    .background(
+                        Capsule()
+                            .fill(Color.botanicalMint.opacity(0.22))
+                    )
+                    .overlay(
+                        Capsule()
+                            .stroke(Color.botanicalEmerald.opacity(0.35), lineWidth: 1)
+                    )
+                }
+                .padding(.top, 4)
             }
 
             // Rank Pill
@@ -592,5 +651,284 @@ struct UserProfileSheet: View {
         }
         .padding(.horizontal, 20)
         .padding(.top, 4)
+    }
+}
+
+// MARK: - Edit Profile & Account Sheet
+struct EditProfileSheet: View {
+    @Environment(\.dismiss) private var dismiss
+
+    @AppStorage("userFirstName") private var userFirstName: String = "Gardener"
+    @AppStorage("userEmail") private var userEmail: String = ""
+    @AppStorage("userProfileImageFilename") private var userProfileImageFilename: String = ""
+
+    @State private var editedName: String = ""
+    @State private var editedEmail: String = ""
+    @State private var selectedPhotoItem: PhotosPickerItem? = nil
+    @State private var selectedImage: UIImage? = nil
+    @State private var isPhotoRemoved: Bool = false
+    @State private var isSaving: Bool = false
+
+    private var previewInitial: String {
+        let trimmed = editedName.trimmingCharacters(in: .whitespacesAndNewlines)
+        return String((trimmed.isEmpty ? "B" : trimmed).prefix(1)).uppercased()
+    }
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 24) {
+                        // 1. Avatar Preview & Photo Picker Controls
+                        VStack(spacing: 14) {
+                            ZStack {
+                                // Outer luminous ring
+                                Circle()
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [Color.botanicalEmerald, Color.botanicalMint, Color.botanicalJade],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 3
+                                    )
+                                    .frame(width: 108, height: 108)
+                                    .shadow(color: Color.botanicalEmerald.opacity(0.3), radius: 10, x: 0, y: 4)
+
+                                // Current or Newly Selected Avatar
+                                if let image = selectedImage {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 98, height: 98)
+                                        .clipShape(Circle())
+                                } else if !isPhotoRemoved && !userProfileImageFilename.isEmpty,
+                                          let existingImage = ImageStorageService.shared.loadImage(filename: userProfileImageFilename) {
+                                    Image(uiImage: existingImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 98, height: 98)
+                                        .clipShape(Circle())
+                                } else {
+                                    Circle()
+                                        .fill(
+                                            LinearGradient(
+                                                colors: [
+                                                    Color.botanicalEmerald.opacity(0.25),
+                                                    Color.botanicalJade.opacity(0.12)
+                                                ],
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                        )
+                                        .frame(width: 98, height: 98)
+                                        .overlay(
+                                            Text(previewInitial)
+                                                .font(.system(size: 40, weight: .bold, design: .rounded))
+                                                .foregroundColor(.botanicalEmerald)
+                                        )
+                                }
+                            }
+
+                            // Action buttons: Pick Photo / Remove Photo
+                            HStack(spacing: 12) {
+                                PhotosPicker(selection: $selectedPhotoItem, matching: .images, photoLibrary: .shared()) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "photo.on.rectangle.angled")
+                                            .font(.caption.weight(.semibold))
+                                        Text((selectedImage != nil || (!isPhotoRemoved && !userProfileImageFilename.isEmpty)) ? "Change Photo" : "Add Photo")
+                                            .font(.caption.weight(.semibold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(Color.botanicalEmerald)
+                                    .clipShape(Capsule())
+                                    .shadow(color: Color.botanicalEmerald.opacity(0.3), radius: 6, y: 3)
+                                }
+
+                                if selectedImage != nil || (!isPhotoRemoved && !userProfileImageFilename.isEmpty) {
+                                    Button {
+                                        let generator = UIImpactFeedbackGenerator(style: .light)
+                                        generator.impactOccurred()
+                                        selectedPhotoItem = nil
+                                        selectedImage = nil
+                                        isPhotoRemoved = true
+                                    } label: {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "trash")
+                                                .font(.caption)
+                                            Text("Remove")
+                                                .font(.caption.weight(.medium))
+                                        }
+                                        .foregroundColor(.red.opacity(0.9))
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 8)
+                                        .background(.ultraThinMaterial, in: Capsule())
+                                        .overlay(Capsule().stroke(Color.red.opacity(0.25), lineWidth: 1))
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.top, 10)
+
+                        // 2. Editable User Information Card
+                        VStack(alignment: .leading, spacing: 18) {
+                            Text("Account Details")
+                                .font(.headline.weight(.bold))
+                                .foregroundColor(.primary)
+
+                            // Name Input
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("Name")
+                                    .font(.caption.weight(.semibold))
+                                    .foregroundColor(.secondary)
+
+                                HStack(spacing: 12) {
+                                    Image(systemName: "person.fill")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.botanicalEmerald)
+                                        .frame(width: 22)
+
+                                    TextField("Your name", text: $editedName)
+                                        .font(.body)
+                                        .foregroundColor(.primary)
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 12)
+                                .background(Color.white.opacity(0.35))
+                                .cornerRadius(14)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(Color.black.opacity(0.06), lineWidth: 1)
+                                )
+                            }
+
+                            // Email Input
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("Email Address")
+                                    .font(.caption.weight(.semibold))
+                                    .foregroundColor(.secondary)
+
+                                HStack(spacing: 12) {
+                                    Image(systemName: "envelope.fill")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.botanicalEmerald)
+                                        .frame(width: 22)
+
+                                    TextField("Email", text: $editedEmail)
+                                        .font(.body)
+                                        .keyboardType(.emailAddress)
+                                        .textInputAutocapitalization(.never)
+                                        .autocorrectionDisabled(true)
+                                        .foregroundColor(.primary)
+                                }
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 12)
+                                .background(Color.white.opacity(0.35))
+                                .cornerRadius(14)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(Color.black.opacity(0.06), lineWidth: 1)
+                                )
+                            }
+                        }
+                        .padding(20)
+                        .liquidGlass(cornerRadius: 24, material: .ultraThinMaterial, opacity: 0.9, hasSpecularBorder: true)
+                        .padding(.horizontal, 20)
+
+                        // 3. Primary Save Changes Button (No arrow, Apple HIG compliant)
+                        Button {
+                            saveChanges()
+                        } label: {
+                            HStack(spacing: 8) {
+                                Image(systemName: "checkmark")
+                                    .font(.system(size: 16, weight: .bold))
+                                Text("Save Changes")
+                                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 52)
+                            .background(
+                                LinearGradient(
+                                    colors: [Color.botanicalEmerald, Color.botanicalJade],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .cornerRadius(18)
+                            .shadow(color: Color.botanicalEmerald.opacity(0.35), radius: 10, y: 5)
+                        }
+                        .padding(.horizontal, 20)
+                        .disabled(isSaving || editedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        .opacity(editedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.6 : 1.0)
+                    }
+                    .padding(.bottom, 24)
+                }
+                .ambientGlassBackground()
+            }
+            .navigationTitle("Edit Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                    .foregroundColor(.secondary)
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        saveChanges()
+                    }
+                    .font(.body.weight(.bold))
+                    .foregroundColor(.botanicalEmerald)
+                    .disabled(isSaving || editedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+            }
+            .onAppear {
+                editedName = userFirstName
+                editedEmail = userEmail
+            }
+            .onChange(of: selectedPhotoItem) { _, newItem in
+                Task {
+                    if let data = try? await newItem?.loadTransferable(type: Data.self),
+                       let uiImage = UIImage(data: data) {
+                        await MainActor.run {
+                            self.selectedImage = uiImage
+                            self.isPhotoRemoved = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func saveChanges() {
+        isSaving = true
+        let trimmedName = editedName.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedName.isEmpty {
+            userFirstName = trimmedName
+        }
+        userEmail = editedEmail.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Handle photo persistence
+        if isPhotoRemoved {
+            if !userProfileImageFilename.isEmpty {
+                ImageStorageService.shared.deleteImage(filename: userProfileImageFilename)
+                userProfileImageFilename = ""
+            }
+        } else if let newImage = selectedImage {
+            if !userProfileImageFilename.isEmpty {
+                ImageStorageService.shared.deleteImage(filename: userProfileImageFilename)
+            }
+            if let newFilename = try? ImageStorageService.shared.saveImage(newImage) {
+                userProfileImageFilename = newFilename
+            }
+        }
+
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+        dismiss()
     }
 }

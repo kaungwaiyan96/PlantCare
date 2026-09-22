@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @AppStorage("userFirstName") private var userFirstName: String = "FirstName"
+    @AppStorage("userProfileImageFilename") private var userProfileImageFilename: String = ""
     @State private var selectedCareTip: PlantCareTip?
     @State private var showProfileSheet: Bool = false
 
@@ -35,9 +36,18 @@ struct HomeView: View {
                                 Circle()
                                     .stroke(Color.white.opacity(0.35), lineWidth: 1.2)
 
-                                Text(String((userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "F" : userFirstName).prefix(1)).uppercased())
-                                    .font(.system(size: 15, weight: .bold, design: .rounded))
-                                    .foregroundColor(.botanicalEmerald)
+                                if !userProfileImageFilename.isEmpty,
+                                   let profileImage = ImageStorageService.shared.loadImage(filename: userProfileImageFilename) {
+                                    Image(uiImage: profileImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 40, height: 40)
+                                        .clipShape(Circle())
+                                } else {
+                                    Text(String((userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "F" : userFirstName).prefix(1)).uppercased())
+                                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                                        .foregroundColor(.botanicalEmerald)
+                                }
                             }
                             .frame(width: 40, height: 40)
                             .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 2)
