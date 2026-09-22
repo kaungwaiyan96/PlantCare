@@ -39,7 +39,10 @@ struct UserProfileSheet: View {
         NavigationStack {
             ZStack {
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 24) {
+                    VStack(spacing: 20) {
+                        // Top breathing room below the pinned frosted header
+                        Spacer().frame(height: 12)
+
                         // 1. Hero Botanist Avatar & Rank
                         heroBotanistCard
 
@@ -58,25 +61,53 @@ struct UserProfileSheet: View {
                         // 6. Sign Out Button
                         signOutButton
 
-                        Spacer().frame(height: 20)
+                        Spacer().frame(height: 32)
                     }
-                    .padding(.vertical, 16)
+                    .padding(.vertical, 8)
                 }
                 .ambientGlassBackground()
             }
-            .navigationTitle("Botanist Profile")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
+            .safeAreaInset(edge: .top) {
+                HStack {
+                    Text("Botanist Profile")
+                        .font(.headline.weight(.bold))
+                        .foregroundColor(.primary)
+
+                    Spacer()
+
+                    Button {
                         let generator = UIImpactFeedbackGenerator(style: .light)
                         generator.impactOccurred()
                         dismiss()
+                    } label: {
+                        Text("Done")
+                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                            .foregroundColor(.botanicalEmerald)
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 7)
+                            .background(
+                                Capsule()
+                                    .fill(Color.botanicalMint.opacity(0.25))
+                            )
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.botanicalEmerald.opacity(0.35), lineWidth: 1)
+                            )
                     }
-                    .font(.body.weight(.semibold))
-                    .foregroundColor(.botanicalEmerald)
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(
+                    Rectangle()
+                        .fill(.ultraThinMaterial.opacity(0.95))
+                        .overlay(
+                            Divider().opacity(0.2),
+                            alignment: .bottom
+                        )
+                        .ignoresSafeArea(edges: .top)
+                )
             }
+            .navigationBarHidden(true)
             .sheet(isPresented: $showEditProfileSheet) {
                 EditProfileSheet()
             }

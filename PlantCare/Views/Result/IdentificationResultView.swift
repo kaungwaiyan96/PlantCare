@@ -11,14 +11,15 @@ struct IdentificationResultView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
                     // Breathing space so top image does not touch the frosted header edge
-                    Spacer().frame(height: 12)
+                    Spacer().frame(height: 16)
 
                     // Photo Thumbnail Card in Liquid Glass
                     if let image = viewModel.selectedImage {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(height: 230)
+                            .frame(height: 195)
+                            .frame(maxWidth: .infinity)
                             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 24, style: .continuous)
@@ -97,7 +98,7 @@ struct IdentificationResultView: View {
                                         Text(condition.description)
                                             .font(.caption)
                                             .foregroundColor(.secondary)
-                                            .lineLimit(2)
+                                            .fixedSize(horizontal: false, vertical: true)
                                     }
                                 }
                                 .padding(14)
@@ -159,7 +160,7 @@ struct IdentificationResultView: View {
                     }
 
                     // Clear spacing at bottom so content is fully scrollable above the pinned dock
-                    Spacer().frame(height: 20)
+                    Spacer().frame(height: 48)
                 }
             }
             .ambientGlassBackground()
