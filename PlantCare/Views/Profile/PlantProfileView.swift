@@ -5,6 +5,8 @@ struct PlantProfileView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Environment(\.isTabBarHidden) var isTabBarHidden
+    @Environment(\.selectedTab) var selectedTab
+    @Query private var allSavedPlants: [SavedPlant]
 
     var plantName: String
     var scientificName: String
@@ -16,6 +18,7 @@ struct PlantProfileView: View {
     var conditionName: String? = "Vibrant & Healthy"
     var conditionDescription: String? = "Foliage exhibits vigorous turgidity, uniform chlorophyll pigmentation, and no discernible signs of blight."
     var localImage: UIImage? = nil
+    var onSaveSuccess: (() -> Void)? = nil
 
     @State private var isSaved = false
     @State private var isExpandedDetails = false
@@ -216,7 +219,15 @@ struct PlantProfileView: View {
             .padding(.top, 6)
         }
         .navigationBarHidden(true)
-        .onAppear { isTabBarHidden.wrappedValue = true }
+        .onAppear {
+            isTabBarHidden.wrappedValue = true
+            if allSavedPlants.contains(where: {
+                $0.scientificName.caseInsensitiveCompare(scientificName) == .orderedSame ||
+                $0.commonName.caseInsensitiveCompare(plantName) == .orderedSame
+            }) {
+                isSaved = true
+            }
+        }
         .onDisappear { isTabBarHidden.wrappedValue = false }
     }
 
@@ -247,6 +258,19 @@ struct PlantProfileView: View {
 
             withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                 isSaved = true
+            }
+
+            // Give user 850ms to see "Saved in My Garden 🌿", then navigate directly to Garden tab (Tab 2)
+            Task {
+                try? await Task.sleep(nanoseconds: 850_000_000)
+                await MainActor.run {
+                    isTabBarHidden.wrappedValue = false
+                    onSaveSuccess?()
+                    withAnimation(.spring(response: 0.38, dampingFraction: 0.78)) {
+                        selectedTab.wrappedValue = 2
+                    }
+                    dismiss()
+                }
             }
         } catch {
             let generator = UINotificationFeedbackGenerator()

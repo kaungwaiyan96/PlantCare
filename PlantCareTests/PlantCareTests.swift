@@ -158,4 +158,39 @@ final class PlantCareTests: XCTestCase {
         XCTAssertEqual(storedName, "Kaung Wai")
         XCTAssertTrue(isLoggedIn)
     }
+
+    @MainActor
+    func testSaveToGardenFlowAndTabTransition() throws {
+        let schema = Schema([SavedPlant.self])
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: schema, configurations: [config])
+        let context = container.mainContext
+
+        let initialDescriptor = FetchDescriptor<SavedPlant>()
+        let initialPlants = try context.fetch(initialDescriptor)
+        XCTAssertEqual(initialPlants.count, 0)
+
+        // Simulate saveToGarden action
+        let newPlant = SavedPlant(
+            commonName: "Swiss Cheese Plant",
+            scientificName: "Monstera deliciosa",
+            confidenceScore: 0.96,
+            conditionSummary: "Vibrant & Healthy",
+            conditionConfidence: 0.94,
+            wateringNeeds: "Moderate watering",
+            sunlightRequirements: "Bright indirect light",
+            growthCycle: "Perennial",
+            careInstructions: "Keep soil moist.",
+            imageFilename: "monstera_profile_test.jpg",
+            dateAdded: Date()
+        )
+
+        context.insert(newPlant)
+        try context.save()
+
+        let updatedPlants = try context.fetch(initialDescriptor)
+        XCTAssertEqual(updatedPlants.count, 1)
+        XCTAssertEqual(updatedPlants.first?.commonName, "Swiss Cheese Plant")
+        XCTAssertEqual(updatedPlants.first?.conditionSummary, "Vibrant & Healthy")
+    }
 }

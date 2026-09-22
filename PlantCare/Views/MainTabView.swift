@@ -4,10 +4,19 @@ struct TabBarHiddenKey: EnvironmentKey {
     static let defaultValue: Binding<Bool> = .constant(false)
 }
 
+struct SelectedTabKey: EnvironmentKey {
+    static let defaultValue: Binding<Int> = .constant(0)
+}
+
 extension EnvironmentValues {
     var isTabBarHidden: Binding<Bool> {
         get { self[TabBarHiddenKey.self] }
         set { self[TabBarHiddenKey.self] = newValue }
+    }
+
+    var selectedTab: Binding<Int> {
+        get { self[SelectedTabKey.self] }
+        set { self[SelectedTabKey.self] = newValue }
     }
 }
 
@@ -43,6 +52,7 @@ struct MainTabView: View {
             }
         }
         .environment(\.isTabBarHidden, $isTabBarHidden)
+        .environment(\.selectedTab, $selectedTab)
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }

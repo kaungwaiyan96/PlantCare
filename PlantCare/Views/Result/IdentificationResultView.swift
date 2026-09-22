@@ -265,7 +265,11 @@ struct IdentificationResultView: View {
                     careInstructions: viewModel.careDetails?.careInstructions ?? "Keep soil moist.",
                     conditionName: viewModel.condition?.name,
                     conditionDescription: viewModel.condition?.description,
-                    localImage: viewModel.selectedImage
+                    localImage: viewModel.selectedImage,
+                    onSaveSuccess: {
+                        navigateToProfile = false
+                        viewModel.reset()
+                    }
                 )
             }
         }
