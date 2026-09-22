@@ -6,7 +6,6 @@ struct PlantProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.isTabBarHidden) var isTabBarHidden
     @Environment(\.selectedTab) var selectedTab
-    @Query private var allSavedPlants: [SavedPlant]
 
     var plantName: String
     var scientificName: String
@@ -221,12 +220,6 @@ struct PlantProfileView: View {
         .navigationBarHidden(true)
         .onAppear {
             isTabBarHidden.wrappedValue = true
-            if allSavedPlants.contains(where: {
-                $0.scientificName.caseInsensitiveCompare(scientificName) == .orderedSame ||
-                $0.commonName.caseInsensitiveCompare(plantName) == .orderedSame
-            }) {
-                isSaved = true
-            }
         }
         .onDisappear { isTabBarHidden.wrappedValue = false }
     }
