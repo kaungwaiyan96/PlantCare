@@ -1,10 +1,11 @@
 import SwiftUI
 import PhotosUI
+import AVFoundation
 
 /// Refined, world-class Apple HIG camera scanner for botanical species identification.
 /// Features a precision viewfinder with photorealistic specimen preview, Apple Pro Camera
-/// corner brackets, dynamic autofocus indicator, ergonomic 3-item bottom dock,
-/// and centered camera shutter button.
+/// corner brackets, dynamic autofocus indicator, ergonomic 3-item bottom dock with
+/// gallery picker, centered shutter, and bottom-right flash/torch control.
 struct ScanPlantView: View {
     @ObservedObject var viewModel: ScanViewModel
     @Binding var selectedTab: Int
@@ -46,21 +47,29 @@ struct ScanPlantView: View {
                 )
                 .ignoresSafeArea()
 
-                // 2. Main Camera Interface Layout
+                // 2. Main Camera Interface Layout with Harmonious, Symmetrical Proportions
                 GeometryReader { geo in
                     let screenHeight = geo.size.height
-                    let viewfinderHeight = min(max(screenHeight * 0.69, 450), 610)
+                    let screenWidth = geo.size.width
+                    let horizontalPadding: CGFloat = 16
+                    let availableWidth = screenWidth - (horizontalPadding * 2)
+
+                    // Standard 3:4 camera aspect ratio with symmetrical vertical distribution
+                    let maxViewfinderHeight = screenHeight - 210
+                    let targetHeight = availableWidth * (4.0 / 3.0)
+                    let viewfinderHeight = min(targetHeight, maxViewfinderHeight)
 
                     VStack(spacing: 0) {
                         // Top Header Bar
                         topHeaderBar
                             .padding(.horizontal, 16)
-                            .padding(.top, 4)
-                            .padding(.bottom, 8)
+                            .padding(.top, 6)
 
-                        // Center Viewfinder Viewport (Expanded Image Viewing Area)
+                        Spacer(minLength: 12)
+
+                        // Center Viewfinder Viewport (Balanced, proportionate camera frame)
                         viewfinderViewport(height: viewfinderHeight)
-                            .padding(.horizontal, 12)
+                            .padding(.horizontal, horizontalPadding)
 
                         // Diagnostics / Error Notification Banner (if any)
                         if let errorMsg = viewModel.errorMessage {
@@ -69,21 +78,21 @@ struct ScanPlantView: View {
                                 .padding(.top, 8)
                         }
 
-                        Spacer(minLength: 8)
-
                         // Floating AI Analysis Status Pill (Visible during scanning)
                         if viewModel.isAnalyzing {
                             animatedStatusPill
                                 .transition(.opacity.combined(with: .scale(scale: 0.94)))
-                                .padding(.bottom, 10)
+                                .padding(.top, 8)
                         }
 
-                        // Ergonomic Bottom Control Dock
+                        Spacer(minLength: 12)
+
+                        // Ergonomic 3-Item Bottom Control Dock (Gallery | Shutter | Flash)
                         bottomControlsDock
                             .padding(.horizontal, 28)
-                            .padding(.bottom, 24)
+                            .padding(.bottom, 20)
                     }
-                    .frame(width: geo.size.width, height: geo.size.height)
+                    .frame(width: screenWidth, height: screenHeight)
                 }
             }
             .navigationDestination(isPresented: $viewModel.navigateToResult) {
@@ -171,33 +180,9 @@ struct ScanPlantView: View {
 
             Spacer()
 
-            // Flash / Torch Toggle Button (44x44pt touch target)
-            Button {
-                let generator = UIImpactFeedbackGenerator(style: .light)
-                generator.impactOccurred()
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                    isTorchOn.toggle()
-                }
-            } label: {
-                ZStack {
-                    Circle()
-                        .fill(isTorchOn ? Color.botanicalAmber.opacity(0.30) : Color.black.opacity(0.55))
-                        .background(Circle().fill(.ultraThinMaterial))
-                        .frame(width: 44, height: 44)
-                        .overlay(
-                            Circle()
-                                .stroke(
-                                    isTorchOn ? Color.botanicalAmber.opacity(0.85) : Color.white.opacity(0.20),
-                                    lineWidth: 1
-                                )
-                        )
-
-                    Image(systemName: isTorchOn ? "sun.max.fill" : "sun.max")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(isTorchOn ? .botanicalAmber : .white)
-                }
-            }
-            .accessibilityLabel(isTorchOn ? "Turn torch off" : "Turn torch on")
+            // Balance placeholder so the center guidance pill remains perfectly centered
+            Color.clear
+                .frame(width: 44, height: 44)
         }
     }
 
@@ -244,12 +229,12 @@ struct ScanPlantView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: height)
                     .overlay(
-                        // Cinematic optical grading
+                        // Cinematic optical grading (symmetrical top and bottom edge feathering)
                         LinearGradient(
                             colors: [
-                                Color.black.opacity(0.18),
+                                Color.black.opacity(0.16),
                                 Color.clear,
-                                Color.black.opacity(0.32)
+                                Color.black.opacity(0.16)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
@@ -335,7 +320,7 @@ struct ScanPlantView: View {
             }
             .frame(maxWidth: .infinity)
 
-            // Right Item: Retake button (only when image selected) or transparent balance spacer
+            // Right Item: Retake button (when image selected) or Flash toggle button (when live scanning)
             VStack(spacing: 6) {
                 if viewModel.selectedImage != nil {
                     retakeButton
@@ -343,10 +328,10 @@ struct ScanPlantView: View {
                         .font(.system(size: 11, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.85))
                 } else {
-                    Color.clear
-                        .frame(width: 54, height: 54)
-                    Text(" ")
+                    flashToggleButton
+                    Text("Flash")
                         .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(isTorchOn ? Color.botanicalAmber : .white.opacity(0.85))
                 }
             }
             .frame(maxWidth: .infinity)
@@ -471,7 +456,60 @@ struct ScanPlantView: View {
         .accessibilityLabel("Retake photo")
     }
 
-    // MARK: - 9. Trigger Shutter Action
+    // MARK: - 9. Flash / Torch Toggle Button (Visible during live scanning)
+
+    private var flashToggleButton: some View {
+        Button {
+            toggleTorch()
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(isTorchOn ? Color.botanicalAmber.opacity(0.35) : Color.black.opacity(0.55))
+                    .background(Circle().fill(.ultraThinMaterial))
+                    .frame(width: 54, height: 54)
+                    .overlay(
+                        Circle()
+                            .stroke(
+                                isTorchOn ? Color.botanicalAmber.opacity(0.85) : Color.white.opacity(0.28),
+                                lineWidth: 1.5
+                            )
+                    )
+
+                Image(systemName: isTorchOn ? "bolt.fill" : "bolt.slash.fill")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(isTorchOn ? .botanicalAmber : .white)
+            }
+            .shadow(
+                color: isTorchOn ? Color.botanicalAmber.opacity(0.40) : Color.black.opacity(0.35),
+                radius: 6,
+                x: 0,
+                y: 3
+            )
+        }
+        .disabled(viewModel.isAnalyzing)
+        .accessibilityLabel(isTorchOn ? "Turn flash off" : "Turn flash on")
+    }
+
+    private func toggleTorch() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+            isTorchOn.toggle()
+        }
+
+        #if !targetEnvironment(simulator)
+        guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
+        do {
+            try device.lockForConfiguration()
+            device.torchMode = isTorchOn ? .on : .off
+            device.unlockForConfiguration()
+        } catch {
+            print("Torch could not be activated: \(error)")
+        }
+        #endif
+    }
+
+    // MARK: - 10. Trigger Shutter Action
 
     private func triggerShutterCapture() {
         let generator = UIImpactFeedbackGenerator(style: .heavy)

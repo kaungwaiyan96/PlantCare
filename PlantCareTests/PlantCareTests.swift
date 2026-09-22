@@ -1,4 +1,5 @@
 import XCTest
+import SwiftUI
 import SwiftData
 @testable import PlantCare
 
@@ -225,5 +226,27 @@ final class PlantCareTests: XCTestCase {
         // Clean up test image
         storage.deleteImage(filename: avatarFilename)
         defaults.removeObject(forKey: "userProfileImageFilename")
+    }
+
+    @MainActor
+    func testScanPlantViewInitializationAndViewModelState() {
+        let viewModel = ScanViewModel()
+        XCTAssertNil(viewModel.selectedImage)
+        XCTAssertFalse(viewModel.isAnalyzing)
+        XCTAssertFalse(viewModel.navigateToResult)
+
+        var selectedTab = 1
+        let tabBinding = Binding(get: { selectedTab }, set: { selectedTab = $0 })
+        let scanView = ScanPlantView(viewModel: viewModel, selectedTab: tabBinding)
+        XCTAssertNotNil(scanView)
+
+        // Test viewModel reset functionality
+        viewModel.selectedImage = UIImage()
+        viewModel.errorMessage = "Sample error"
+        viewModel.reset()
+
+        XCTAssertNil(viewModel.selectedImage)
+        XCTAssertNil(viewModel.errorMessage)
+        XCTAssertFalse(viewModel.isAnalyzing)
     }
 }
