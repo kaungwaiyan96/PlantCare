@@ -23,25 +23,33 @@ extension EnvironmentValues {
 struct MainTabView: View {
     @State private var selectedTab: Int = 0
     @State private var isTabBarHidden: Bool = false
+    @StateObject private var homeViewModel = HomeViewModel()
     @StateObject private var scanViewModel = ScanViewModel()
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            // Tab Content
-            Group {
-                switch selectedTab {
-                case 0:
-                    HomeView(selectedTab: $selectedTab)
-                case 1:
-                    ScanPlantView(viewModel: scanViewModel, selectedTab: $selectedTab)
-                case 2:
-                    MyGardenView()
-                default:
-                    HomeView(selectedTab: $selectedTab)
+            // Keep HomeView mounted while changing tabs so its image views do not
+            // get torn down and recreated on every return to Home.
+            HomeView(viewModel: homeViewModel)
+                .opacity(selectedTab == 0 ? 1 : 0)
+                .allowsHitTesting(selectedTab == 0)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ambientGlassBackground()
+
+            if selectedTab != 0 {
+                Group {
+                    switch selectedTab {
+                    case 1:
+                        ScanPlantView(viewModel: scanViewModel, selectedTab: $selectedTab)
+                    case 2:
+                        MyGardenView()
+                    default:
+                        EmptyView()
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ambientGlassBackground()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ambientGlassBackground()
 
             // Custom Floating Liquid Glass Tab Bar (hidden during full-screen camera scanning)
             if !isTabBarHidden && selectedTab != 1 {

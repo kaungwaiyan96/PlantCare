@@ -52,7 +52,7 @@ final class HomeViewModel: ObservableObject {
             FeaturedPlant(
                 name: "Monstera Deliciosa",
                 scientificName: "Monstera deliciosa",
-                imageURL: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b",
+                imageURL: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80",
                 sunlight: "Bright Indirect",
                 watering: "Every 1–2 weeks",
                 careLevel: "Easy",
@@ -61,7 +61,7 @@ final class HomeViewModel: ObservableObject {
             FeaturedPlant(
                 name: "Fiddle Leaf Fig",
                 scientificName: "Ficus lyrata",
-                imageURL: "https://images.unsplash.com/photo-1545241047-6083a3684587",
+                imageURL: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=600&q=80",
                 sunlight: "Filtered Sunlight",
                 watering: "When dry (2 in)",
                 careLevel: "Moderate",
@@ -70,7 +70,7 @@ final class HomeViewModel: ObservableObject {
             FeaturedPlant(
                 name: "Snake Plant",
                 scientificName: "Sansevieria trifasciata",
-                imageURL: "https://images.unsplash.com/photo-1599598425947-490d565612d3",
+                imageURL: "https://images.unsplash.com/photo-1599598425947-490d565612d3?auto=format&fit=crop&w=600&q=80",
                 sunlight: "Low to Bright",
                 watering: "Every 2–3 weeks",
                 careLevel: "Very Easy",
@@ -79,7 +79,7 @@ final class HomeViewModel: ObservableObject {
             FeaturedPlant(
                 name: "Golden Pothos",
                 scientificName: "Epipremnum aureum",
-                imageURL: "https://images.unsplash.com/photo-1581783342605-2d49fac7f787",
+                imageURL: "https://images.unsplash.com/photo-1581783342605-2d49fac7f787?auto=format&fit=crop&w=600&q=80",
                 sunlight: "Medium Light",
                 watering: "When dry",
                 careLevel: "Beginner",

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F60718293A4B5C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D4E5F60718293A4B5D /* Kingfisher */; };
 		0272AB1EA44E1EB4AEFE0651 /* PlantCareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12B51197B7A2B7B074E2EB /* PlantCareTests.swift */; };
 		04702F0CD68DC4575CFD987B /* flaticon_watering_can.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DC773FC90591D12CB933AE /* flaticon_watering_can.png */; };
 		073307124AAAF6EB0B2F9328 /* PlantNetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA46CD1FDB3584EE7492B9 /* PlantNetService.swift */; };
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F60718293A4B5C /* Kingfisher in Frameworks */,
 				753E688CF6B14244462B172A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +228,9 @@
 			);
 			dependencies = (
 			);
+			packageProductDependencies = (
+				A1B2C3D4E5F60718293A4B5D /* Kingfisher */,
+			);
 			name = PlantCare;
 			productName = PlantCare;
 			productReference = 2368685613724E0F18972A15 /* PlantCare.app */;
@@ -273,6 +278,9 @@
 			);
 			mainGroup = 413AA0D6F74263DA2181BFF4;
 			productRefGroup = 26CE05A8852E19220417545E /* Products */;
+			packageReferences = (
+				A1B2C3D4E5F60718293A4B5E /* XCRemoteSwiftPackageReference \"Kingfisher\" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -361,6 +369,25 @@
 			targetProxy = 9232CCC9351CC66E6C7F1757 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1B2C3D4E5F60718293A4B5E /* XCRemoteSwiftPackageReference \"Kingfisher\" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1B2C3D4E5F60718293A4B5D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D4E5F60718293A4B5E /* XCRemoteSwiftPackageReference \"Kingfisher\" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2947D086810E214CEA64F666 /* Debug */ = {

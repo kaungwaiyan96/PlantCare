@@ -1,14 +1,12 @@
 import SwiftUI
+import Kingfisher
 
 struct HomeView: View {
-    @StateObject private var viewModel = HomeViewModel()
+    @ObservedObject var viewModel: HomeViewModel
     @AppStorage("userFirstName") private var userFirstName: String = "FirstName"
     @AppStorage("userProfileImageFilename") private var userProfileImageFilename: String = ""
     @State private var selectedCareTip: PlantCareTip?
     @State private var showProfileSheet: Bool = false
-
-    // Decoupled from tab switching; initializer retained with default nil for backward-compatibility
-    init(selectedTab: Binding<Int>? = nil) {}
 
     var body: some View {
         NavigationStack {
@@ -94,24 +92,15 @@ struct HomeView: View {
                                         )
                                     } label: {
                                         VStack(alignment: .leading, spacing: 10) {
-                                            AsyncImage(url: URL(string: plant.imageURL)) { phase in
-                                                switch phase {
-                                                case .empty:
+                                            KFImage(URL(string: plant.imageURL))
+                                                .placeholder {
                                                     Rectangle()
                                                         .fill(Color.secondary.opacity(0.2))
                                                         .overlay(ProgressView())
-                                                case .success(let image):
-                                                    image
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fill)
-                                                case .failure(_):
-                                                    Rectangle()
-                                                        .fill(Color.botanicalSage.opacity(0.3))
-                                                        .overlay(Image(systemName: "leaf.fill").foregroundColor(.botanicalEmerald))
-                                                @unknown default:
-                                                    EmptyView()
                                                 }
-                                            }
+                                                .resizable()
+                                                .cancelOnDisappear(false)
+                                                .aspectRatio(contentMode: .fill)
                                             .frame(width: 170, height: 160)
                                             .cornerRadius(18)
                                             .clipped()
