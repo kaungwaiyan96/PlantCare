@@ -17,10 +17,40 @@ struct PlantProfileView: View {
     var conditionName: String? = "Vibrant & Healthy"
     var conditionDescription: String? = "Foliage exhibits vigorous turgidity, uniform chlorophyll pigmentation, and no discernible signs of blight."
     var localImage: UIImage? = nil
+    var initiallySaved: Bool = false
     var onSaveSuccess: (() -> Void)? = nil
 
-    @State private var isSaved = false
+    @State private var isSaved: Bool
     @State private var isExpandedDetails = false
+
+    init(
+        plantName: String,
+        scientificName: String,
+        imageURL: String,
+        watering: String,
+        sunlight: String,
+        growthCycle: String = "Perennial",
+        careInstructions: String = "Maintain consistent soil moisture and ensure adequate indirect sunlight.",
+        conditionName: String? = "Vibrant & Healthy",
+        conditionDescription: String? = "Foliage exhibits vigorous turgidity, uniform chlorophyll pigmentation, and no discernible signs of blight.",
+        localImage: UIImage? = nil,
+        initiallySaved: Bool = false,
+        onSaveSuccess: (() -> Void)? = nil
+    ) {
+        self.plantName = plantName
+        self.scientificName = scientificName
+        self.imageURL = imageURL
+        self.watering = watering
+        self.sunlight = sunlight
+        self.growthCycle = growthCycle
+        self.careInstructions = careInstructions
+        self.conditionName = conditionName
+        self.conditionDescription = conditionDescription
+        self.localImage = localImage
+        self.initiallySaved = initiallySaved
+        self.onSaveSuccess = onSaveSuccess
+        _isSaved = State(initialValue: initiallySaved)
+    }
 
     var body: some View {
         ScrollView(showsIndicators: false) {

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import PhotosUI
 import AVFoundation
 
@@ -7,6 +8,7 @@ import AVFoundation
 /// corner brackets, dynamic autofocus indicator, ergonomic 3-item bottom dock with
 /// gallery picker, centered shutter, and bottom-right flash/torch control.
 struct ScanPlantView: View {
+    @Environment(\.modelContext) private var modelContext
     @ObservedObject var viewModel: ScanViewModel
     @Binding var selectedTab: Int
 
@@ -543,14 +545,14 @@ struct ScanPlantView: View {
         }
 
         guard viewModel.selectedImage == nil else {
-            Task { await viewModel.identifyCurrentPhoto() }
+            Task { await viewModel.identifyCurrentPhoto(context: modelContext) }
             return
         }
 
         camera.capturePhoto { image in
             guard let image else { return }
             viewModel.selectedImage = image
-            Task { await viewModel.identifyCurrentPhoto() }
+            Task { await viewModel.identifyCurrentPhoto(context: modelContext) }
         }
     }
 

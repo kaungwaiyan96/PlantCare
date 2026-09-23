@@ -267,6 +267,7 @@ struct IdentificationResultView: View {
                     conditionName: viewModel.condition?.name,
                     conditionDescription: viewModel.condition?.description,
                     localImage: viewModel.selectedImage,
+                    initiallySaved: viewModel.isSaved,
                     onSaveSuccess: {
                         navigateToProfile = false
                         viewModel.reset()
