@@ -22,6 +22,7 @@
 		399D912392CD6CD62FEFD67E /* GlassTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE8F22504D9D1C189FA7EE /* GlassTokens.swift */; };
 		3E69BA9834CB44D731749A02 /* ImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF94188A581E75DCBFF7D2B /* ImageStorageService.swift */; };
 		4AC3484B581CE51D6C21095D /* ScanPlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BF13193FDDA4404E763EEB /* ScanPlantView.swift */; };
+		4B2D9C6E7F8A901B2C3D4E5F /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1B2C3D4E5F60718293A4B5 /* CameraManager.swift */; };
 		52EA0DFC0E6860B1BC7C20A6 /* GlassMetricBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E514529336F2AEB56053DFF /* GlassMetricBadge.swift */; };
 		5F90113456039119CC5E4392 /* CareTipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196067AFF065F75418278D5 /* CareTipDetailView.swift */; };
 		65429D85B330BDB2BF214252 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78CCF5F275744297593D552 /* GlassCard.swift */; };
@@ -65,6 +66,7 @@
 		29B83DD4A17F206D5BEAF3A1 /* PlantNetModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantNetModels.swift; path = PlantCare/Models/PlantNetModels.swift; sourceTree = "<group>"; };
 		3C12B51197B7A2B7B074E2EB /* PlantCareTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCareTests.swift; path = PlantCareTests/PlantCareTests.swift; sourceTree = "<group>"; };
 		419E9843840D596E8CB23DCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4A1B2C3D4E5F60718293A4B5 /* CameraManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CameraManager.swift; path = PlantCare/Views/Scan/CameraManager.swift; sourceTree = "<group>"; };
 		506C4ED9803EC6270D4797E2 /* PersistenceController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = PlantCare/Core/Storage/PersistenceController.swift; sourceTree = "<group>"; };
 		5196067AFF065F75418278D5 /* CareTipDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CareTipDetailView.swift; path = PlantCare/Views/Home/CareTipDetailView.swift; sourceTree = "<group>"; };
 		51CE8F22504D9D1C189FA7EE /* GlassTokens.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassTokens.swift; path = PlantCare/Core/DesignSystem/GlassTokens.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				8BC1DF723E2DAB7471B0C521 /* PlantProfileView.swift */,
 				E412E1BD00EA5850C9F622FE /* IdentificationResultView.swift */,
 				60BF13193FDDA4404E763EEB /* ScanPlantView.swift */,
+				4A1B2C3D4E5F60718293A4B5 /* CameraManager.swift */,
 				55EFC17B27C200855EC65E1A /* Assets.xcassets */,
 				527181E47E693E4A39809F1A /* flaticon_foliage_leaf.png */,
 				B2BF990A6869BC9AF5ABED55 /* flaticon_sprout.png */,
@@ -250,6 +253,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					41CB68D544580DBE43B64094 = {
+						DevelopmentTeam = 2L5X55Q3RQ;
+					};
+				};
 			};
 			buildConfigurationList = ACA4DBE0D172279450B917CF /* Build configuration list for PBXProject "PlantCare" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -260,8 +268,6 @@
 				Base,
 			);
 			mainGroup = 413AA0D6F74263DA2181BFF4;
-			minimizedProjectReferenceProxies = 0;
-			preferredProjectObjectVersion = 100;
 			productRefGroup = 26CE05A8852E19220417545E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -337,6 +343,7 @@
 				D7C4C2F16C0B6220EA475FFB /* PlantProfileView.swift in Sources */,
 				92F68E317BB0DBF50B4B41D4 /* IdentificationResultView.swift in Sources */,
 				4AC3484B581CE51D6C21095D /* ScanPlantView.swift in Sources */,
+				4B2D9C6E7F8A901B2C3D4E5F /* CameraManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +381,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2L5X55Q3RQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "PlantCare needs camera access to photograph and identify plants.";
@@ -459,6 +467,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2L5X55Q3RQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "PlantCare needs camera access to photograph and identify plants.";
@@ -525,8 +534,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

@@ -12,8 +12,8 @@ struct ScanPlantView: View {
 
     @State private var photosPickerItem: PhotosPickerItem?
     @State private var isShutterPressed = false
-    @State private var isTorchOn = false
     @State private var statusIndex = 0
+    @StateObject private var camera = CameraManager()
 
     // Staged status transitions during AI inference
     private let statusMessages = [
@@ -99,6 +99,13 @@ struct ScanPlantView: View {
                 IdentificationResultView(viewModel: viewModel)
             }
             .navigationBarHidden(true)
+            .onAppear {
+                camera.start()
+            }
+            .onDisappear {
+                camera.turnTorchOff()
+                camera.stop()
+            }
             .onChange(of: viewModel.isAnalyzing) { _, isAnalyzing in
                 if isAnalyzing {
                     statusIndex = 0
@@ -198,8 +205,12 @@ struct ScanPlantView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(maxWidth: .infinity)
                         .frame(height: height)
+                } else if camera.isAuthorized && camera.isReady {
+                    CameraPreview(session: camera.session)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: height)
                 } else {
-                    photorealisticSpecimenFeed(height: height)
+                    cameraUnavailableView(height: height)
                 }
             }
             .clipped()
@@ -208,13 +219,31 @@ struct ScanPlantView: View {
             // Apple Pro Camera Reticle Overlay (Corner Brackets, Autofocus Ring & Scanning Laser)
             GlassReticleOverlay(
                 isScanning: viewModel.isAnalyzing,
-                isTorchOn: isTorchOn
+                isTorchOn: camera.isTorchOn
             )
             .frame(maxWidth: .infinity)
             .frame(height: height)
         }
         .frame(height: height)
         .shadow(color: Color.black.opacity(0.45), radius: 22, x: 0, y: 10)
+    }
+
+    private func cameraUnavailableView(height: CGFloat) -> some View {
+        ZStack {
+            Color(hex: 0x071D12)
+            VStack(spacing: 12) {
+                Image(systemName: camera.isAuthorized ? "camera.badge.ellipsis" : "camera.fill")
+                    .font(.system(size: 42, weight: .light))
+                    .foregroundColor(.botanicalMint)
+                Text(camera.errorMessage ?? "Preparing camera…")
+                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.85))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 28)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: height)
     }
 
     // MARK: - 3. Photorealistic Botanical Specimen Feed
@@ -331,7 +360,7 @@ struct ScanPlantView: View {
                     flashToggleButton
                     Text("Flash")
                         .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundColor(isTorchOn ? Color.botanicalAmber : .white.opacity(0.85))
+                                .foregroundColor(camera.isTorchOn ? Color.botanicalAmber : .white.opacity(0.85))
                 }
             }
             .frame(maxWidth: .infinity)
@@ -422,7 +451,7 @@ struct ScanPlantView: View {
             .animation(.easeInOut(duration: 0.25), value: viewModel.isAnalyzing)
         }
         .buttonStyle(.plain)
-        .disabled(viewModel.isAnalyzing)
+        .disabled(viewModel.isAnalyzing || (viewModel.selectedImage == nil && !camera.isReady))
         .accessibilityLabel("Take photo and identify plant")
     }
 
@@ -464,49 +493,38 @@ struct ScanPlantView: View {
         } label: {
             ZStack {
                 Circle()
-                    .fill(isTorchOn ? Color.botanicalAmber.opacity(0.35) : Color.black.opacity(0.55))
+                    .fill(camera.isTorchOn ? Color.botanicalAmber.opacity(0.35) : Color.black.opacity(0.55))
                     .background(Circle().fill(.ultraThinMaterial))
                     .frame(width: 54, height: 54)
                     .overlay(
                         Circle()
                             .stroke(
-                                isTorchOn ? Color.botanicalAmber.opacity(0.85) : Color.white.opacity(0.28),
+                                camera.isTorchOn ? Color.botanicalAmber.opacity(0.85) : Color.white.opacity(0.28),
                                 lineWidth: 1.5
                             )
                     )
 
-                Image(systemName: isTorchOn ? "bolt.fill" : "bolt.slash.fill")
+                Image(systemName: camera.isTorchOn ? "bolt.fill" : "bolt.slash.fill")
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(isTorchOn ? .botanicalAmber : .white)
+                    .foregroundColor(camera.isTorchOn ? .botanicalAmber : .white)
             }
             .shadow(
-                color: isTorchOn ? Color.botanicalAmber.opacity(0.40) : Color.black.opacity(0.35),
+                color: camera.isTorchOn ? Color.botanicalAmber.opacity(0.40) : Color.black.opacity(0.35),
                 radius: 6,
                 x: 0,
                 y: 3
             )
         }
         .disabled(viewModel.isAnalyzing)
-        .accessibilityLabel(isTorchOn ? "Turn flash off" : "Turn flash on")
+        .accessibilityLabel(camera.isTorchOn ? "Turn flash off" : "Turn flash on")
     }
 
     private func toggleTorch() {
         let generator = UIImpactFeedbackGenerator(style: .light)
         generator.impactOccurred()
         withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-            isTorchOn.toggle()
+            camera.toggleTorch()
         }
-
-        #if !targetEnvironment(simulator)
-        guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
-        do {
-            try device.lockForConfiguration()
-            device.torchMode = isTorchOn ? .on : .off
-            device.unlockForConfiguration()
-        } catch {
-            print("Torch could not be activated: \(error)")
-        }
-        #endif
     }
 
     // MARK: - 10. Trigger Shutter Action
@@ -524,14 +542,15 @@ struct ScanPlantView: View {
             }
         }
 
-        // If no photo selected yet, automatically capture the live specimen photo
-        if viewModel.selectedImage == nil {
-            viewModel.selectedImage = UIImage(named: "CameraSpecimen") ?? createSamplePlantImage()
+        guard viewModel.selectedImage == nil else {
+            Task { await viewModel.identifyCurrentPhoto() }
+            return
         }
 
-        // Start AI identification pipeline
-        Task {
-            await viewModel.identifyCurrentPhoto()
+        camera.capturePhoto { image in
+            guard let image else { return }
+            viewModel.selectedImage = image
+            Task { await viewModel.identifyCurrentPhoto() }
         }
     }
 
