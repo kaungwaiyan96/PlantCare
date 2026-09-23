@@ -114,6 +114,7 @@ struct UserProfileSheet: View {
             .alert("Sign Out", isPresented: $showSignOutAlert) {
                 Button("Cancel", role: .cancel) {}
                 Button("Sign Out", role: .destructive) {
+                    try? AuthManager().signOut()
                     dismiss()
                     withAnimation(.easeInOut(duration: 0.35)) {
                         isLoggedIn = false

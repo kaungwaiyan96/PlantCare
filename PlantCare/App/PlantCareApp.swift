@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import GoogleSignIn
 
 @main
 struct PlantCareApp: App {
@@ -24,6 +25,9 @@ struct PlantCareApp: App {
                 }
             }
             .animation(.easeInOut(duration: 0.35), value: isLoggedIn)
+            .onOpenURL { url in
+                GIDSignIn.sharedInstance.handle(url)
+            }
         }
         .modelContainer(persistenceController.container)
     }

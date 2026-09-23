@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAuth
 
 struct AuthView: View {
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
@@ -12,6 +13,8 @@ struct AuthView: View {
     @State private var confirmPasswordInput: String = ""
     @State private var isPasswordVisible: Bool = false
     @State private var errorMessage: String? = nil
+    @State private var isLoading: Bool = false
+    @StateObject private var authManager = AuthManager()
 
     @FocusState private var focusedField: AuthField?
 
@@ -206,7 +209,13 @@ struct AuthView: View {
                         Button {
                             handleAuthAction()
                         } label: {
-                            Text(isSignUpMode ? "Create Botanical Account" : "Sign In")
+                            Group {
+                                if isLoading {
+                                    ProgressView().tint(.white)
+                                } else {
+                                    Text(isSignUpMode ? "Create Account" : "Sign In")
+                                }
+                            }
                                 .font(.system(size: 16, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -222,6 +231,21 @@ struct AuthView: View {
                                 .shadow(color: Color.botanicalEmerald.opacity(0.35), radius: 10, x: 0, y: 5)
                         }
                         .padding(.top, 4)
+
+                        Button {
+                            signInWithGoogle()
+                        } label: {
+                            HStack(spacing: 10) {
+                                GoogleLogoView()
+                                    .frame(width: 22, height: 22)
+                                Text("Continue with Google")
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            }
+                            .foregroundColor(.primary.opacity(0.85))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 13)
+                            .background(RoundedRectangle(cornerRadius: 16).fill(Color.primary.opacity(0.05)))
+                        }
 
                         // Divider with text
                         HStack {
@@ -277,6 +301,7 @@ struct AuthView: View {
 
     // MARK: - Validation & Persistence Logic
     private func handleAuthAction() {
+        guard !isLoading else { return }
         let generator = UINotificationFeedbackGenerator()
         errorMessage = nil
 
@@ -287,13 +312,13 @@ struct AuthView: View {
                 generator.notificationOccurred(.warning)
                 return
             }
-            guard !emailInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            guard isValidEmail(emailInput) else {
                 errorMessage = "Please enter a valid email address."
                 generator.notificationOccurred(.warning)
                 return
             }
-            guard passwordInput.count >= 4 else {
-                errorMessage = "Password must be at least 4 characters."
+            guard passwordInput.count >= 6 else {
+                errorMessage = "Password must be at least 6 characters."
                 generator.notificationOccurred(.warning)
                 return
             }
@@ -303,11 +328,16 @@ struct AuthView: View {
                 return
             }
 
-            userFirstName = cleanFirst
-            userEmail = emailInput.trimmingCharacters(in: .whitespacesAndNewlines)
+            performAuth {
+                try await authManager.signUp(
+                    email: emailInput.trimmingCharacters(in: .whitespacesAndNewlines),
+                    password: passwordInput,
+                    displayName: cleanFirst
+                )
+            }
         } else {
             // Sign In mode
-            guard !emailInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            guard isValidEmail(emailInput) else {
                 errorMessage = "Please enter your email."
                 generator.notificationOccurred(.warning)
                 return
@@ -318,16 +348,116 @@ struct AuthView: View {
                 return
             }
 
-            if userFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || userFirstName == "FirstName" {
-                let derived = emailInput.components(separatedBy: "@").first?.capitalized ?? "Gardener"
-                userFirstName = derived
+            performAuth {
+                try await authManager.signIn(
+                    email: emailInput.trimmingCharacters(in: .whitespacesAndNewlines),
+                    password: passwordInput
+                )
             }
-            userEmail = emailInput.trimmingCharacters(in: .whitespacesAndNewlines)
         }
 
-        generator.notificationOccurred(.success)
-        withAnimation(.spring(response: 0.45, dampingFraction: 0.75)) {
-            isLoggedIn = true
+        _ = generator
+    }
+
+    private func isValidEmail(_ email: String) -> Bool {
+        let value = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        return value.contains("@") && value.contains(".") && !value.contains(" ")
+    }
+
+    private func performAuth(_ operation: @escaping () async throws -> FirebaseAuth.User) {
+        isLoading = true
+        Task {
+            do {
+                let user = try await operation()
+                await MainActor.run {
+                    userFirstName = authManager.userName(for: user)
+                    userEmail = user.email ?? emailInput.trimmingCharacters(in: .whitespacesAndNewlines)
+                    isLoading = false
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    withAnimation(.spring(response: 0.45, dampingFraction: 0.75)) { isLoggedIn = true }
+                }
+            } catch {
+                await MainActor.run {
+                    isLoading = false
+                    errorMessage = readableError(error)
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
+                }
+            }
         }
+    }
+
+    private func signInWithGoogle() {
+        guard !isLoading else { return }
+        isLoading = true
+        errorMessage = nil
+        Task {
+            do {
+                let user = try await authManager.signInWithGoogle()
+                await MainActor.run { completeSignIn(with: user) }
+            } catch {
+                await MainActor.run {
+                    isLoading = false
+                    errorMessage = readableError(error)
+                }
+            }
+        }
+    }
+
+    private func completeSignIn(with user: FirebaseAuth.User) {
+        userFirstName = authManager.userName(for: user)
+        userEmail = user.email ?? ""
+        isLoading = false
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        withAnimation(.spring(response: 0.45, dampingFraction: 0.75)) { isLoggedIn = true }
+    }
+
+    private func readableError(_ error: Error) -> String {
+        let nsError = error as NSError
+        if let authError = AuthErrorCode(rawValue: nsError.code) {
+            switch authError.code {
+            case .emailAlreadyInUse: return "That email is already registered. Try signing in."
+            case .invalidEmail: return "Please enter a valid email address."
+            case .wrongPassword, .invalidCredential: return "The email or password is incorrect. Check that Email/Password is enabled in Firebase."
+            case .userNotFound: return "No account exists for that email."
+            case .networkError: return "Network error. Check your connection and try again."
+            case .tooManyRequests: return "Too many attempts. Please wait and try again."
+            default: break
+            }
+        }
+        return error.localizedDescription
+    }
+}
+
+private struct GoogleLogoView: View {
+    var body: some View {
+        Canvas { context, size in
+            let center = CGPoint(x: size.width / 2, y: size.height / 2)
+            let radius = min(size.width, size.height) * 0.36
+            let lineWidth = min(size.width, size.height) * 0.18
+            let segments: [(Color, Double, Double)] = [
+                (.blue, -45, 45),
+                (.red, 45, 135),
+                (.yellow, 135, 225),
+                (.green, 225, 315)
+            ]
+
+            for (color, start, end) in segments {
+                var arc = Path()
+                arc.addArc(
+                    center: center,
+                    radius: radius,
+                    startAngle: .degrees(start),
+                    endAngle: .degrees(end),
+                    clockwise: false
+                )
+                context.stroke(arc, with: .color(color), lineWidth: lineWidth)
+            }
+
+            var bar = Path()
+            bar.move(to: CGPoint(x: center.x, y: center.y))
+            bar.addLine(to: CGPoint(x: size.width - 2, y: center.y))
+            context.stroke(bar, with: .color(.blue), lineWidth: lineWidth)
+        }
+        .accessibilityHidden(true)
     }
 }

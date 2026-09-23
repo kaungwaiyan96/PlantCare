@@ -8,16 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		A1B2C3D4E5F60718293A4B5C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D4E5F60718293A4B5D /* Kingfisher */; };
+		A6B7C8D9E0F1021324354657 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A6B7C8D9E0F1021324354658 /* FirebaseAuth */; };
+		A6B7C8D9E0F1021324354659 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = A6B7C8D9E0F1021324354660 /* FirebaseCore */; };
+		A6B7C8D9E0F1021324354661 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = A6B7C8D9E0F1021324354662 /* GoogleSignIn */; };
 		0272AB1EA44E1EB4AEFE0651 /* PlantCareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12B51197B7A2B7B074E2EB /* PlantCareTests.swift */; };
 		04702F0CD68DC4575CFD987B /* flaticon_watering_can.png in Resources */ = {isa = PBXBuildFile; fileRef = B8DC773FC90591D12CB933AE /* flaticon_watering_can.png */; };
 		073307124AAAF6EB0B2F9328 /* PlantNetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA46CD1FDB3584EE7492B9 /* PlantNetService.swift */; };
 		1141CEA251F82EBBB8EAD8FB /* PlantNetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B83DD4A17F206D5BEAF3A1 /* PlantNetModels.swift */; };
 		188A91B5388D589B441CCB1B /* MyGardenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3895F52D28712B7493E9B6 /* MyGardenView.swift */; };
 		1EED72AC37399FFBFD41BF7C /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD3EAE9DF99D2ACB158939E /* AuthView.swift */; };
+		A6B7C8D9E0F1021324354663 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B7C8D9E0F1021324354664 /* AuthManager.swift */; };
 		1F937C121E0A1864DC95D9AD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BBE567C4D86254F9282409 /* HomeViewModel.swift */; };
 		22CD999B950FD3F11F48D0DF /* GlassReticleOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561F01EB557D7C3605F6AF96 /* GlassReticleOverlay.swift */; };
 		295D5FF06B9073A327BC7A23 /* flaticon_sprout.png in Resources */ = {isa = PBXBuildFile; fileRef = B2BF990A6869BC9AF5ABED55 /* flaticon_sprout.png */; };
 		30D36457B95D0F7048154279 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55EFC17B27C200855EC65E1A /* Assets.xcassets */; };
+		A6B7C8D9E0F1021324354668 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6B7C8D9E0F1021324354669 /* GoogleService-Info.plist */; };
 		35F192E753050C2A44891D3B /* PlantCareApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350D17639BE08CDA4E69935 /* PlantCareApp.swift */; };
 		36BE93F5C9A853C9F897425D /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7230F846062D8C43D679B3BE /* MainTabView.swift */; };
 		399D912392CD6CD62FEFD67E /* GlassTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE8F22504D9D1C189FA7EE /* GlassTokens.swift */; };
@@ -102,6 +107,8 @@
 		ECC0D76FAE2EE8D4FAF837D9 /* PerenualService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PerenualService.swift; path = PlantCare/Services/PerenualService.swift; sourceTree = "<group>"; };
 		F0BEE8E0E5A9F878FEE1944A /* flaticon_sunlight.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = flaticon_sunlight.png; path = PlantCare/Resources/Icons/flaticon_sunlight.png; sourceTree = "<group>"; };
 		F350D17639BE08CDA4E69935 /* PlantCareApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlantCareApp.swift; path = PlantCare/App/PlantCareApp.swift; sourceTree = "<group>"; };
+		A6B7C8D9E0F1021324354664 /* AuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthManager.swift; path = PlantCare/Services/AuthManager.swift; sourceTree = "<group>"; };
+		A6B7C8D9E0F1021324354669 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = GoogleService-Info.plist; path = PlantCare/GoogleService-Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +116,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6B7C8D9E0F1021324354657 /* FirebaseAuth in Frameworks */,
+				A6B7C8D9E0F1021324354659 /* FirebaseCore in Frameworks */,
+				A6B7C8D9E0F1021324354661 /* GoogleSignIn in Frameworks */,
 				A1B2C3D4E5F60718293A4B5C /* Kingfisher in Frameworks */,
 				753E688CF6B14244462B172A /* Foundation.framework in Frameworks */,
 			);
@@ -129,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				F350D17639BE08CDA4E69935 /* PlantCareApp.swift */,
+				A6B7C8D9E0F1021324354664 /* AuthManager.swift */,
 				5383AABBA8688738853B02AF /* APIConfig.swift */,
 				5A8B9C0D1E2F304152637485 /* Secrets.xcconfig.template */,
 				6A25A7F550F84462276A24DA /* BotanicalColors.swift */,
@@ -166,6 +177,7 @@
 				B2BF990A6869BC9AF5ABED55 /* flaticon_sprout.png */,
 				F0BEE8E0E5A9F878FEE1944A /* flaticon_sunlight.png */,
 				B8DC773FC90591D12CB933AE /* flaticon_watering_can.png */,
+				A6B7C8D9E0F1021324354669 /* GoogleService-Info.plist */,
 			);
 			name = PlantCare;
 			sourceTree = "<group>";
@@ -229,6 +241,9 @@
 			dependencies = (
 			);
 			packageProductDependencies = (
+				A6B7C8D9E0F1021324354658 /* FirebaseAuth */,
+				A6B7C8D9E0F1021324354660 /* FirebaseCore */,
+				A6B7C8D9E0F1021324354662 /* GoogleSignIn */,
 				A1B2C3D4E5F60718293A4B5D /* Kingfisher */,
 			);
 			name = PlantCare;
@@ -279,6 +294,8 @@
 			mainGroup = 413AA0D6F74263DA2181BFF4;
 			productRefGroup = 26CE05A8852E19220417545E /* Products */;
 			packageReferences = (
+				A6B7C8D9E0F1021324354666 /* XCRemoteSwiftPackageReference \"Firebase\" */,
+				A6B7C8D9E0F1021324354667 /* XCRemoteSwiftPackageReference \"GoogleSignIn\" */,
 				A1B2C3D4E5F60718293A4B5E /* XCRemoteSwiftPackageReference \"Kingfisher\" */,
 			);
 			projectDirPath = "";
@@ -296,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D36457B95D0F7048154279 /* Assets.xcassets in Resources */,
+				A6B7C8D9E0F1021324354668 /* GoogleService-Info.plist in Resources */,
 				B779B90357515F3184888E65 /* flaticon_foliage_leaf.png in Resources */,
 				295D5FF06B9073A327BC7A23 /* flaticon_sprout.png in Resources */,
 				EEA6AF5F88E8673547E0D31A /* flaticon_sunlight.png in Resources */,
@@ -346,6 +364,7 @@
 				1F937C121E0A1864DC95D9AD /* HomeViewModel.swift in Sources */,
 				760100A13AA745AD7D1A8598 /* ScanViewModel.swift in Sources */,
 				1EED72AC37399FFBFD41BF7C /* AuthView.swift in Sources */,
+				A6B7C8D9E0F1021324354663 /* AuthManager.swift in Sources */,
 				188A91B5388D589B441CCB1B /* MyGardenView.swift in Sources */,
 				9EE6B78548A139F5BA4976E6 /* SavedPlantDetailView.swift in Sources */,
 				5F90113456039119CC5E4392 /* CareTipDetailView.swift in Sources */,
@@ -371,6 +390,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A6B7C8D9E0F1021324354666 /* XCRemoteSwiftPackageReference \"Firebase\" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+		A6B7C8D9E0F1021324354667 /* XCRemoteSwiftPackageReference \"GoogleSignIn\" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		A1B2C3D4E5F60718293A4B5E /* XCRemoteSwiftPackageReference \"Kingfisher\" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -382,6 +417,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A6B7C8D9E0F1021324354658 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B7C8D9E0F1021324354666 /* XCRemoteSwiftPackageReference \"Firebase\" */;
+			productName = FirebaseAuth;
+		};
+		A6B7C8D9E0F1021324354660 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B7C8D9E0F1021324354666 /* XCRemoteSwiftPackageReference \"Firebase\" */;
+			productName = FirebaseCore;
+		};
+		A6B7C8D9E0F1021324354662 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B7C8D9E0F1021324354667 /* XCRemoteSwiftPackageReference \"GoogleSignIn\" */;
+			productName = GoogleSignIn;
+		};
 		A1B2C3D4E5F60718293A4B5D /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A1B2C3D4E5F60718293A4B5E /* XCRemoteSwiftPackageReference \"Kingfisher\" */;
