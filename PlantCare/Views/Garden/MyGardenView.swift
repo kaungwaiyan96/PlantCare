@@ -28,7 +28,7 @@ struct MyGardenView: View {
                                 Text("My Botanical Garden")
                                     .font(.title.weight(.bold))
                                     .foregroundColor(.primary)
-                                Text("\(savedPlants.count) thriving species saved")
+                                Text("\(savedPlants.count) \(savedPlants.count == 1 ? "botanical species" : "botanical species") saved")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
@@ -122,19 +122,23 @@ struct MyGardenView: View {
                                                     .lineLimit(1)
 
                                                 // Condition Badge
+                                                let isHealthy = (plant.conditionSummary?.localizedCaseInsensitiveContains("healthy") == true) || (plant.conditionSummary?.localizedCaseInsensitiveContains("thriving") == true) || plant.conditionSummary == nil
+                                                let badgeColor = isHealthy ? Color.botanicalEmerald : Color.botanicalAmber
+                                                let badgeBg = isHealthy ? Color.botanicalMint.opacity(0.25) : Color.botanicalAmber.opacity(0.2)
+
                                                 HStack(spacing: 4) {
                                                     Circle()
-                                                        .fill(Color.botanicalEmerald)
+                                                        .fill(badgeColor)
                                                         .frame(width: 6, height: 6)
                                                     Text(plant.conditionSummary ?? "Thriving")
                                                         .font(.system(size: 10, weight: .semibold))
-                                                        .foregroundColor(.botanicalEmerald)
+                                                        .foregroundColor(badgeColor)
                                                 }
                                                 .padding(.horizontal, 8)
                                                 .padding(.vertical, 3)
                                                 .background(
                                                     Capsule()
-                                                        .fill(Color.botanicalMint.opacity(0.25))
+                                                        .fill(badgeBg)
                                                 )
                                                 .padding(.top, 2)
                                             }

@@ -71,12 +71,15 @@ struct SavedPlantDetailView: View {
 
                     // Health Summary Card
                     if let summary = plant.conditionSummary {
+                        let isHealthy = summary.localizedCaseInsensitiveContains("healthy") || summary.localizedCaseInsensitiveContains("thriving")
+                        let statusColor = isHealthy ? Color.botanicalEmerald : Color.botanicalAmber
+
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 8) {
-                                Image(systemName: "cross.case.fill")
+                                Image(systemName: isHealthy ? "cross.case.fill" : "exclamationmark.triangle.fill")
                                     .font(.subheadline.weight(.semibold))
-                                    .foregroundColor(.botanicalEmerald)
-                                Text("Health Status")
+                                    .foregroundColor(statusColor)
+                                Text(isHealthy ? "Health Status" : "Condition Detected")
                                     .font(.caption.weight(.bold))
                                     .foregroundColor(.secondary)
                             }
