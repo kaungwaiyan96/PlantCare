@@ -70,7 +70,7 @@ struct UserProfileSheet: View {
             .safeAreaInset(edge: .top) {
                 HStack {
                     Text("Botanist Profile")
-                        .font(.headline.weight(.bold))
+                        .font(.title3.weight(.bold))
                         .foregroundColor(.primary)
 
                     Spacer()
@@ -96,15 +96,18 @@ struct UserProfileSheet: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 12)
+                .padding(.top, 14)
+                .padding(.bottom, 12)
                 .background(
-                    Rectangle()
-                        .fill(.ultraThinMaterial.opacity(0.95))
-                        .overlay(
-                            Divider().opacity(0.2),
-                            alignment: .bottom
-                        )
-                        .ignoresSafeArea(edges: .top)
+                    ZStack {
+                        Color(uiColor: .systemBackground).opacity(0.88)
+                        Rectangle().fill(.regularMaterial)
+                    }
+                    .overlay(
+                        Divider().opacity(0.25),
+                        alignment: .bottom
+                    )
+                    .ignoresSafeArea(edges: .top)
                 )
             }
             .navigationBarHidden(true)
@@ -458,12 +461,14 @@ struct UserProfileSheet: View {
                     .font(.subheadline.weight(.bold))
                     .foregroundColor(.primary)
                     .lineLimit(1)
+                    .minimumScaleFactor(0.85)
 
                 Text(description)
                     .font(.caption2)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+                    .minimumScaleFactor(0.85)
             }
 
             Text(status)
@@ -476,8 +481,9 @@ struct UserProfileSheet: View {
                         .fill(isUnlocked ? Color.botanicalMint.opacity(0.2) : Color.secondary.opacity(0.12))
                 )
         }
-        .padding(14)
-        .frame(width: 136, height: 160)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 14)
+        .frame(width: 148, height: 164)
         .liquidGlass(cornerRadius: 18, material: .thinMaterial, opacity: isUnlocked ? 0.9 : 0.65, hasSpecularBorder: true)
     }
 

@@ -175,6 +175,7 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showProfileSheet) {
                 UserProfileSheet()
+                    .presentationDragIndicator(.visible)
             }
         }
     }
