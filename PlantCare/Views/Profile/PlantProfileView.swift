@@ -56,47 +56,50 @@ struct PlantProfileView: View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 0) {
                 // Hero Plant Image Header with Frosted Overlay
-                ZStack(alignment: .topLeading) {
-                    if let localImage = localImage {
-                        Image(uiImage: localImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 380)
-                            .clipped()
-                    } else {
-                        AsyncImage(url: URL(string: imageURL)) { phase in
-                            switch phase {
-                            case .empty:
-                                Rectangle()
-                                    .fill(Color.secondary.opacity(0.2))
-                                    .overlay(ProgressView())
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                            case .failure(_):
-                                Rectangle()
-                                    .fill(Color.botanicalSage.opacity(0.3))
-                                    .overlay(Image(systemName: "leaf.fill").font(.system(size: 40)).foregroundColor(.botanicalEmerald))
-                            @unknown default:
-                                EmptyView()
+                ZStack(alignment: .bottom) {
+                    GeometryReader { proxy in
+                        if let localImage = localImage {
+                            Image(uiImage: localImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: proxy.size.width, height: 380)
+                                .clipped()
+                        } else {
+                            AsyncImage(url: URL(string: imageURL)) { phase in
+                                switch phase {
+                                case .empty:
+                                    Rectangle()
+                                        .fill(Color.secondary.opacity(0.2))
+                                        .overlay(ProgressView())
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: proxy.size.width, height: 380)
+                                        .clipped()
+                                case .failure(_):
+                                    Rectangle()
+                                        .fill(Color.botanicalSage.opacity(0.3))
+                                        .overlay(Image(systemName: "leaf.fill").font(.system(size: 40)).foregroundColor(.botanicalEmerald))
+                                @unknown default:
+                                    EmptyView()
+                                }
                             }
+                            .frame(width: proxy.size.width, height: 380)
+                            .clipped()
                         }
-                        .frame(height: 380)
-                        .clipped()
                     }
+                    .frame(height: 380)
 
                     // Gradient fade at bottom of hero image
-                    VStack {
-                        Spacer()
-                        LinearGradient(
-                            colors: [.clear, Color.black.opacity(0.6)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .frame(height: 120)
-                    }
+                    LinearGradient(
+                        colors: [.clear, Color.black.opacity(0.6)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 120)
                 }
+                .frame(height: 380)
 
                 // Content Section
                 VStack(alignment: .leading, spacing: 20) {
@@ -116,7 +119,7 @@ struct PlantProfileView: View {
                         GlassMetricBadge(type: .watering, value: watering)
                         GlassMetricBadge(type: .sunlight, value: sunlight)
                         GlassMetricBadge(type: .cycle, value: growthCycle)
-                        GlassMetricBadge(type: .cycle, value: "Beginner Friendly")
+                        GlassMetricBadge(type: .careLevel, value: "Beginner Friendly")
                     }
 
                     // Plant Condition / Health Diagnosis Card (Soft Amber / Emerald Frosted Glass)
@@ -140,6 +143,7 @@ struct PlantProfileView: View {
                                 .foregroundColor(.secondary)
                         }
                         .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .liquidGlass(
                             cornerRadius: 20,
                             material: .regularMaterial,
@@ -182,18 +186,22 @@ struct PlantProfileView: View {
                         }
                     }
                     .padding(18)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
 
                     Spacer().frame(height: 24)
                 }
                 .padding(20)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(
                     RoundedRectangle(cornerRadius: 32, style: .continuous)
                         .fill(Color.clear)
                 )
                 .offset(y: -24)
             }
+            .frame(maxWidth: .infinity)
         }
+        .frame(maxWidth: .infinity)
         .ambientGlassBackground()
         .ignoresSafeArea(edges: .top)
         .safeAreaInset(edge: .bottom) {

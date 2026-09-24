@@ -10,31 +10,32 @@ struct SavedPlantDetailView: View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 0) {
                 // Hero Image
-                ZStack(alignment: .topLeading) {
-                    if let uiImage = ImageStorageService.shared.loadImage(filename: plant.imageFilename) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 380)
-                            .clipped()
-                    } else {
-                        Rectangle()
-                            .fill(Color.botanicalSage.opacity(0.3))
-                            .frame(height: 380)
-                            .overlay(Image(systemName: "leaf.fill").font(.system(size: 40)).foregroundColor(.botanicalEmerald))
+                ZStack(alignment: .bottom) {
+                    GeometryReader { proxy in
+                        if let uiImage = ImageStorageService.shared.loadImage(filename: plant.imageFilename) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: proxy.size.width, height: 380)
+                                .clipped()
+                        } else {
+                            Rectangle()
+                                .fill(Color.botanicalSage.opacity(0.3))
+                                .frame(width: proxy.size.width, height: 380)
+                                .overlay(Image(systemName: "leaf.fill").font(.system(size: 40)).foregroundColor(.botanicalEmerald))
+                        }
                     }
+                    .frame(height: 380)
 
                     // Gradient fade
-                    VStack {
-                        Spacer()
-                        LinearGradient(
-                            colors: [.clear, Color.black.opacity(0.6)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .frame(height: 120)
-                    }
+                    LinearGradient(
+                        colors: [.clear, Color.black.opacity(0.6)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 120)
                 }
+                .frame(height: 380)
 
                 // Content Section
                 VStack(alignment: .leading, spacing: 20) {
@@ -65,7 +66,7 @@ struct SavedPlantDetailView: View {
                         GlassMetricBadge(type: .watering, value: plant.wateringNeeds)
                         GlassMetricBadge(type: .sunlight, value: plant.sunlightRequirements)
                         GlassMetricBadge(type: .cycle, value: plant.growthCycle)
-                        GlassMetricBadge(type: .cycle, value: "Added " + plant.dateAdded.formatted(date: .abbreviated, time: .omitted))
+                        GlassMetricBadge(type: .date, value: plant.dateAdded.formatted(date: .abbreviated, time: .omitted))
                     }
 
                     // Health Summary Card
@@ -85,6 +86,7 @@ struct SavedPlantDetailView: View {
                                 .foregroundColor(.primary)
                         }
                         .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .liquidGlass(cornerRadius: 20, material: .regularMaterial, opacity: 0.85, hasSpecularBorder: true)
                     }
 
@@ -99,14 +101,18 @@ struct SavedPlantDetailView: View {
                             .foregroundColor(.secondary)
                     }
                     .padding(18)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
 
                     Spacer().frame(height: 32)
                 }
                 .padding(20)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .offset(y: -24)
             }
+            .frame(maxWidth: .infinity)
         }
+        .frame(maxWidth: .infinity)
         .ambientGlassBackground()
         .ignoresSafeArea(edges: .top)
         .safeAreaInset(edge: .top) {

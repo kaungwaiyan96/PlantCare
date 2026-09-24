@@ -4,12 +4,16 @@ enum MetricType {
     case watering
     case sunlight
     case cycle
+    case date
+    case careLevel
 
     var iconName: String {
         switch self {
         case .watering: return "drop.fill"
         case .sunlight: return "sun.max.fill"
         case .cycle: return "leaf.arrow.triangle.circlepath"
+        case .date: return "calendar"
+        case .careLevel: return "sparkles"
         }
     }
 
@@ -18,6 +22,8 @@ enum MetricType {
         case .watering: return .cyan
         case .sunlight: return .orange
         case .cycle: return .botanicalJade
+        case .date: return .purple
+        case .careLevel: return .botanicalEmerald
         }
     }
 
@@ -26,6 +32,8 @@ enum MetricType {
         case .watering: return "Watering"
         case .sunlight: return "Sunlight"
         case .cycle: return "Cycle"
+        case .date: return "Saved Date"
+        case .careLevel: return "Care Level"
         }
     }
 }

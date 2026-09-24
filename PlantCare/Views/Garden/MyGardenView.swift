@@ -95,12 +95,14 @@ struct MyGardenView: View {
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
                                                     .frame(height: 140)
+                                                    .frame(maxWidth: .infinity)
                                                     .cornerRadius(16)
                                                     .clipped()
                                             } else {
                                                 Rectangle()
                                                     .fill(Color.botanicalSage.opacity(0.3))
                                                     .frame(height: 140)
+                                                    .frame(maxWidth: .infinity)
                                                     .cornerRadius(16)
                                                     .overlay(
                                                         Image(systemName: "leaf.fill")
