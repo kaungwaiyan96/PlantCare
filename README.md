@@ -252,10 +252,9 @@ Run tests directly in Xcode with `Cmd + U`.
 
 ## 👥 Team Members
 
-- **Mi Hnin Au Shwe Yee** (Student ID: `6632723`) — *Project Overview & Botanical Domain*
-- **Kaung Wai Yan** (Student ID: `6632722`) — *UI/UX Architecture & Persistence Engineering*
-- **Ye Nay Thway** (Student ID: `6736539`) — *Technical Architecture, API Integration & Security*
-
+- **Mi Hnin Au Shwe Yee** (Student ID: `6632723`) 
+- **Kaung Wai Yan** (Student ID: `6632722`) 
+- **Ye Nay Thway** (Student ID: `6736539`)
 ---
 
 ## 📄 License
