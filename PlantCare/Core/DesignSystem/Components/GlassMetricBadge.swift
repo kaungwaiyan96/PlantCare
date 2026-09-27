@@ -43,7 +43,7 @@ struct GlassMetricBadge: View {
     var value: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 Image(systemName: type.iconName)
                     .font(.subheadline.weight(.semibold))
@@ -60,13 +60,14 @@ struct GlassMetricBadge: View {
             }
 
             Text(value)
-                .font(.subheadline.weight(.semibold))
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundColor(.primary)
-                .lineLimit(2)
-                .minimumScaleFactor(0.85)
+                .lineLimit(3)
+                .minimumScaleFactor(0.8)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
+        .frame(maxWidth: .infinity, minHeight: 94, alignment: .topLeading)
+        .padding(14)
         .liquidGlass(
             cornerRadius: 20,
             material: .thinMaterial,

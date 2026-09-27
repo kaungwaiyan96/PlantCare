@@ -189,7 +189,7 @@ struct PlantProfileView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.8, hasSpecularBorder: true)
 
-                    Spacer().frame(height: 24)
+                    Spacer().frame(height: 90)
                 }
                 .padding(20)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -263,6 +263,7 @@ struct PlantProfileView: View {
     }
 
     private func saveToGarden() {
+        guard !isSaved else { return }
         do {
             let imgToSave = localImage ?? createFallbackImage()
             let filename = try ImageStorageService.shared.saveImage(imgToSave)

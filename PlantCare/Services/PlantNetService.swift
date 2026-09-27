@@ -84,11 +84,29 @@ final class PlantNetService: PlantServiceProtocol, @unchecked Sendable {
     func diagnosePlantHealth(image: UIImage, speciesName: String) async throws -> PlantCondition {
         let response = try await identifyDiseases(images: [image], numberOfResults: 1)
         guard let result = response.results.first else { return .optimal }
+
+        let rawName = result.description ?? result.name
+        let cleanName = rawName.replacingOccurrences(of: "^[0-9A-Z]{3,8}\\s*[-:]?\\s*", with: "", options: .regularExpression).trimmingCharacters(in: .whitespacesAndNewlines)
+        let resolvedName = cleanName.isEmpty ? rawName : cleanName.capitalized
+
+        let descriptionText: String
+        let actionText: String
+
+        if resolvedName.localizedCaseInsensitiveContains("diaspididae") || resolvedName.localizedCaseInsensitiveContains("scale") {
+            descriptionText = "Armored scale insects (Diaspididae) detected on foliage, which can cause leaf yellowing and chlorosis."
+            actionText = "Isolate plant, prune heavily affected leaves, and gently wipe foliage with neem oil or insecticidal soap."
+        } else if resolvedName.localizedCaseInsensitiveContains("healthy") || result.score < 0.25 {
+            return .optimal
+        } else {
+            descriptionText = "Botanical condition detected matching \(resolvedName). Monitor leaves for chlorosis, lesions, or drooping."
+            actionText = "Review watering and light conditions, isolate plant if symptoms spread, and prune affected tissue."
+        }
+
         return PlantCondition(
-            name: result.description ?? result.name,
+            name: resolvedName,
             probability: result.score,
-            description: "Pl@ntNet disease match: \(result.name)",
-            suggestedAction: "Review the diagnosis and isolate affected tissue if symptoms continue.",
+            description: descriptionText,
+            suggestedAction: actionText,
             isHealthy: false
         )
     }

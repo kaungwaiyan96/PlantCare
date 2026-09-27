@@ -83,36 +83,42 @@ struct MyGardenView: View {
                             .liquidGlass(cornerRadius: 28, material: .ultraThinMaterial, opacity: 0.8, hasSpecularBorder: true)
                             .padding(.horizontal, 20)
                         } else {
-                            LazyVGrid(columns: [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
+                            LazyVGrid(
+                                columns: [
+                                    GridItem(.flexible(), spacing: 14),
+                                    GridItem(.flexible(), spacing: 14)
+                                ],
+                                spacing: 14
+                            ) {
                                 ForEach(filteredPlants) { plant in
                                     NavigationLink {
                                         SavedPlantDetailView(plant: plant)
                                     } label: {
                                         VStack(alignment: .leading, spacing: 10) {
-                                            // Plant Image from ImageStorageService
-                                            if let uiImage = ImageStorageService.shared.loadImage(filename: plant.imageFilename) {
-                                                Image(uiImage: uiImage)
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fill)
-                                                    .frame(height: 140)
-                                                    .frame(maxWidth: .infinity)
-                                                    .cornerRadius(16)
-                                                    .clipped()
-                                            } else {
-                                                Rectangle()
-                                                    .fill(Color.botanicalSage.opacity(0.3))
-                                                    .frame(height: 140)
-                                                    .frame(maxWidth: .infinity)
-                                                    .cornerRadius(16)
-                                                    .overlay(
-                                                        Image(systemName: "leaf.fill")
-                                                            .foregroundColor(.botanicalEmerald)
-                                                    )
-                                            }
+                                            // Plant Image strictly bounded to column cell width
+                                            Color.clear
+                                                .frame(height: 135)
+                                                .overlay(
+                                                    Group {
+                                                        if let uiImage = ImageStorageService.shared.loadImage(filename: plant.imageFilename) {
+                                                            Image(uiImage: uiImage)
+                                                                .resizable()
+                                                                .scaledToFill()
+                                                        } else {
+                                                            ZStack {
+                                                                Color.botanicalSage.opacity(0.3)
+                                                                Image(systemName: "leaf.fill")
+                                                                    .font(.system(size: 32))
+                                                                    .foregroundColor(.botanicalEmerald)
+                                                            }
+                                                        }
+                                                    }
+                                                )
+                                                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 
                                             VStack(alignment: .leading, spacing: 4) {
                                                 Text(plant.commonName)
-                                                    .font(.subheadline.weight(.bold))
+                                                    .font(.system(size: 15, weight: .bold, design: .rounded))
                                                     .foregroundColor(.primary)
                                                     .lineLimit(1)
 
@@ -133,6 +139,7 @@ struct MyGardenView: View {
                                                     Text(plant.conditionSummary ?? "Thriving")
                                                         .font(.system(size: 10, weight: .semibold))
                                                         .foregroundColor(badgeColor)
+                                                        .lineLimit(1)
                                                 }
                                                 .padding(.horizontal, 8)
                                                 .padding(.vertical, 3)
@@ -145,6 +152,7 @@ struct MyGardenView: View {
                                             .padding(.horizontal, 4)
                                         }
                                         .padding(12)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                         .liquidGlass(cornerRadius: 22, material: .thinMaterial, opacity: 0.85, hasSpecularBorder: true)
                                         .contextMenu {
                                             Button(role: .destructive) {
@@ -154,6 +162,7 @@ struct MyGardenView: View {
                                             }
                                         }
                                     }
+                                    .buttonStyle(.plain)
                                 }
                             }
                             .padding(.horizontal, 20)

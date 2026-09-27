@@ -160,7 +160,7 @@ struct IdentificationResultView: View {
                     }
 
                     // Clear spacing at bottom so content is fully scrollable above the pinned dock
-                    Spacer().frame(height: 48)
+                    Spacer().frame(height: 80)
                 }
             }
             .ambientGlassBackground()

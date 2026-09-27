@@ -545,14 +545,14 @@ struct ScanPlantView: View {
         }
 
         guard viewModel.selectedImage == nil else {
-            Task { await viewModel.identifyCurrentPhoto(context: modelContext) }
+            Task { await viewModel.identifyCurrentPhoto() }
             return
         }
 
         camera.capturePhoto { image in
             guard let image else { return }
             viewModel.selectedImage = image
-            Task { await viewModel.identifyCurrentPhoto(context: modelContext) }
+            Task { await viewModel.identifyCurrentPhoto() }
         }
     }
 

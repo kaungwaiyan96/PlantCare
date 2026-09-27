@@ -21,7 +21,7 @@ final class ScanViewModel: ObservableObject {
         self.plantService = plantService
     }
 
-    func identifyCurrentPhoto(context: ModelContext? = nil) async {
+    func identifyCurrentPhoto() async {
         guard let image = selectedImage else {
             errorMessage = "Please capture or select a plant photo first."
             return
@@ -47,13 +47,6 @@ final class ScanViewModel: ObservableObject {
             let (care, cond) = try await (careFetch, conditionFetch)
             self.careDetails = care
             self.condition = cond
-
-            // Persist the complete identification before showing the result. This
-            // keeps the Garden tab backed by local data even if the result screen
-            // is dismissed before the user opens the care profile.
-            if let context {
-                try persistPlantToGarden(context: context)
-            }
             self.navigateToResult = true
         } catch let error as LocalizedError {
             self.errorMessage = error.errorDescription ?? error.localizedDescription
